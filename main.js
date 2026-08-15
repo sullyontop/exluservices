@@ -7,6 +7,12 @@ const ELUX = {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
     hwid: "https://discord.gg/elux",
   },
+  sellauth: {
+    shopId: 209294,
+    shopUrl: "https://eluxoptimisations.mysellauth.com",
+    productId: 588116,
+    variantId: 912032,
+  },
 };
 
 /* Add creators here. Put their photo in this folder, then copy a block.
