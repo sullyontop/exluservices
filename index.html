@@ -1,28 +1,493 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Elux Optimizations</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #0a0f1a;
-      color: #e0f0ff;
-      font-family: system-ui, sans-serif;
-      text-align: center;
-    }
-    h1 { font-size: 2.8rem; margin-bottom: 0.4rem; }
-    p { color: #8ab4d9; font-size: 1.2rem; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elux Optimizations — Unlock Your PC's True Potential</title>
+  <meta name="description" content="Elux Tweaks is a premium Windows PC optimizer. Instant delivery, 150+ vouches, 24/7 Discord support. More FPS, less stutter." />
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { outfit: ["Outfit", "Inter", "sans-serif"] },
+          colors: {
+            navy: { 950: "#0b0e14", 900: "#0a0f1a", 800: "#111827", 700: "#151b28" },
+            cyanx: { 400: "#22d3ee", 500: "#00b4ff" }
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <div>
-    <h1>Elux Optimizations</h1>
-    <p>Best PC Optimizer • Instant Delivery</p>
-    <p>discord.gg/elux</p>
+<body class="min-h-screen antialiased font-outfit text-slate-100 bg-[#0b0e14] selection:bg-cyan-500/30 selection:text-white">
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-[#0b0e14]/70 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <a href="#home" class="flex items-center gap-2.5 group">
+        <img src="images/logo.png" alt="Elux Optimizations" class="logo-mark transition-transform duration-300 group-hover:scale-105" />
+        <span class="hidden sm:block">
+          <span class="block text-sm font-semibold tracking-wide text-white">Elux Optimizations</span>
+          <span class="block text-[10px] uppercase tracking-[0.28em] text-cyan-400/80">Elux Tweaks</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-1 md:flex">
+        <a href="#home" class="nav-link active rounded-md px-3 py-1.5 text-xs font-medium text-cyan-300 bg-white/5">Home</a>
+        <a href="#features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Features</a>
+        <a href="#vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Vouches</a>
+        <a href="#pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Pricing</a>
+        <a href="#support" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Discord</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://discord.gg/elux" data-discord class="hidden sm:inline-flex h-9 items-center rounded-full bg-gradient-to-b from-[#3dd4ff] to-[#00b4ff] px-4 text-xs font-semibold text-[#041018] shadow-[0_0_20px_-6px_rgba(0,180,255,0.7)] hover:from-[#67e0ff] hover:to-[#22d3ee]">Get Instant Access</a>
+        <button type="button" data-login class="group flex items-center gap-2 overflow-hidden rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-200 transition-all hover:border-cyan-400/50 hover:bg-cyan-400/10">
+          <i data-lucide="user" class="h-3.5 w-3.5"></i>
+          Login
+        </button>
+        <button id="mobile-toggle" class="rounded-md p-2 text-slate-300 md:hidden" aria-label="Menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-white/5 px-4 py-3 md:hidden">
+      <a href="#home" class="block rounded-md px-3 py-2 text-sm text-slate-300">Home</a>
+      <a href="#features" class="block rounded-md px-3 py-2 text-sm text-slate-300">Features</a>
+      <a href="#vouches" class="block rounded-md px-3 py-2 text-sm text-slate-300">Vouches</a>
+      <a href="#pricing" class="block rounded-md px-3 py-2 text-sm text-slate-300">Pricing</a>
+      <a href="#support" data-discord class="block rounded-md px-3 py-2 text-sm text-slate-300">Discord</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="relative overflow-hidden">
+      <canvas id="rain" aria-hidden="true"></canvas>
+      <div class="mesh" aria-hidden="true"></div>
+      <div class="hero-veil" aria-hidden="true"></div>
+
+      <div class="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-4 pb-24 pt-14 sm:pt-20 lg:grid-cols-12">
+        <div class="max-w-2xl lg:col-span-6">
+          <img src="images/logo.png" alt="Elux" class="logo-hero mb-6 reveal" />
+          <div class="reveal reveal-d1 mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-3 py-1 backdrop-blur-md">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-cyan-400"></span>
+            </span>
+            <span class="text-xs tracking-tight text-cyan-200">Windows 10 / 11</span>
+            <span class="mx-1 text-cyan-500/40">|</span>
+            <span class="text-xs tracking-tight text-slate-400">150+ vouches · Instant delivery</span>
+          </div>
+
+          <h1 class="reveal reveal-d2 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
+            Unlock your PC's
+            <span class="animate-gradient-text block bg-gradient-to-r from-cyan-200 via-cyan-400 to-sky-200 bg-clip-text text-transparent">true potential.</span>
+          </h1>
+          <p class="reveal reveal-d3 mt-6 max-w-lg text-lg font-light leading-relaxed text-slate-400">
+            Elux Tweaks is the Windows optimizer players actually come back to. More FPS, fewer processes, no stutters — delivered instantly through Discord.
+          </p>
+          <div class="reveal reveal-d4 mt-8 flex flex-wrap items-center gap-3">
+            <a href="#pricing" class="group relative inline-flex h-11 min-w-[140px] items-center justify-center overflow-hidden rounded-full btn-primary px-6 text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95">
+              <div class="shimmer-slot"><span></span></div>
+              <span class="relative z-10 flex items-center gap-2">
+                Download
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-y-0.5"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+              </span>
+            </a>
+            <a href="https://discord.gg/elux" data-discord class="group inline-flex h-11 items-center gap-2.5 rounded-full btn-ghost px-6 text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="text-slate-300 transition-colors group-hover:text-[#5865F2]"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7913 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1569 2.419zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.419-2.1568 2.419z"/></svg>
+              Join Discord
+            </a>
+            <a href="#pricing" class="inline-flex h-11 items-center rounded-full border border-cyan-400/30 bg-cyan-400/5 px-6 text-sm font-medium text-cyan-200 transition hover:bg-cyan-400/10">Get Instant Access</a>
+          </div>
+        </div>
+
+        <div class="relative z-10 w-full lg:col-span-6">
+          <div class="product-stage">
+            <div class="product-frame">
+              <span class="corner tl"></span>
+              <span class="corner tr"></span>
+              <span class="corner bl"></span>
+              <span class="corner br"></span>
+              <img id="gallery-main" src="images/app-home.png" alt="Home" />
+              <button type="button" id="gal-prev" class="gal-nav prev" aria-label="Previous screenshot">
+                <i data-lucide="chevron-left" class="h-4 w-4"></i>
+              </button>
+              <button type="button" id="gal-next" class="gal-nav next" aria-label="Next screenshot">
+                <i data-lucide="chevron-right" class="h-4 w-4"></i>
+              </button>
+            </div>
+            <div class="mt-3 flex items-center justify-between">
+              <span id="gallery-label" class="text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-400">Home</span>
+              <span id="gallery-count" class="text-xs tabular-nums text-slate-500">01 / 05</span>
+            </div>
+            <div class="gal-thumbs">
+              <button type="button" data-gal="0" class="is-on"><img src="images/app-home.png" alt="" /></button>
+              <button type="button" data-gal="1"><img src="images/app-opti.png" alt="" /></button>
+              <button type="button" data-gal="2"><img src="images/app-debloat.png" alt="" /></button>
+              <button type="button" data-gal="3"><img src="images/app-games.png" alt="" /></button>
+              <button type="button" data-gal="4"><img src="images/app-windows.png" alt="" /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative z-10 mx-auto max-w-6xl px-4 pb-8">
+      <div class="grid gap-4 rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl sm:grid-cols-4">
+        <div class="px-3 py-2 text-center sm:text-left">
+          <p class="stat-num text-3xl font-semibold text-white">150+</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">Vouches</p>
+        </div>
+        <div class="px-3 py-2 text-center sm:text-left">
+          <p class="stat-num text-3xl font-semibold text-white">Instant</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">Delivery</p>
+        </div>
+        <div class="px-3 py-2 text-center sm:text-left">
+          <p class="stat-num text-3xl font-semibold text-white">24/7</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">Support</p>
+        </div>
+        <div class="px-3 py-2 text-center sm:text-left">
+          <p class="stat-num text-3xl font-semibold text-white">Trusted</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">Best PC Optimizer</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="mx-auto max-w-6xl px-4 py-20">
+      <div class="mb-10 max-w-2xl">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-400">Why Elux</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Built to feel expensive. Tuned to play faster.</h2>
+        <p class="mt-3 text-slate-400">Everything you need from a PC optimizer — without the guesswork, scripts, or waiting around.</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="zap" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">Instant Delivery</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">Pay, join Discord, and get access immediately. No tickets sitting in a queue.</p>
+        </article>
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="cpu" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">Best PC Optimizer</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">A real desktop app for FPS, latency, debloat, game settings, and Windows tweaks.</p>
+        </article>
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="headset" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">24/7 Support</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">Help with setup, licenses, and which tweaks to run. A person actually reads it.</p>
+        </article>
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="badge-check" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">150+ Vouches</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">Players on FiveM, Rust, TMF and more posting real FPS jumps after one opti.</p>
+        </article>
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="shield-check" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">Trusted</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">Hardware-locked licenses, reversible tweaks, and people who come back after every factory reset.</p>
+        </article>
+        <article class="glow-card rounded-2xl p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><i data-lucide="gauge" class="h-5 w-5"></i></div>
+          <h3 class="text-lg font-medium text-white">Smoother FPS</h3>
+          <p class="mt-2 text-sm font-light leading-relaxed text-slate-400">Fewer background processes, less stutter, and frame rates that actually hold in-game.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="vouches" class="pb-8 pt-4">
+      <div class="mx-auto mb-10 max-w-6xl px-4 text-center">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-400">Discord vouches</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Trusted by players worldwide.</h2>
+        <p class="mt-3 text-slate-400">Real messages from the Elux Discord. Names kept. No timestamps.</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="marquee-wrap">
+          <div class="marquee-track">
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>hit this guy up for ur optis 10/10 went from 100 fps to 250 stable</p><div class="mt-4 flex items-center gap-3"><span class="avatar">HM</span><span class="text-xs text-slate-400">hush money [ʙᴀʟʟ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 so much smoother doubled my fps</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SA</span><span class="text-xs text-slate-400">!$ammy [CMBT]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>tap in with @elux if you're tired of a slow PC that runs 20+ fps. he boosts your stuff with at least 120+ fps</p><div class="mt-4 flex items-center gap-3"><span class="avatar">BW</span><span class="text-xs text-slate-400">Billy Wick [exe]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 100% recommend if your looking to get your pc tweaked went from 236 process to 93 feel like a whole new pc .gg/elux on top</p><div class="mt-4 flex items-center gap-3"><span class="avatar">X</span><span class="text-xs text-slate-400">x [ٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 1000000/10 recommend i was sat on 80 to 90 im hitting 255 this shits crazy elux on top</p><div class="mt-4 flex items-center gap-3"><span class="avatar">ST</span><span class="text-xs text-slate-400">Strapz</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux W mans hooked me up w opti was on 300 fps now on 500+</p><div class="mt-4 flex items-center gap-3"><span class="avatar">PE</span><span class="text-xs text-slate-400">peter</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10000/10 made my pc go from 255 processers to 115 processers 90 fps to 195fps would recommed 1000%</p><div class="mt-4 flex items-center gap-3"><span class="avatar">07</span><span class="text-xs text-slate-400">07</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/1000 made my pc smoother and ingame recommend 100% @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">V</span><span class="text-xs text-slate-400">V [NLRP]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux w opti tysm</p><div class="mt-4 flex items-center gap-3"><span class="avatar">UN</span><span class="text-xs text-slate-400">♛ 𝖚𝖓𝖉𝖊𝖋𝖊𝖆𝖙𝖊𝖉 ♛</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>1000000/10 1000% legit took my shit from 200+ proccess to 98 this shit firee asf make sure holla @ my boy @elux 🔥</p><div class="mt-4 flex items-center gap-3"><span class="avatar">RS</span><span class="text-xs text-slate-400">Ron Smith [søur]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>W opti from @elux -100 process</p><div class="mt-4 flex items-center gap-3"><span class="avatar">EL</span><span class="text-xs text-slate-400">elux</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bought weekly so worth GET AT @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">•</span><span class="text-xs text-slate-400">᲼</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/100</p><div class="mt-4 flex items-center gap-3"><span class="avatar">WR</span><span class="text-xs text-slate-400">. [WRLD]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/100 cheers</p><div class="mt-4 flex items-center gap-3"><span class="avatar">NA</span><span class="text-xs text-slate-400">𝐧𝐚𝐭𝐡𝐚𝐧</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>120 to 430</p><div class="mt-4 flex items-center gap-3"><span class="avatar">WR</span><span class="text-xs text-slate-400">. [WRLD]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>hit this guy up for ur optis 10/10 went from 100 fps to 250 stable</p><div class="mt-4 flex items-center gap-3"><span class="avatar">HM</span><span class="text-xs text-slate-400">hush money [ʙᴀʟʟ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 so much smoother doubled my fps</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SA</span><span class="text-xs text-slate-400">!$ammy [CMBT]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>tap in with @elux if you're tired of a slow PC that runs 20+ fps. he boosts your stuff with at least 120+ fps</p><div class="mt-4 flex items-center gap-3"><span class="avatar">BW</span><span class="text-xs text-slate-400">Billy Wick [exe]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 100% recommend if your looking to get your pc tweaked went from 236 process to 93 feel like a whole new pc .gg/elux on top</p><div class="mt-4 flex items-center gap-3"><span class="avatar">X</span><span class="text-xs text-slate-400">x [ٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 1000000/10 recommend i was sat on 80 to 90 im hitting 255 this shits crazy elux on top</p><div class="mt-4 flex items-center gap-3"><span class="avatar">ST</span><span class="text-xs text-slate-400">Strapz</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux W mans hooked me up w opti was on 300 fps now on 500+</p><div class="mt-4 flex items-center gap-3"><span class="avatar">PE</span><span class="text-xs text-slate-400">peter</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10000/10 made my pc go from 255 processers to 115 processers 90 fps to 195fps would recommed 1000%</p><div class="mt-4 flex items-center gap-3"><span class="avatar">07</span><span class="text-xs text-slate-400">07</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/1000 made my pc smoother and ingame recommend 100% @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">V</span><span class="text-xs text-slate-400">V [NLRP]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux w opti tysm</p><div class="mt-4 flex items-center gap-3"><span class="avatar">UN</span><span class="text-xs text-slate-400">♛ 𝖚𝖓𝖉𝖊𝖋𝖊𝖆𝖙𝖊𝖉 ♛</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>1000000/10 1000% legit took my shit from 200+ proccess to 98 this shit firee asf make sure holla @ my boy @elux 🔥</p><div class="mt-4 flex items-center gap-3"><span class="avatar">RS</span><span class="text-xs text-slate-400">Ron Smith [søur]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>W opti from @elux -100 process</p><div class="mt-4 flex items-center gap-3"><span class="avatar">EL</span><span class="text-xs text-slate-400">elux</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bought weekly so worth GET AT @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">•</span><span class="text-xs text-slate-400">᲼</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/100</p><div class="mt-4 flex items-center gap-3"><span class="avatar">WR</span><span class="text-xs text-slate-400">. [WRLD]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/100 cheers</p><div class="mt-4 flex items-center gap-3"><span class="avatar">NA</span><span class="text-xs text-slate-400">𝐧𝐚𝐭𝐡𝐚𝐧</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>120 to 430</p><div class="mt-4 flex items-center gap-3"><span class="avatar">WR</span><span class="text-xs text-slate-400">. [WRLD]</span></div></article>
+          </div>
+        </div>
+
+        <div class="marquee-wrap">
+          <div class="marquee-track reverse">
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>+rep @elux +100fps while streaming and very good delay</p><div class="mt-4 flex items-center gap-3"><span class="avatar">LI</span><span class="text-xs text-slate-400">limxyu</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 worth it getting better and better</p><div class="mt-4 flex items-center gap-3"><span class="avatar">07</span><span class="text-xs text-slate-400">07</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bro i loaded in fivem and got 500fps so worth it 10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">ET</span><span class="text-xs text-slate-400">ethan</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommend him i rate him</p><div class="mt-4 flex items-center gap-3"><span class="avatar">HU</span><span class="text-xs text-slate-400">Husky</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10000/10 way more responsiveness fps and no lag or stutters</p><div class="mt-4 flex items-center gap-3"><span class="avatar">MW</span><span class="text-xs text-slate-400">MITCHWXCKEM</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/10 Easy N Quick</p><div class="mt-4 flex items-center gap-3"><span class="avatar">JA</span><span class="text-xs text-slate-400">Jahski [ٴٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">9Z</span><span class="text-xs text-slate-400">9z [RENA]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 i was running 130 fps in tmf with a d10 pack and now im running 310 to 320 so worth it</p><div class="mt-4 flex items-center gap-3"><span class="avatar">DE</span><span class="text-xs text-slate-400">death [wawg]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 easyyy</p><div class="mt-4 flex items-center gap-3"><span class="avatar">•</span><span class="text-xs text-slate-400">᲼</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 way more fps and no lag or stutters I'll definitely recommend</p><div class="mt-4 flex items-center gap-3"><span class="avatar">DA</span><span class="text-xs text-slate-400">ｼ [da.]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>1000/10 way more fps and no lag or stutters I'll definitely recommend</p><div class="mt-4 flex items-center gap-3"><span class="avatar">KE</span><span class="text-xs text-slate-400">@kenzo [Ball]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 boost me from 40fps to 90 on a 10x clan serv on rust @elux tap in</p><div class="mt-4 flex items-center gap-3"><span class="avatar">IC</span><span class="text-xs text-slate-400">ice [ᴅᴛʀ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommended</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SG</span><span class="text-xs text-slate-400">slime green [ٴٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommended</p><div class="mt-4 flex items-center gap-3"><span class="avatar">AF</span><span class="text-xs text-slate-400">Äłëx Fłøćkä</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>from 80 fps to 120 but its smooth as shi W somtimes i get 150</p><div class="mt-4 flex items-center gap-3"><span class="avatar">IC</span><span class="text-xs text-slate-400">ice [ᴅᴛʀ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>120+ fps boost from only small opti / tweaks</p><div class="mt-4 flex items-center gap-3"><span class="avatar">PO</span><span class="text-xs text-slate-400">Poex</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bought the new opti tool and wow my pc is running hella smooth now gone up 80 fps shout out to @elux for helping 10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SO</span><span class="text-xs text-slate-400">Solar</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>this opti is the best opti i have ever used i was getting like 80 fps fivem now im getting 180+ i would 100% reccomend big thankyou to @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">GO</span><span class="text-xs text-slate-400">gore2244 [ᴹⱽᴾ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>dk how many times i gotta tell yall to come back to elux, but im coming back every time i fac reset, just got a new pc i was on like 300-400+fps now on around 500+, make sure yall tappin with elux if your tired of running 100 fps on any game</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SA</span><span class="text-xs text-slate-400">!$ammy [CMBT]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>+rep @elux +100fps while streaming and very good delay</p><div class="mt-4 flex items-center gap-3"><span class="avatar">LI</span><span class="text-xs text-slate-400">limxyu</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>@elux 10/10 worth it getting better and better</p><div class="mt-4 flex items-center gap-3"><span class="avatar">07</span><span class="text-xs text-slate-400">07</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bro i loaded in fivem and got 500fps so worth it 10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">ET</span><span class="text-xs text-slate-400">ethan</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommend him i rate him</p><div class="mt-4 flex items-center gap-3"><span class="avatar">HU</span><span class="text-xs text-slate-400">Husky</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10000/10 way more responsiveness fps and no lag or stutters</p><div class="mt-4 flex items-center gap-3"><span class="avatar">MW</span><span class="text-xs text-slate-400">MITCHWXCKEM</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>100/10 Easy N Quick</p><div class="mt-4 flex items-center gap-3"><span class="avatar">JA</span><span class="text-xs text-slate-400">Jahski [ٴٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">9Z</span><span class="text-xs text-slate-400">9z [RENA]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 i was running 130 fps in tmf with a d10 pack and now im running 310 to 320 so worth it</p><div class="mt-4 flex items-center gap-3"><span class="avatar">DE</span><span class="text-xs text-slate-400">death [wawg]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 easyyy</p><div class="mt-4 flex items-center gap-3"><span class="avatar">•</span><span class="text-xs text-slate-400">᲼</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 way more fps and no lag or stutters I'll definitely recommend</p><div class="mt-4 flex items-center gap-3"><span class="avatar">DA</span><span class="text-xs text-slate-400">ｼ [da.]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>1000/10 way more fps and no lag or stutters I'll definitely recommend</p><div class="mt-4 flex items-center gap-3"><span class="avatar">KE</span><span class="text-xs text-slate-400">@kenzo [Ball]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 boost me from 40fps to 90 on a 10x clan serv on rust @elux tap in</p><div class="mt-4 flex items-center gap-3"><span class="avatar">IC</span><span class="text-xs text-slate-400">ice [ᴅᴛʀ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommended</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SG</span><span class="text-xs text-slate-400">slime green [ٴٴٴ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>10/10 recommended</p><div class="mt-4 flex items-center gap-3"><span class="avatar">AF</span><span class="text-xs text-slate-400">Äłëx Fłøćkä</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>from 80 fps to 120 but its smooth as shi W somtimes i get 150</p><div class="mt-4 flex items-center gap-3"><span class="avatar">IC</span><span class="text-xs text-slate-400">ice [ᴅᴛʀ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>120+ fps boost from only small opti / tweaks</p><div class="mt-4 flex items-center gap-3"><span class="avatar">PO</span><span class="text-xs text-slate-400">Poex</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>bought the new opti tool and wow my pc is running hella smooth now gone up 80 fps shout out to @elux for helping 10/10</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SO</span><span class="text-xs text-slate-400">Solar</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>this opti is the best opti i have ever used i was getting like 80 fps fivem now im getting 180+ i would 100% reccomend big thankyou to @elux</p><div class="mt-4 flex items-center gap-3"><span class="avatar">GO</span><span class="text-xs text-slate-400">gore2244 [ᴹⱽᴾ]</span></div></article>
+            <article class="vouch-card"><div class="mb-3 text-cyan-400">★★★★★</div><p>dk how many times i gotta tell yall to come back to elux, but im coming back every time i fac reset, just got a new pc i was on like 300-400+fps now on around 500+, make sure yall tappin with elux if your tired of running 100 fps on any game</p><div class="mt-4 flex items-center gap-3"><span class="avatar">SA</span><span class="text-xs text-slate-400">!$ammy [CMBT]</span></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-4">
+      <div id="pricing" class="mt-20 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-10 sm:flex-row sm:items-center">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-400">Get Instant Access</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-white">Pricing Plans</h2>
+          <p class="mt-2 text-sm text-slate-400">Choose the right plan. Instant delivery on Discord.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-4">
+        <article class="group relative flex h-full flex-col transition-all duration-500 hover:-translate-y-2">
+          <div class="glow-card relative flex h-full flex-col rounded-[20px] p-6">
+            <div class="relative z-10 flex h-full flex-col">
+              <span class="mb-4 inline-flex w-fit items-center rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-400">Starter</span>
+              <div class="mb-6 flex items-baseline gap-1">
+                <span class="text-3xl font-medium tracking-tight text-white">$9.99</span>
+                <span class="text-sm text-slate-500">/ 30 days</span>
+              </div>
+              <div class="mb-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+              <ul class="mb-8 flex-1 space-y-3 text-xs text-slate-300">
+                <li>All modules</li>
+                <li>Restore any tweak</li>
+                <li>Hardware lock</li>
+                <li>Discord support</li>
+              </ul>
+              <button type="button" data-checkout="month" class="mt-auto w-full rounded-xl bg-cyan-400 py-3 text-sm font-medium text-black transition hover:bg-cyan-300">Purchase Now</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group relative flex h-full flex-col transition-all duration-500 hover:-translate-y-2">
+          <div class="glow-card relative flex h-full flex-col rounded-[20px] p-6">
+            <div class="relative z-10 flex h-full flex-col">
+              <span class="mb-4 inline-flex w-fit items-center rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-400">Popular</span>
+              <div class="mb-1.5 flex items-center gap-2">
+                <span class="text-sm text-slate-500 line-through">$24.99</span>
+                <span class="rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[10px] uppercase tracking-widest text-cyan-300">Save 20%</span>
+              </div>
+              <div class="mb-6 flex items-baseline gap-1">
+                <span class="text-3xl font-medium tracking-tight text-white">$19.99</span>
+                <span class="text-sm text-slate-500">/ 90 days</span>
+              </div>
+              <div class="mb-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+              <ul class="mb-8 flex-1 space-y-3 text-xs text-slate-300">
+                <li>All modules</li>
+                <li>Restore any tweak</li>
+                <li>Hardware lock</li>
+                <li>Priority updates</li>
+              </ul>
+              <button type="button" data-checkout="quarter" class="mt-auto w-full rounded-xl bg-cyan-400 py-3 text-sm font-medium text-black transition hover:bg-cyan-300">Purchase Now</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group relative flex h-full flex-col transition-all duration-500 hover:-translate-y-2">
+          <div class="glow-card relative flex h-full flex-col rounded-[20px] border-cyan-400/30 p-6">
+            <div class="relative z-10 flex h-full flex-col">
+              <span class="mb-4 inline-flex w-fit items-center rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-cyan-300">Lifetime</span>
+              <div class="mb-6 flex items-baseline gap-1">
+                <span class="text-3xl font-medium tracking-tight text-white">$34.99</span>
+                <span class="text-sm text-slate-500">once</span>
+              </div>
+              <div class="mb-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+              <ul class="mb-8 flex-1 space-y-3 text-xs text-slate-300">
+                <li>All public features</li>
+                <li>Lifetime updates</li>
+                <li>Hardware lock</li>
+                <li>Restore any tweak</li>
+              </ul>
+              <button type="button" data-checkout="lifetime" class="mt-auto w-full rounded-xl bg-cyan-400 py-3 text-sm font-medium text-black transition hover:bg-cyan-300">Purchase Now</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group relative flex h-full flex-col transition-all duration-500 hover:-translate-y-2">
+          <div class="glow-card relative flex h-full flex-col rounded-[20px] p-6">
+            <div class="relative z-10 flex h-full flex-col">
+              <span class="mb-4 inline-flex w-fit items-center rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-slate-400">Private</span>
+              <div class="mb-6 flex items-baseline gap-1">
+                <span class="text-3xl font-medium tracking-tight text-white">$59.99</span>
+                <span class="text-sm text-slate-500">lifetime</span>
+              </div>
+              <div class="mb-6 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+              <ul class="mb-8 flex-1 space-y-3 text-xs text-slate-300">
+                <li>All public features</li>
+                <li>Limited slots</li>
+                <li>Direct support</li>
+                <li>Early builds</li>
+              </ul>
+              <button type="button" data-checkout="private" class="mt-auto w-full rounded-xl bg-cyan-400 py-3 text-sm font-medium text-black transition hover:bg-cyan-300">Purchase Now</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="support" class="relative z-10 mx-auto mb-24 mt-24 max-w-4xl px-4 text-center">
+      <div class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-full w-full max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-[100px]"></div>
+      <div class="glow-card relative overflow-hidden rounded-[2.5rem] p-8 sm:p-12">
+        <div class="relative z-10 grid items-center gap-8 md:grid-cols-2 md:gap-12">
+          <div class="flex flex-col items-start text-left">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-cyan-400"></span>
+              </span>
+              <span class="text-xs font-semibold uppercase tracking-wide text-cyan-300">24/7 Support</span>
+            </div>
+            <h2 class="mb-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Ready to tap in?</h2>
+            <p class="mb-8 max-w-md text-lg font-light leading-relaxed text-slate-400">
+              Join Discord for instant access, setup help, and the same opti players keep coming back to after every factory reset.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://discord.gg/elux" data-discord class="group inline-flex h-11 items-center justify-center rounded-full btn-primary px-6 text-sm font-semibold transition hover:scale-105">
+                <span class="relative z-20 flex items-center gap-2">Join discord.gg/elux</span>
+              </a>
+              <a href="https://eluxog.cc" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium">eluxog.cc</a>
+            </div>
+          </div>
+          <div class="overflow-hidden rounded-2xl border border-white/10">
+            <img src="images/app-games.png" alt="Game settings" class="h-auto w-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/5">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4">
+      <div>
+        <a href="#home" class="flex items-center gap-2">
+          <img src="images/logo.png" alt="" class="h-8 w-8 logo-mark" />
+          <span class="font-medium tracking-wide">Elux Optimizations</span>
+        </a>
+        <p class="mt-3 text-sm text-slate-500">Also known as Elux Tweaks. Optimise. Play. Win.</p>
+      </div>
+      <div>
+        <h4 class="mb-3 text-sm font-semibold text-white">Navigation</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="#home" class="hover:text-white">Home</a></li>
+          <li><a href="#features" class="hover:text-white">Features</a></li>
+          <li><a href="#vouches" class="hover:text-white">Vouches</a></li>
+          <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-3 text-sm font-semibold text-white">Product</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><a href="#features" class="hover:text-white">Elux Tweaks</a></li>
+          <li><a href="https://eluxog.cc" class="hover:text-white">eluxog.cc</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="mb-3 text-sm font-semibold text-white">Customer</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+          <li><button type="button" data-login class="hover:text-white">Login</button></li>
+          <li><a href="https://discord.gg/elux" data-discord class="hover:text-white">Discord</a></li>
+          <li><a href="#privacy" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="#terms" class="hover:text-white">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-slate-500">
+      © <span id="year">2026</span> Elux Optimizations. All rights reserved.
+    </div>
+  </footer>
+
+  <div id="login-modal" class="fixed inset-0 z-[80] hidden items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0b0e14] p-8 shadow-2xl">
+      <div class="mb-6 flex items-start justify-between">
+        <div class="flex-1 text-center">
+          <img src="images/logo.png" alt="" class="mx-auto h-14 w-14 logo-mark" />
+          <h3 class="mt-3 text-lg font-semibold tracking-wide text-white">ELUX TWEAKS V1.00</h3>
+          <p class="mt-1 text-sm text-slate-400">Sign in to continue</p>
+        </div>
+        <button type="button" id="login-close" class="text-slate-500 hover:text-white" aria-label="Close">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+      <label class="mb-1 block text-xs text-slate-400">Username</label>
+      <input type="text" class="mb-4 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400/50" placeholder="user" />
+      <label class="mb-1 block text-xs text-slate-400">Password</label>
+      <input type="password" class="mb-5 w-full rounded-xl border border-cyan-400/40 bg-black/40 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400" value="••••" />
+      <div class="mb-5 flex items-center gap-2 text-sm text-slate-300">
+        <span class="relative h-5 w-9 rounded-full bg-cyan-400"><span class="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-white"></span></span>
+        Remember me
+      </div>
+      <div id="swipe-track" class="swipe-track">
+        <div id="swipe-knob" class="swipe-knob">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span id="swipe-label" class="swipe-label">Swipe to enter</span>
+      </div>
+      <p class="mt-5 text-center text-sm">
+        <a href="https://discord.gg/elux" data-discord class="text-cyan-400 hover:underline">Get access on Discord</a>
+      </p>
+    </div>
   </div>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
