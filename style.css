@@ -428,47 +428,6 @@ header, main, footer {
 
 .modal-open { overflow: hidden; }
 
-#login-modal { display: flex; }
-#login-modal.hidden { display: none !important; }
-
-.swipe-track {
-  position: relative;
-  height: 52px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(0, 180, 255, 0.4), var(--accent));
-  box-shadow: 0 0 24px -6px rgba(0, 180, 255, 0.55);
-  overflow: hidden;
-  user-select: none;
-}
-
-.swipe-knob {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #d7f7ff;
-  display: grid;
-  place-items: center;
-  color: #041018;
-  cursor: grab;
-  z-index: 2;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-
-.swipe-label {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: #041018;
-  letter-spacing: 0.02em;
-  pointer-events: none;
-}
-
 .vouch-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

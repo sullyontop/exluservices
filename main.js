@@ -4,7 +4,7 @@ const ELUX = {
   email: "eluxbusinessemail@gmail.com",
   showcase: "https://youtu.be/dI9l5DYcE9I",
   checkout: {
-    lifetime: "https://eluxog.cc/checkout/bce7796189835-0000015010571",
+    lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
     hwid: "https://discord.gg/elux",
   },
 };
@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const media = document.getElementById("media-grid");
   if (media) media.innerHTML = MEDIA.map(mediaCard).join("");
 
-  setupSwipe();
   setupShowcase();
   startStars();
 });
@@ -155,53 +154,6 @@ function setupShowcase() {
     video.currentTime = 0;
     video.removeAttribute("controls");
     btn.classList.remove("is-hidden");
-  });
-}
-
-function setupSwipe() {
-  const track = document.getElementById("swipe-track");
-  const knob = document.getElementById("swipe-knob");
-  if (!track || !knob) return;
-
-  let dragging = false;
-  const max = () => track.clientWidth - knob.offsetWidth - 8;
-
-  const setX = (x) => {
-    const clamped = Math.max(0, Math.min(max(), x));
-    knob.style.left = `${clamped + 4}px`;
-    return clamped;
-  };
-
-  const end = (x) => {
-    dragging = false;
-    if (x > max() * 0.78) {
-      setX(max());
-      const swipeLabel = document.getElementById("swipe-label");
-      if (swipeLabel) swipeLabel.textContent = "Welcome in";
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 650);
-    } else {
-      setX(0);
-    }
-  };
-
-  const pos = (e) => {
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    return clientX - track.getBoundingClientRect().left - knob.offsetWidth / 2;
-  };
-
-  knob.addEventListener("pointerdown", (e) => {
-    dragging = true;
-    knob.setPointerCapture(e.pointerId);
-  });
-  knob.addEventListener("pointermove", (e) => {
-    if (!dragging) return;
-    setX(pos(e));
-  });
-  knob.addEventListener("pointerup", (e) => {
-    if (!dragging) return;
-    end(Math.max(0, Math.min(max(), pos(e))));
   });
 }
 
