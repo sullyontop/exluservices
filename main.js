@@ -20,7 +20,7 @@ const ELUX = {
 const MEDIA = [
   {
     name: "Elux",
-    image: "/logo.png",
+    image: "/media/elux.png",
     tiktok: "https://www.tiktok.com/@eluxog",
     youtube: "https://www.youtube.com/@eluxog",
   },
@@ -173,7 +173,19 @@ function ytCard(v) {
 }
 
 function setupYtVideos() {
-  const grid = document.getElementById("yt-grid");
+  let grid = document.getElementById("yt-grid");
+  if (!grid) {
+    const media = document.getElementById("media-grid");
+    if (!media || !YT_VIDEOS.length) return;
+    const section = document.createElement("section");
+    section.className = "yt-section";
+    section.innerHTML = `<p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-400">YouTube</p>
+      <h2 class="mt-3 text-2xl font-semibold text-white sm:text-3xl">Videos</h2>
+      <p class="mt-2 text-slate-400">Clips from the media team.</p>
+      <div id="yt-grid" class="yt-grid"></div>`;
+    media.insertAdjacentElement("afterend", section);
+    grid = document.getElementById("yt-grid");
+  }
   if (!grid) return;
   grid.innerHTML = YT_VIDEOS.map(ytCard).join("");
   if (window.lucide) lucide.createIcons();
