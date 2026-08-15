@@ -24,6 +24,20 @@ const MEDIA = [
     tiktok: "https://www.tiktok.com/@eluxog",
     youtube: "https://www.youtube.com/@eluxog",
   },
+  {
+    name: "Sammy",
+    image: "/sammy.png",
+    tiktok: "https://www.tiktok.com/@nolimitsammyyy",
+    youtube: "https://www.youtube.com/@nolimitsammyy",
+  },
+];
+
+const YT_VIDEOS = [
+  {
+    id: "dcdSF91mMh4",
+    title: "FiveM 2026: Best Optimizer Settings for Zero Ping and Max Performance",
+    creator: "Sammy",
+  },
 ];
 
 const TIKTOK_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M14.5 3h2.1c.2 1.5 1.1 2.8 2.4 3.6 1 .6 2.1.9 3.2.9V10c-1.5 0-3-.4-4.3-1.2v6.7A6.6 6.6 0 1 1 11 9.1V12a3.7 3.7 0 1 0 2.6 3.5V3z"/></svg>';
@@ -135,9 +149,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const media = document.getElementById("media-grid");
   if (media) media.innerHTML = MEDIA.map(mediaCard).join("");
 
+  setupYtVideos();
   setupShowcase();
   startStars();
 });
+
+function ytCard(v) {
+  const href = `https://youtu.be/${v.id}`;
+  const thumb = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`;
+  return `<article class="yt-card" data-yt="${v.id}">
+    <div class="yt-frame">
+      <button type="button" class="yt-play" aria-label="Play ${v.title}">
+        <img src="${thumb}" alt="" />
+        <span class="showcase-veil" aria-hidden="true"></span>
+        <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
+      </button>
+    </div>
+    <div class="yt-meta">
+      <p class="yt-title">${v.title}</p>
+      <p class="yt-creator">${v.creator} · <a href="${href}" target="_blank" rel="noopener">Watch on YouTube</a></p>
+    </div>
+  </article>`;
+}
+
+function setupYtVideos() {
+  const grid = document.getElementById("yt-grid");
+  if (!grid) return;
+  grid.innerHTML = YT_VIDEOS.map(ytCard).join("");
+  if (window.lucide) lucide.createIcons();
+
+  grid.querySelectorAll(".yt-card").forEach((card) => {
+    const id = card.getAttribute("data-yt");
+    const play = card.querySelector(".yt-play");
+    if (!id || !play) return;
+    play.addEventListener("click", () => {
+      const frame = card.querySelector(".yt-frame");
+      frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+    });
+  });
+}
 
 function setupShowcase() {
   const video = document.getElementById("showcase-video");

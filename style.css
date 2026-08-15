@@ -527,6 +527,78 @@ header, main, footer {
   color: #d5e4f5;
 }
 
+.yt-section {
+  margin-top: 4.5rem;
+}
+
+.yt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.yt-card {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.yt-frame {
+  position: relative;
+  overflow: hidden;
+  background: #05080c;
+}
+
+.yt-frame iframe,
+.yt-play img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 0;
+}
+
+.yt-play {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.yt-play .showcase-play-btn {
+  pointer-events: none;
+}
+
+.yt-meta {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.yt-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.yt-creator {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: #7f93ab;
+}
+
+.yt-creator a {
+  color: #22d3ee;
+}
+
+.yt-creator a:hover {
+  text-decoration: underline;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .animate-gradient-text,
