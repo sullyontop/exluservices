@@ -14,7 +14,7 @@ const ELUX = {
 const MEDIA = [
   {
     name: "Elux",
-    image: "logo.png",
+    image: "/logo.png",
     tiktok: "https://www.tiktok.com/@eluxog",
     youtube: "https://www.youtube.com/@eluxog",
   },
@@ -86,10 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
-  const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const current = file === "" || file === "/" ? "index.html" : file;
+  const path = (location.pathname.replace(/\/+$/, "") || "/").toLowerCase().replace(/\.html$/, "");
+  const current = path === "" || path === "/index" ? "/" : path;
   document.querySelectorAll(".nav-link").forEach((a) => {
-    const href = (a.getAttribute("href") || "").toLowerCase();
+    const href = (a.getAttribute("href") || "/").split("#")[0].replace(/\/+$/, "").toLowerCase() || "/";
     a.classList.toggle("active", href === current);
   });
 
@@ -179,7 +179,7 @@ function setupSwipe() {
       const swipeLabel = document.getElementById("swipe-label");
       if (swipeLabel) swipeLabel.textContent = "Welcome in";
       setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "/";
       }, 650);
     } else {
       setX(0);

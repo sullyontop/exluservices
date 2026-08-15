@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Elux Tweaks</title>
+  <meta name="description" content="Sign in to Elux Tweaks." />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="min-h-screen antialiased font-outfit text-slate-100 bg-[#0b0e14]">
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-[#0b0e14]/70 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+      <a href="/" class="flex items-center gap-2.5"><img src="/logo.png" alt="Elux" class="logo-mark" /><span class="hidden sm:block"><span class="block text-sm font-semibold text-white">Elux Optimizations</span><span class="block text-[10px] uppercase tracking-[0.28em] text-cyan-400/80">Elux Tweaks</span></span></a>
+      <nav class="hidden items-center gap-1 md:flex">
+        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5">Home</a>
+        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5">Features</a>
+        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5">Vouches</a>
+        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5">Pricing</a>
+        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5">Discord</a>
+      </nav>
+      <a href="/" class="text-xs text-slate-400 hover:text-white">Back</a>
+    </div>
+  </header>
+
+  <main class="flex min-h-[80vh] items-center justify-center px-4 py-16">
+    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0b0e14] p-8 shadow-2xl">
+      <img src="/logo.png" alt="" class="mx-auto h-14 w-14 logo-mark" />
+      <h1 class="mt-3 text-center text-lg font-semibold tracking-wide text-white">ELUX TWEAKS V1.00</h1>
+      <p class="mt-1 text-center text-sm text-slate-400">Sign in to continue</p>
+      <label class="mb-1 mt-6 block text-xs text-slate-400">Username</label>
+      <input type="text" class="mb-4 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400/50" placeholder="user" />
+      <label class="mb-1 block text-xs text-slate-400">Password</label>
+      <input type="password" class="mb-5 w-full rounded-xl border border-cyan-400/40 bg-black/40 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400" />
+      <div class="mb-5 flex items-center gap-2 text-sm text-slate-300">
+        <span class="relative h-5 w-9 rounded-full bg-cyan-400"><span class="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-white"></span></span>
+        Remember me
+      </div>
+      <div id="swipe-track" class="swipe-track">
+        <div id="swipe-knob" class="swipe-knob"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+        <span id="swipe-label" class="swipe-label">Swipe to enter</span>
+      </div>
+      <p class="mt-5 text-center text-sm"><a href="/discord" class="text-cyan-400 hover:underline">Get access on Discord</a></p>
+    </div>
+  </main>
+  <script src="/main.js"></script>
+</body>
+</html>

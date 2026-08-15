@@ -1,52 +1,52 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Elux Tweaks</title>
   <meta name="description" content="Elux Tweaks is a premium Windows PC optimizer. Instant delivery, 150+ vouches, 24/7 Discord support." />
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body class="min-h-screen antialiased font-outfit text-slate-100 bg-[#0b0e14] selection:bg-cyan-500/30 selection:text-white">
   <canvas id="rain" aria-hidden="true"></canvas>
   <header class="sticky top-0 z-50 border-b border-white/5 bg-[#0b0e14]/70 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="logo.png" alt="Elux Optimizations" class="logo-mark transition-transform duration-300 group-hover:scale-105" />
+      <a href="/" class="flex items-center gap-2.5 group">
+        <img src="/logo.png" alt="Elux Optimizations" class="logo-mark transition-transform duration-300 group-hover:scale-105" />
         <span class="hidden sm:block">
           <span class="block text-sm font-semibold tracking-wide text-white">Elux Optimizations</span>
           <span class="block text-[10px] uppercase tracking-[0.28em] text-cyan-400/80">Elux Tweaks</span>
         </span>
       </a>
       <nav class="hidden items-center gap-1 md:flex">
-        <a href="index.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Home</a>
-        <a href="features.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Features</a>
-        <a href="vouches.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Vouches</a>
-        <a href="pricing.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Pricing</a>
-        <a href="media.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Media</a>
-        <a href="discord.html" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Discord</a>
+        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Home</a>
+        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Features</a>
+        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Vouches</a>
+        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Pricing</a>
+        <a href="/media" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Media</a>
+        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Discord</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="index.html#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-gradient-to-b from-[#3dd4ff] to-[#00b4ff] px-4 text-xs font-semibold text-[#041018] shadow-[0_0_20px_-6px_rgba(0,180,255,0.7)]">Buy $29.99</a>
-        <a href="discord.html" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-slate-200 hover:border-white/30">Join Discord</a>
+        <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-gradient-to-b from-[#3dd4ff] to-[#00b4ff] px-4 text-xs font-semibold text-[#041018] shadow-[0_0_20px_-6px_rgba(0,180,255,0.7)]">Buy $29.99</a>
+        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-slate-200 hover:border-white/30">Join Discord</a>
         <button id="mobile-toggle" class="rounded-md p-2 text-slate-300 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
       </div>
     </div>
     <div id="mobile-menu" class="hidden border-t border-white/5 px-4 py-3 md:hidden">
-      <a href="index.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Home</a>
-      <a href="features.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Features</a>
-      <a href="vouches.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Vouches</a>
-      <a href="pricing.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Pricing</a>
-      <a href="media.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Media</a>
-      <a href="discord.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Discord</a>
-      <a href="login.html" class="block rounded-md px-3 py-2 text-sm text-slate-300">Login</a>
+      <a href="/" class="block rounded-md px-3 py-2 text-sm text-slate-300">Home</a>
+      <a href="/features" class="block rounded-md px-3 py-2 text-sm text-slate-300">Features</a>
+      <a href="/vouches" class="block rounded-md px-3 py-2 text-sm text-slate-300">Vouches</a>
+      <a href="/pricing" class="block rounded-md px-3 py-2 text-sm text-slate-300">Pricing</a>
+      <a href="/media" class="block rounded-md px-3 py-2 text-sm text-slate-300">Media</a>
+      <a href="/discord" class="block rounded-md px-3 py-2 text-sm text-slate-300">Discord</a>
+      <a href="/login" class="block rounded-md px-3 py-2 text-sm text-slate-300">Login</a>
     </div>
   </header>
 
@@ -61,7 +61,7 @@
           <div class="reveal reveal-d3 mt-8 flex flex-wrap items-center gap-3">
             <a href="#buy" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">See the store</a>
             <a href="#showcase" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Watch showcase</a>
-            <a href="discord.html" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Join Discord</a>
+            <a href="/discord" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Join Discord</a>
           </div>
         </div>
 
@@ -101,7 +101,7 @@
 
       <div class="relative z-10 mx-auto max-w-6xl px-4 pb-16">
         <div class="stat-grid">
-          <a href="vouches.html" class="stat-card">
+          <a href="/vouches" class="stat-card">
             <span class="stat-ico"><i data-lucide="badge-check" class="h-4 w-4"></i></span>
             <p class="stat-num">150+</p>
             <p class="stat-label">Vouches</p>
@@ -111,7 +111,7 @@
             <p class="stat-num">Instant</p>
             <p class="stat-label">Delivery</p>
           </a>
-          <a href="discord.html" class="stat-card">
+          <a href="/discord" class="stat-card">
             <span class="stat-ico"><i data-lucide="headset" class="h-4 w-4"></i></span>
             <p class="stat-num">24/7</p>
             <p class="stat-label">Discord support</p>
@@ -133,7 +133,7 @@
           <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
           <div class="showcase-player">
             <video id="showcase-video" poster="showcase.jpg" playsinline preload="metadata">
-              <source src="showcase.mp4" type="video/mp4" />
+              <source src="/showcase.mp4" type="video/mp4" />
             </video>
             <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
               <span class="showcase-veil" aria-hidden="true"></span>
@@ -149,25 +149,25 @@
   <footer class="border-t border-white/5">
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4">
       <div>
-        <a href="index.html" class="flex items-center gap-2"><img src="logo.png" alt="" class="h-8 w-8 logo-mark" /><span class="font-medium">Elux Optimizations</span></a>
+        <a href="/" class="flex items-center gap-2"><img src="/logo.png" alt="" class="h-8 w-8 logo-mark" /><span class="font-medium">Elux Optimizations</span></a>
         <p class="mt-3 text-sm text-slate-500">Also known as Elux Tweaks. Optimise. Play. Win.</p>
         <a href="mailto:eluxbusinessemail@gmail.com" class="mt-3 inline-block text-sm text-cyan-400 hover:text-cyan-300">eluxbusinessemail@gmail.com</a>
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Navigation</h4>
         <ul class="space-y-2 text-sm text-slate-400">
-          <li><a href="index.html" class="hover:text-white">Home</a></li>
-          <li><a href="features.html" class="hover:text-white">Features</a></li>
-          <li><a href="vouches.html" class="hover:text-white">Vouches</a></li>
-          <li><a href="pricing.html" class="hover:text-white">Pricing</a></li>
+          <li><a href="/" class="hover:text-white">Home</a></li>
+          <li><a href="/features" class="hover:text-white">Features</a></li>
+          <li><a href="/vouches" class="hover:text-white">Vouches</a></li>
+          <li><a href="/pricing" class="hover:text-white">Pricing</a></li>
         </ul>
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Product</h4>
         <ul class="space-y-2 text-sm text-slate-400">
-          <li><a href="features.html" class="hover:text-white">Elux Tweaks</a></li>
+          <li><a href="/features" class="hover:text-white">Elux Tweaks</a></li>
           <li><a href="https://eluxog.cc" class="hover:text-white">eluxog.cc</a></li>
-          <li><a href="index.html#showcase" class="hover:text-white">Showcase</a></li>
+          <li><a href="/#showcase" class="hover:text-white">Showcase</a></li>
           <li><a href="https://www.youtube.com/@eluxog" target="_blank" rel="noopener" class="hover:text-white">YouTube</a></li>
           <li><a href="https://www.tiktok.com/@eluxog" target="_blank" rel="noopener" class="hover:text-white">TikTok</a></li>
         </ul>
@@ -176,15 +176,15 @@
         <h4 class="mb-3 text-sm font-semibold text-white">Customer</h4>
         <ul class="space-y-2 text-sm text-slate-400">
           <li><a href="mailto:eluxbusinessemail@gmail.com" class="hover:text-white">Email</a></li>
-          <li><a href="login.html" class="hover:text-white">Login</a></li>
-          <li><a href="discord.html" class="hover:text-white">Discord</a></li>
-          <li><a href="privacy.html" class="hover:text-white">Privacy Policy</a></li>
-          <li><a href="terms.html" class="hover:text-white">Terms of Service</a></li>
+          <li><a href="/login" class="hover:text-white">Login</a></li>
+          <li><a href="/discord" class="hover:text-white">Discord</a></li>
+          <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
+          <li><a href="/terms" class="hover:text-white">Terms of Service</a></li>
         </ul>
       </div>
     </div>
     <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-slate-500">© <span id="year">2026</span> Elux Optimizations. All rights reserved.</div>
   </footer>
-  <script src="main.js"></script>
+  <script src="/main.js"></script>
 </body>
 </html>
