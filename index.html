@@ -137,52 +137,20 @@
     <section id="showcase" class="mx-auto max-w-6xl px-4 pb-24">
       <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">Showcase</p>
       <h2 class="mt-2 mb-6 text-2xl font-semibold text-white">See Elux Tweaks in action.</h2>
-      <div class="grid items-start gap-6 lg:grid-cols-12">
-        <div class="product-stage lg:col-span-7">
-          <div class="product-frame showcase-frame">
-            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-            <div class="showcase-player">
-              <video id="showcase-video" poster="showcase.jpg" playsinline preload="metadata">
-                <source src="/showcase.mp4" type="video/mp4" />
-              </video>
-              <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
-                <span class="showcase-veil" aria-hidden="true"></span>
-                <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
-              </button>
-            </div>
+      <div class="product-stage max-w-3xl">
+        <div class="product-frame showcase-frame">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <div class="showcase-player">
+            <video id="showcase-video" poster="showcase.jpg" playsinline preload="metadata">
+              <source src="/showcase.mp4" type="video/mp4" />
+            </video>
+            <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
+              <span class="showcase-veil" aria-hidden="true"></span>
+              <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
+            </button>
           </div>
-          <p class="mt-3 text-xs text-slate-500">Official showcase · <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">Watch on YouTube</a></p>
         </div>
-
-        <aside class="update-card lg:col-span-5" id="update">
-          <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-400">Version 1.1</p>
-          <h3 class="mt-1 text-xl font-semibold text-white">Update announcement</h3>
-          <p class="mt-1 text-xs text-slate-500">16/08/26</p>
-
-          <div class="update-alert" role="status">
-            Network currently unavailable while we debug &amp; test it further
-          </div>
-
-          <p class="mt-4 text-sm leading-relaxed text-slate-300">We’ve pushed Elux Tweaks V1.1 with:</p>
-          <ul class="update-list">
-            <li>More optimization tweaks added</li>
-            <li>Additional system optimizations</li>
-            <li>New home layout with CPU / GPU / RAM gauges and a live usage graph</li>
-            <li>Spotify mini player on the home page (album art, play / pause, skip, skip back)</li>
-            <li>Global hotkeys in Settings for pause / play, skip, and skip back</li>
-            <li>Instant menu colour — buttons, text, and logo update live and save</li>
-            <li>Full background colour changer (saved automatically)</li>
-            <li>Stars you can recolour and turn on / off</li>
-            <li>Optimization Health Check on the home page</li>
-            <li>Gauges and layout cleaned up so the home page fills the space properly</li>
-            <li>Old V1.00 tools no longer work — use V1.1 only</li>
-            <li>All existing logins, keys, and HWIDs carry over (no new key needed)</li>
-          </ul>
-          <p class="mt-4 text-sm leading-relaxed text-slate-400">We’re continuing to test everything to make sure it’s working properly and safely.</p>
-          <p class="mt-3 text-sm leading-relaxed text-slate-400">Network tweaks are temporarily unavailable while we debug and test them further.</p>
-          <p class="mt-4 text-sm font-medium text-white">V1.1 will be in your DMs with Elux — Main Bot #0209</p>
-          <p class="mt-2 text-xs uppercase tracking-[0.18em] text-slate-500">More updates coming soon.</p>
-        </aside>
+        <p class="mt-3 text-xs text-slate-500">Official showcase · <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">Watch on YouTube</a></p>
       </div>
     </section>
   </main>
