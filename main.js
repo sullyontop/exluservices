@@ -7,6 +7,8 @@ const ELUX = {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
     hwid: "https://discord.gg/elux",
   },
+  download: "http://37.114.37.77:8787/download",
+  verify: "http://37.114.37.77:8787/v1/verify-key",
   sellauth: {
     shopId: 209294,
     shopUrl: "https://eluxoptimisations.mysellauth.com",
@@ -151,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
+  setupKeyDownload();
   startStars();
 });
 
@@ -182,6 +185,44 @@ function setupYtVideos() {
       e.preventDefault();
       frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     });
+  });
+}
+
+function setupKeyDownload() {
+  const form = document.getElementById("download") || document.querySelector(".key-download");
+  if (!form) return;
+  const input = form.querySelector('input[name="key"]');
+  const err = form.querySelector(".key-download-error");
+  const showErr = (msg) => {
+    if (!err) return;
+    err.hidden = !msg;
+    err.textContent = msg || "";
+  };
+
+  form.addEventListener("submit", async (e) => {
+    const key = (input && input.value ? input.value : "").trim();
+    if (key.length < 6) {
+      e.preventDefault();
+      showErr("Enter a valid licence key.");
+      return;
+    }
+    showErr("");
+    e.preventDefault();
+    try {
+      const res = await fetch(ELUX.verify, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        showErr(data.error || "That key is not valid.");
+        return;
+      }
+    } catch {
+      // HTTPS pages cannot read HTTP APIs — still send the key to the download URL.
+    }
+    window.location.href = ELUX.download + "?key=" + encodeURIComponent(key);
   });
 }
 

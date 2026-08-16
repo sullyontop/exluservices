@@ -215,6 +215,70 @@ header, main, footer {
   background: rgba(0, 180, 255, 0.08);
 }
 
+.key-download {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.key-download-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.key-download-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.key-download-row input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+  color: #f8fbff;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  outline: none;
+}
+
+.key-download-row input:focus {
+  border-color: rgba(0, 180, 255, 0.55);
+}
+
+.key-download-row button {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 0;
+  background: linear-gradient(180deg, #3dd4ff, #00b4ff);
+  color: #041018;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.key-download-row button:hover {
+  background: linear-gradient(180deg, #67e0ff, #22d3ee);
+}
+
+.key-download-hint {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.key-download-error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #fca5a5;
+}
+
 .shimmer-slot {
   position: absolute;
   inset: 0;
