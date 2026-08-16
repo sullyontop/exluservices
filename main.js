@@ -7,6 +7,8 @@ const ELUX = {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
     hwid: "https://discord.gg/elux",
   },
+  download: "http://37.114.37.77:8787/download",
+  verify: "http://37.114.37.77:8787/v1/verify-key",
   sellauth: {
     shopId: 209294,
     shopUrl: "https://eluxoptimisations.mysellauth.com",
@@ -151,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
+  setupGetTweaker();
   startStars();
 });
 
@@ -182,6 +185,93 @@ function setupYtVideos() {
       e.preventDefault();
       frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     });
+  });
+}
+
+function setupGetTweaker() {
+  const gate = document.querySelector("[data-dl-gate]");
+  if (!gate) return;
+  const form = gate.querySelector("[data-dl-form]");
+  const input = form && form.querySelector('input[name="key"]');
+  const err = gate.querySelector("[data-dl-error]");
+  const fileBtn = gate.querySelector("[data-dl-file]");
+  const frame = document.querySelector("[data-dl-frame]");
+  const resetBtn = gate.querySelector("[data-dl-reset]");
+  let lastUrl = "";
+
+  const show = (name) => {
+    gate.querySelectorAll("[data-dl-step]").forEach((el) => {
+      el.classList.toggle("is-on", el.getAttribute("data-dl-step") === name);
+    });
+  };
+
+  const showErr = (msg) => {
+    if (!err) return;
+    err.hidden = !msg;
+    err.textContent = msg || "";
+  };
+
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  const startFile = (url) => {
+    lastUrl = url;
+    if (fileBtn) fileBtn.href = url;
+    if (frame) frame.src = url;
+    else window.location.href = url;
+  };
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const key = (input && input.value ? input.value : "").trim();
+    if (key.length < 6) {
+      showErr("Enter a valid licence key.");
+      return;
+    }
+    showErr("");
+    show("loading");
+    const started = Date.now();
+    let ok = false;
+    let message = "That key is not valid.";
+    let mixed = false;
+    try {
+      const res = await fetch(ELUX.verify, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key }),
+      });
+      const data = await res.json().catch(() => ({}));
+      ok = !!(res.ok && data.ok);
+      if (data.error) message = data.error;
+    } catch {
+      mixed = true;
+    }
+    const left = 1100 - (Date.now() - started);
+    if (left > 0) await wait(left);
+    const url = ELUX.download + "?key=" + encodeURIComponent(key);
+    if (mixed) {
+      window.location.href = url;
+      return;
+    }
+    if (!ok) {
+      show("enter");
+      showErr(message);
+      return;
+    }
+    startFile(url);
+    show("done");
+  });
+
+  resetBtn?.addEventListener("click", () => {
+    showErr("");
+    if (input) input.value = "";
+    show("enter");
+    input?.focus();
+  });
+
+  fileBtn?.addEventListener("click", (e) => {
+    if (!lastUrl) return;
+    e.preventDefault();
+    startFile(lastUrl);
   });
 }
 
