@@ -97,7 +97,7 @@ const VOUCHES = [
 ];
 
 function vouchCard(v) {
-  return `<article class="vouch-card"><div class="mb-3 text-white">★★★★★</div><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-slate-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-card"><div class="mb-3 text-white">★★★★★</div><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

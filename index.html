@@ -25,7 +25,7 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="min-h-screen antialiased font-outfit text-slate-100 bg-black selection:bg-white/20 selection:text-white">
+<body class="min-h-screen antialiased font-outfit text-neutral-100 bg-black selection:bg-white/20 selection:text-white">
   <canvas id="rain" aria-hidden="true"></canvas>
   <header class="sticky top-0 z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -37,26 +37,26 @@
         </span>
       </a>
       <nav class="hidden items-center gap-1 md:flex">
-        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Home</a>
-        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Features</a>
-        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Vouches</a>
-        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Pricing</a>
-        <a href="/media" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Media</a>
-        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Discord</a>
+        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Home</a>
+        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Features</a>
+        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Vouches</a>
+        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Pricing</a>
+        <a href="/media" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Media</a>
+        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5 hover:text-neutral-200">Discord</a>
       </nav>
       <div class="flex items-center gap-3">
         <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-white px-4 text-xs font-semibold text-black">Buy &pound;29.99</a>
-        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-slate-200 hover:border-white/30">Join Discord</a>
-        <button id="mobile-toggle" class="rounded-md p-2 text-slate-300 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
+        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-neutral-200 hover:border-white/30">Join Discord</a>
+        <button id="mobile-toggle" class="rounded-md p-2 text-neutral-300 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
       </div>
     </div>
     <div id="mobile-menu" class="hidden border-t border-white/5 px-4 py-3 md:hidden">
-      <a href="/" class="block rounded-md px-3 py-2 text-sm text-slate-300">Home</a>
-      <a href="/features" class="block rounded-md px-3 py-2 text-sm text-slate-300">Features</a>
-      <a href="/vouches" class="block rounded-md px-3 py-2 text-sm text-slate-300">Vouches</a>
-      <a href="/pricing" class="block rounded-md px-3 py-2 text-sm text-slate-300">Pricing</a>
-      <a href="/media" class="block rounded-md px-3 py-2 text-sm text-slate-300">Media</a>
-      <a href="/discord" class="block rounded-md px-3 py-2 text-sm text-slate-300">Discord</a>
+      <a href="/" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Home</a>
+      <a href="/features" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Features</a>
+      <a href="/vouches" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Vouches</a>
+      <a href="/pricing" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Pricing</a>
+      <a href="/media" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Media</a>
+      <a href="/discord" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Discord</a>
     </div>
   </header>
 
@@ -65,9 +65,9 @@
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="relative z-10 mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-16 sm:pt-20 lg:grid-cols-12">
         <div class="max-w-xl lg:col-span-6">
-          <p class="reveal text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">150+ vouches &middot; Instant delivery</p>
+          <p class="reveal text-[11px] font-medium uppercase tracking-[0.28em] text-neutral-500">150+ vouches &middot; Instant delivery</p>
           <h1 class="reveal reveal-d1 mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">Unlock your PC's <span class="block text-white">true potential.</span></h1>
-          <p class="reveal reveal-d2 mt-6 max-w-md text-lg font-light leading-relaxed text-slate-400">One lifetime purchase. Full Windows optimizer, reversible tweaks, and Discord support. Your licence is delivered instantly at checkout.</p>
+          <p class="reveal reveal-d2 mt-6 max-w-md text-lg font-light leading-relaxed text-neutral-400">One lifetime purchase. Full Windows optimizer, reversible tweaks, and Discord support. Your licence is delivered instantly at checkout.</p>
           <div class="reveal reveal-d3 mt-8 flex flex-wrap items-center gap-3">
             <a href="#buy" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">See the store</a>
             <a href="#showcase" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Watch showcase</a>
@@ -79,14 +79,14 @@
           <div class="relative z-10">
             <div class="flex items-center justify-between">
               <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">Lifetime</span>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500">One-time</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-500">One-time</span>
             </div>
             <h2 class="mt-4 text-xl font-semibold text-white">Elux Tweaks</h2>
-            <p class="mt-1 text-sm text-slate-400">The only thing you need to buy. Pay once, keep it forever.</p>
+            <p class="mt-1 text-sm text-neutral-400">The only thing you need to buy. Pay once, keep it forever.</p>
             <div class="mt-5 flex items-baseline gap-3">
               <span class="text-4xl font-semibold tracking-tight text-white">&pound;29.99</span>
             </div>
-            <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
+            <ul class="mt-6 space-y-2.5 text-sm text-neutral-300">
               <li class="flex gap-2"><span class="text-white">&#10003;</span> All modules &middot; restore any tweak</li>
               <li class="flex gap-2"><span class="text-white">&#10003;</span> Hardware-locked licence</li>
               <li class="flex gap-2"><span class="text-white">&#10003;</span> Lifetime updates</li>
@@ -99,7 +99,7 @@
             <div class="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
               <div>
                 <p class="text-sm font-medium text-white">Hardware reset</p>
-                <p class="text-xs text-slate-500">New PC / HWID change</p>
+                <p class="text-xs text-neutral-500">New PC / HWID change</p>
               </div>
               <button type="button" data-checkout="hwid" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-white hover:border-white/40">&pound;5</button>
             </div>
@@ -134,7 +134,7 @@
     </section>
 
     <section id="showcase" class="mx-auto max-w-6xl px-4 pb-24">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">Showcase</p>
+      <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-500">Showcase</p>
       <h2 class="mt-2 mb-6 text-2xl font-semibold text-white">See Elux Tweaks in action.</h2>
       <div class="product-stage max-w-3xl">
         <div class="product-frame showcase-frame">
@@ -149,7 +149,7 @@
             </button>
           </div>
         </div>
-        <p class="mt-3 text-xs text-slate-500">Official showcase &middot; <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-white hover:underline">Watch on YouTube</a></p>
+        <p class="mt-3 text-xs text-neutral-500">Official showcase &middot; <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-white hover:underline">Watch on YouTube</a></p>
       </div>
     </section>
   </main>
@@ -158,12 +158,12 @@
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4">
       <div>
         <a href="/" class="flex items-center gap-2"><img src="/logo.png" alt="" class="h-8 w-8 logo-mark" /><span class="font-medium">Elux Optimizations</span></a>
-        <p class="mt-3 text-sm text-slate-500">Also known as Elux Tweaks. Optimise. Play. Win.</p>
+        <p class="mt-3 text-sm text-neutral-500">Also known as Elux Tweaks. Optimise. Play. Win.</p>
         <a href="mailto:eluxbusinessemail@gmail.com" class="mt-3 inline-block text-sm text-white hover:text-white">eluxbusinessemail@gmail.com</a>
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Navigation</h4>
-        <ul class="space-y-2 text-sm text-slate-400">
+        <ul class="space-y-2 text-sm text-neutral-400">
           <li><a href="/" class="hover:text-white">Home</a></li>
           <li><a href="/features" class="hover:text-white">Features</a></li>
           <li><a href="/vouches" class="hover:text-white">Vouches</a></li>
@@ -172,7 +172,7 @@
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Product</h4>
-        <ul class="space-y-2 text-sm text-slate-400">
+        <ul class="space-y-2 text-sm text-neutral-400">
           <li><a href="/features" class="hover:text-white">Elux Tweaks</a></li>
           <li><a href="https://eluxog.cc" class="hover:text-white">eluxog.cc</a></li>
           <li><a href="/#showcase" class="hover:text-white">Showcase</a></li>
@@ -182,7 +182,7 @@
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Customer</h4>
-        <ul class="space-y-2 text-sm text-slate-400">
+        <ul class="space-y-2 text-sm text-neutral-400">
           <li><a href="mailto:eluxbusinessemail@gmail.com" class="hover:text-white">Email</a></li>
           <li><a href="/discord" class="hover:text-white">Discord</a></li>
           <li><a href="/privacy" class="hover:text-white">Privacy Policy</a></li>
@@ -190,7 +190,7 @@
         </ul>
       </div>
     </div>
-    <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-slate-500">&copy; <span id="year">2026</span> Elux Optimizations. All rights reserved.</div>
+    <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-neutral-500">&copy; <span id="year">2026</span> Elux Optimizations. All rights reserved.</div>
   </footer>
   <script src="https://static.sellauth.com/embed/v3.min.js" defer></script>
   <script src="/main.js"></script>
