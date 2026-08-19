@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
-  setupLogin();
   startStars();
 });
 
@@ -183,54 +182,6 @@ function setupYtVideos() {
       e.preventDefault();
       frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
     });
-  });
-}
-
-function setupLogin() {
-  const win = document.getElementById("login");
-  const loginForm = document.getElementById("login-form");
-  const signupForm = document.getElementById("signup-form");
-  if (!win || !loginForm || !signupForm) return;
-
-  const show = (name) => {
-    loginForm.classList.toggle("hidden", name !== "login");
-    signupForm.classList.toggle("hidden", name !== "signup");
-  };
-
-  win.querySelectorAll(".login-switch").forEach((btn) => {
-    btn.addEventListener("click", () => show(btn.getAttribute("data-show")));
-  });
-
-  document.getElementById("login-close")?.addEventListener("click", () => {
-    win.classList.add("is-hidden");
-  });
-  document.getElementById("login-min")?.addEventListener("click", () => {
-    win.classList.toggle("is-min");
-  });
-
-  document.querySelectorAll('a[href="#login"], a[href="/#login"]').forEach((a) => {
-    a.addEventListener("click", () => {
-      win.classList.remove("is-hidden", "is-min");
-    });
-  });
-
-  const note = (form, text) => {
-    let msg = form.querySelector(".login-msg");
-    if (!msg) {
-      msg = document.createElement("p");
-      msg.className = "login-msg";
-      form.appendChild(msg);
-    }
-    msg.textContent = text;
-  };
-
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    note(loginForm, "Open Elux Tweaks on your PC to log in with this account.");
-  });
-  signupForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    note(signupForm, "Buy a licence first, then create your account in the app.");
   });
 }
 
