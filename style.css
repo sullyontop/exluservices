@@ -1,8 +1,8 @@
 :root {
   --bg: #000000;
   --bg-deep: #000000;
-  --card: #0a0a0a;
-  --card-2: #111111;
+  --card: #1a1a1a;
+  --card-2: #1a1a1a;
   --accent: #ffffff;
   --accent-2: #ffffff;
   --accent-dim: rgba(255, 255, 255, 0.14);
@@ -46,9 +46,10 @@ header, main, footer {
 .buy-card {
   position: relative;
   overflow: hidden;
-  background: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
   box-shadow: none;
+  isolation: isolate;
 }
 
 .buy-card::before {
@@ -74,10 +75,11 @@ header, main, footer {
   display: block;
   padding: 18px 18px 16px;
   border-radius: 1.15rem;
-  background: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
   box-shadow: none;
   text-decoration: none;
+  isolation: isolate;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -87,7 +89,7 @@ header, main, footer {
 
 .stat-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: #4a4a4a;
   box-shadow: none;
 }
 
@@ -162,9 +164,10 @@ header, main, footer {
 .glow-card {
   position: relative;
   overflow: hidden;
-  background: #111111;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
   box-shadow: none;
+  isolation: isolate;
   transition: transform 0.35s ease, border-color 0.35s ease;
 }
 
@@ -174,7 +177,7 @@ header, main, footer {
 
 .glow-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: #4a4a4a;
   box-shadow: none;
 }
 
@@ -283,10 +286,11 @@ header, main, footer {
   width: 340px;
   flex-shrink: 0;
   border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #111111;
+  border: 1px solid #2a2a2a;
+  background: #1a1a1a;
   padding: 1.25rem 1.35rem;
   box-shadow: none;
+  isolation: isolate;
 }
 
 .vouch-card p {
