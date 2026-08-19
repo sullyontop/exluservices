@@ -23,7 +23,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=bw3" />
+  <link rel="stylesheet" href="/style.css?v=bw4" />
 </head>
 <body class="min-h-screen antialiased font-outfit text-neutral-100 bg-black">
   <canvas id="rain" aria-hidden="true"></canvas>
@@ -54,25 +54,17 @@
     </div>
   </header>
 
-  <main class="mx-auto max-w-4xl px-4 pb-24">
+  <main class="mx-auto max-w-3xl px-4 pb-24">
     <section class="relative mt-16 overflow-hidden rounded-[2.5rem] glow-card p-8 sm:p-12">
-      <div class="pointer-events-none absolute left-1/2 top-0 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-white/10 blur-[90px]"></div>
-      <div class="grid items-center gap-8 md:grid-cols-2">
-        <div>
-          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1">
-            <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-white"></span></span>
-            <span class="text-xs font-semibold uppercase tracking-wide text-white">24/7 Support</span>
-          </div>
-          <h1 class="mb-4 text-4xl font-semibold tracking-tight text-white">Ready to tap in?</h1>
-          <p class="mb-8 text-lg font-light leading-relaxed text-neutral-400">Need setup help or a hardware reset? Join Discord. Your licence is delivered instantly at checkout · Discord is for support.</p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://discord.gg/elux" data-discord class="inline-flex h-11 items-center rounded-full btn-primary px-6 text-sm font-semibold">Join discord.gg/elux</a>
-            <a href="mailto:eluxbusinessemail@gmail.com" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium">Email us</a>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-2xl border border-white/10">
-          <img src="/app-games.png" alt="Game settings" class="h-auto w-full object-cover" />
-        </div>
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1">
+        <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-white"></span></span>
+        <span class="text-xs font-semibold uppercase tracking-wide text-white">24/7 Support</span>
+      </div>
+      <h1 class="mb-4 text-4xl font-semibold tracking-tight text-white">Ready to tap in?</h1>
+      <p class="mb-8 max-w-lg text-lg font-light leading-relaxed text-neutral-400">Need setup help or a hardware reset? Join Discord. Your licence is delivered instantly at checkout &middot; Discord is for support.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://discord.gg/elux" data-discord class="inline-flex h-11 items-center rounded-full btn-primary px-6 text-sm font-semibold">Join discord.gg/elux</a>
+        <a href="mailto:eluxbusinessemail@gmail.com" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium">Email us</a>
       </div>
     </section>
   </main>

@@ -58,29 +58,31 @@ header, main, footer {
 
 .stat-grid {
   display: grid;
-  gap: 12px;
+  gap: 16px;
   grid-template-columns: repeat(2, 1fr);
 }
 
 @media (min-width: 768px) {
   .stat-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    gap: 16px;
   }
 }
 
 .stat-card {
   position: relative;
   overflow: hidden;
-  display: block;
-  padding: 18px 18px 16px;
-  border-radius: 1.15rem;
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  min-height: 168px;
+  padding: 22px 20px 20px;
+  border-radius: 1.35rem;
+  background: #141414;
+  border: 1px solid #2e2e2e;
   box-shadow: none;
   text-decoration: none;
   isolation: isolate;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
 .stat-card::before {
@@ -88,39 +90,40 @@ header, main, footer {
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
-  border-color: #4a4a4a;
-  box-shadow: none;
+  transform: translateY(-6px);
+  border-color: #ffffff;
+  background: #1c1c1c;
 }
 
 .stat-ico {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
-  margin-bottom: 14px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 18px;
+  border-radius: 999px;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #000000;
+  border: 1px solid #3a3a3a;
 }
 
 .stat-num {
+  margin-top: auto;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-  font-size: 1.65rem;
-  font-weight: 600;
-  line-height: 1.1;
+  letter-spacing: -0.05em;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
   color: #fff;
 }
 
 .stat-label {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #737373;
+  color: #9a9a9a;
 }
 
 .hero-veil {

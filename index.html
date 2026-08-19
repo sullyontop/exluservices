@@ -24,7 +24,7 @@
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="stylesheet" href="/style.css?v=bw3" />
+  <link rel="stylesheet" href="/style.css?v=bw4" />
 </head>
 <body class="min-h-screen antialiased font-outfit text-neutral-100 bg-black selection:bg-white/20 selection:text-white">
   <canvas id="rain" aria-hidden="true"></canvas>
@@ -69,11 +69,13 @@
           <p class="reveal text-[11px] font-medium uppercase tracking-[0.28em] text-neutral-500">150+ vouches &middot; Instant delivery</p>
           <h1 class="reveal reveal-d1 mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">Unlock your PC's true potential.</h1>
           <div class="product-stage reveal reveal-d2 mt-6">
-            <div class="product-frame showcase-frame yt-card" data-yt="rs7lZL6pQAM">
+            <div class="product-frame showcase-frame">
               <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-              <div class="showcase-player yt-frame">
-                <button type="button" class="yt-play" aria-label="Play showcase">
-                  <img src="https://i.ytimg.com/vi/rs7lZL6pQAM/hqdefault.jpg" alt="" />
+              <div class="showcase-player">
+                <video id="showcase-video" poster="/showcase.jpg" playsinline preload="metadata">
+                  <source src="/showcase.mp4" type="video/mp4" />
+                </video>
+                <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
                   <span class="showcase-veil" aria-hidden="true"></span>
                   <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
                 </button>
