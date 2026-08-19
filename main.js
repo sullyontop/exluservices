@@ -2,7 +2,7 @@ const ELUX = {
   discord: "https://discord.gg/elux",
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
-    showcase: "https://youtu.be/rs7lZL6pQAM",
+    showcase: "https://youtu.be/GVrvasacbLc",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
     hwid: "https://discord.gg/elux",
