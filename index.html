@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,7 @@
   <title>Elux Tweaks</title>
   <meta name="description" content="Elux Tweaks is a premium Windows PC optimizer. Instant delivery, 150+ vouches, 24/7 Discord support." />
   <link rel="icon" type="image/png" href="/logo.png" />
-  <meta name="theme-color" content="#00b4ff" />
+  <meta name="theme-color" content="#000000" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elux Tweaks" />
   <meta property="og:title" content="Elux Tweaks" />
@@ -25,15 +25,15 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="min-h-screen antialiased font-outfit text-slate-100 bg-[#0b0e14] selection:bg-cyan-500/30 selection:text-white">
+<body class="min-h-screen antialiased font-outfit text-slate-100 bg-black selection:bg-white/20 selection:text-white">
   <canvas id="rain" aria-hidden="true"></canvas>
-  <header class="sticky top-0 z-50 border-b border-white/5 bg-[#0b0e14]/70 backdrop-blur-xl">
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
       <a href="/" class="flex items-center gap-2.5 group">
         <img src="/logo.png" alt="Elux Optimizations" class="logo-mark transition-transform duration-300 group-hover:scale-105" />
         <span class="hidden sm:block">
           <span class="block text-sm font-semibold tracking-wide text-white">Elux Optimizations</span>
-          <span class="block text-[10px] uppercase tracking-[0.28em] text-cyan-400/80">Elux Tweaks</span>
+          <span class="block text-[10px] uppercase tracking-[0.28em] text-white/50">Elux Tweaks</span>
         </span>
       </a>
       <nav class="hidden items-center gap-1 md:flex">
@@ -45,8 +45,8 @@
         <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-slate-400 hover:bg-white/5 hover:text-slate-200">Discord</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-gradient-to-b from-[#3dd4ff] to-[#00b4ff] px-4 text-xs font-semibold text-[#041018] shadow-[0_0_20px_-6px_rgba(0,180,255,0.7)]">Buy £29.99</a>
-        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-slate-200 hover:border-white/30">Join Discord</a>
+        <a href="/#login" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 px-4 text-xs font-medium text-white hover:border-white/40">Log in</a>
+        <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-white px-4 text-xs font-semibold text-black">Buy £29.99</a>
         <button id="mobile-toggle" class="rounded-md p-2 text-slate-300 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
       </div>
     </div>
@@ -57,6 +57,7 @@
       <a href="/pricing" class="block rounded-md px-3 py-2 text-sm text-slate-300">Pricing</a>
       <a href="/media" class="block rounded-md px-3 py-2 text-sm text-slate-300">Media</a>
       <a href="/discord" class="block rounded-md px-3 py-2 text-sm text-slate-300">Discord</a>
+      <a href="/#login" class="block rounded-md px-3 py-2 text-sm text-slate-300">Log in</a>
     </div>
   </header>
 
@@ -64,45 +65,53 @@
     <section class="relative overflow-hidden">
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="relative z-10 mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-16 sm:pt-20 lg:grid-cols-12">
-        <div class="max-w-xl lg:col-span-6">
+        <div class="max-w-xl lg:col-span-5">
           <p class="reveal text-[11px] font-medium uppercase tracking-[0.28em] text-slate-500">150+ vouches · Instant delivery</p>
-          <h1 class="reveal reveal-d1 mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">Unlock your PC's <span class="animate-gradient-text block bg-gradient-to-r from-cyan-200 via-cyan-400 to-sky-200 bg-clip-text text-transparent">true potential.</span></h1>
+          <h1 class="reveal reveal-d1 mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">Unlock your PC's <span class="block text-white">true potential.</span></h1>
           <p class="reveal reveal-d2 mt-6 max-w-md text-lg font-light leading-relaxed text-slate-400">One lifetime purchase. Full Windows optimizer, reversible tweaks, and Discord support. Your licence is delivered instantly at checkout.</p>
           <div class="reveal reveal-d3 mt-8 flex flex-wrap items-center gap-3">
+            <a href="#login" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Log in</a>
             <a href="#buy" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">See the store</a>
-            <a href="#showcase" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Watch showcase</a>
-            <a href="/discord" class="inline-flex h-11 items-center rounded-full btn-ghost px-6 text-sm font-medium hover:scale-105">Join Discord</a>
           </div>
         </div>
 
-        <aside id="buy" class="buy-card reveal reveal-d2 rounded-[1.6rem] p-6 sm:p-7 lg:col-span-6">
-          <div class="relative z-10">
-            <div class="flex items-center justify-between">
-              <span class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-cyan-300">Lifetime</span>
-              <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500">One-time</span>
+        <aside id="login" class="login-window reveal reveal-d2 lg:col-span-7">
+          <div class="login-chrome">
+            <span></span>
+            <div class="login-winbtns">
+              <button type="button" id="login-min" aria-label="Minimize">?</button>
+              <button type="button" id="login-close" aria-label="Close">·</button>
             </div>
-            <h2 class="mt-4 text-xl font-semibold text-white">Elux Tweaks</h2>
-            <p class="mt-1 text-sm text-slate-400">The only thing you need to buy. Pay once, keep it forever.</p>
-            <div class="mt-5 flex items-baseline gap-3">
-              <span class="text-4xl font-semibold tracking-tight text-white">£29.99</span>
+          </div>
+          <div class="login-split">
+            <div class="login-brand" aria-hidden="true">
+              <img src="/logo.png" alt="" />
             </div>
-            <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
-              <li class="flex gap-2"><span class="text-cyan-400">✓</span> All modules · restore any tweak</li>
-              <li class="flex gap-2"><span class="text-cyan-400">✓</span> Hardware-locked licence</li>
-              <li class="flex gap-2"><span class="text-cyan-400">✓</span> Lifetime updates</li>
-              <li class="flex gap-2"><span class="text-cyan-400">✓</span> Licence delivered instantly at checkout</li>
-            </ul>
-            <a href="https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322" target="_blank" rel="noopener" class="relative mt-6 flex w-full items-center justify-center overflow-hidden rounded-xl btn-primary py-3.5 text-sm font-semibold" data-sellauth-shop="209294" data-sellauth-shop-url="https://eluxoptimisations.mysellauth.com" data-sellauth-product="588116" data-sellauth-variant="912032" data-sellauth-theme="dark" data-sellauth-skip-cart="true">
-              <div class="shimmer-slot"><span></span></div>
-              <span class="relative z-10">Continue to checkout</span>
-            </a>
-            <div class="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-              <div>
-                <p class="text-sm font-medium text-white">Hardware reset</p>
-                <p class="text-xs text-slate-500">New PC / HWID change</p>
-              </div>
-              <button type="button" data-checkout="hwid" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-cyan-300 hover:border-cyan-400/40">£5</button>
-            </div>
+            <form id="login-form" class="login-pane">
+              <h2>Elux Tweaks</h2>
+              <p>Welcome again, please log in to continue.</p>
+              <input type="text" name="username" placeholder="Username" required />
+              <input type="password" name="password" placeholder="Enter password" required />
+              <label class="login-remember">
+                <input type="checkbox" name="remember" />
+                <span>Remember me</span>
+              </label>
+              <button type="submit" class="login-submit">Continue</button>
+              <p class="login-or">OR</p>
+              <button type="button" class="login-switch" data-show="signup">No account? <b>SIGN UP</b></button>
+            </form>
+            <form id="signup-form" class="login-pane hidden">
+              <h2>Elux Tweaks</h2>
+              <p>Enter your license key to create an account.</p>
+              <input type="text" name="username" placeholder="Username" required />
+              <input type="password" name="password" placeholder="Enter password" required />
+              <span class="login-key-label">License key</span>
+              <input type="text" name="license" placeholder="License key" required />
+              <button type="submit" class="login-submit">Create account</button>
+              <p class="login-hint">A license key is required</p>
+              <p class="login-or">OR</p>
+              <button type="button" class="login-switch" data-show="login">Have an account? <b>SIGN IN</b></button>
+            </form>
           </div>
         </aside>
       </div>
@@ -133,6 +142,38 @@
       </div>
     </section>
 
+    <section id="buy" class="mx-auto max-w-6xl px-4 pb-24">
+      <aside class="buy-card mx-auto max-w-xl rounded-[1.6rem] p-6 sm:p-8">
+        <div class="relative z-10">
+          <div class="flex items-center justify-between">
+            <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">Lifetime</span>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500">One-time</span>
+          </div>
+          <h2 class="mt-4 text-xl font-semibold text-white">Elux Tweaks</h2>
+          <p class="mt-1 text-sm text-slate-400">The only thing you need to buy. Pay once, keep it forever.</p>
+          <div class="mt-5 flex items-baseline gap-3">
+            <span class="text-4xl font-semibold tracking-tight text-white">£29.99</span>
+          </div>
+          <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-white">?</span> All modules · restore any tweak</li>
+            <li class="flex gap-2"><span class="text-white">?</span> Hardware-locked licence</li>
+            <li class="flex gap-2"><span class="text-white">?</span> Lifetime updates</li>
+            <li class="flex gap-2"><span class="text-white">?</span> Licence delivered instantly at checkout</li>
+          </ul>
+          <a href="https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322" target="_blank" rel="noopener" class="relative mt-6 flex w-full items-center justify-center overflow-hidden rounded-full btn-primary py-3.5 text-sm font-semibold" data-sellauth-shop="209294" data-sellauth-shop-url="https://eluxoptimisations.mysellauth.com" data-sellauth-product="588116" data-sellauth-variant="912032" data-sellauth-theme="dark" data-sellauth-skip-cart="true">
+            <span class="relative z-10">Continue to checkout</span>
+          </a>
+          <div class="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <div>
+              <p class="text-sm font-medium text-white">Hardware reset</p>
+              <p class="text-xs text-slate-500">New PC / HWID change</p>
+            </div>
+            <button type="button" data-checkout="hwid" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-white hover:border-white/40">£5</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
     <section id="showcase" class="mx-auto max-w-6xl px-4 pb-24">
       <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">Showcase</p>
       <h2 class="mt-2 mb-6 text-2xl font-semibold text-white">See Elux Tweaks in action.</h2>
@@ -149,7 +190,7 @@
             </button>
           </div>
         </div>
-        <p class="mt-3 text-xs text-slate-500">Official showcase · <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-cyan-400 hover:underline">Watch on YouTube</a></p>
+        <p class="mt-3 text-xs text-slate-500">Official showcase · <a href="https://youtu.be/dI9l5DYcE9I" target="_blank" rel="noopener" class="text-white hover:underline">Watch on YouTube</a></p>
       </div>
     </section>
   </main>
@@ -159,7 +200,7 @@
       <div>
         <a href="/" class="flex items-center gap-2"><img src="/logo.png" alt="" class="h-8 w-8 logo-mark" /><span class="font-medium">Elux Optimizations</span></a>
         <p class="mt-3 text-sm text-slate-500">Also known as Elux Tweaks. Optimise. Play. Win.</p>
-        <a href="mailto:eluxbusinessemail@gmail.com" class="mt-3 inline-block text-sm text-cyan-400 hover:text-cyan-300">eluxbusinessemail@gmail.com</a>
+        <a href="mailto:eluxbusinessemail@gmail.com" class="mt-3 inline-block text-sm text-white hover:text-white">eluxbusinessemail@gmail.com</a>
       </div>
       <div>
         <h4 class="mb-3 text-sm font-semibold text-white">Navigation</h4>
@@ -190,7 +231,7 @@
         </ul>
       </div>
     </div>
-    <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-slate-500">© <span id="year">2026</span> Elux Optimizations. All rights reserved.</div>
+    <div class="mx-auto max-w-6xl border-t border-white/5 px-4 py-5 text-sm text-slate-500">· <span id="year">2026</span> Elux Optimizations. All rights reserved.</div>
   </footer>
   <script src="https://static.sellauth.com/embed/v3.min.js" defer></script>
   <script src="/main.js"></script>
