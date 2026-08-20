@@ -110,12 +110,21 @@
               <div class="shimmer-slot"><span></span></div>
               <span class="relative z-10">Continue to checkout</span>
             </a>
-            <div class="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-              <div>
-                <p class="text-sm font-medium text-white">Hardware reset</p>
-                <p class="text-xs text-neutral-500">New PC / HWID change</p>
+            <div class="mt-5 space-y-2">
+              <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                <div>
+                  <p class="text-sm font-medium text-white">Hardware reset</p>
+                  <p class="text-xs text-neutral-500">One new PC / HWID change</p>
+                </div>
+                <button type="button" data-checkout="hwid" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-white hover:border-white/40">&pound;5.50</button>
               </div>
-              <button type="button" data-checkout="hwid" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-white hover:border-white/40">&pound;5</button>
+              <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                <div>
+                  <p class="text-sm font-medium text-white">Lifetime HWID resets</p>
+                  <p class="text-xs text-neutral-500">Reset on any new PC, forever</p>
+                </div>
+                <button type="button" data-checkout="hwidLifetime" class="rounded-lg border border-white/15 px-3 py-1.5 text-sm font-medium text-white hover:border-white/40">&pound;25</button>
+              </div>
             </div>
           </div>
         </aside>
