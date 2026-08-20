@@ -5,8 +5,6 @@ const ELUX = {
     showcase: "https://youtu.be/GVrvasacbLc",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
-    hwid: "https://discord.gg/elux",
-    hwidLifetime: "https://discord.gg/elux",
   },
   sellauth: {
     shopId: 209294,
