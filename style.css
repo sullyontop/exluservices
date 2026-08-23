@@ -29,6 +29,14 @@ body {
 
 header, main, footer { position: relative; z-index: 2; }
 
+#rain-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
 /* —— Nav (Paragon-style: logo | centered tabs | actions) —— */
 .site-header {
   position: sticky;
@@ -961,4 +969,5 @@ body.promo-open { overflow: hidden; }
   .hero-cta { animation: none; }
   .mobile-menu,
   .mobile-menu a { transition: none; }
+  #rain-canvas { display: none; }
 }

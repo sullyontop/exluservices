@@ -166,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupYtVideos();
   setupShowcase();
   setupPromo();
+  setupRain();
 });
 
 function ytCard(v) {
@@ -221,6 +222,117 @@ function setupShowcase() {
     video.removeAttribute("controls");
     btn.classList.remove("is-hidden");
   });
+}
+
+function setupRain() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.id = "rain-canvas";
+  canvas.setAttribute("aria-hidden", "true");
+  document.body.prepend(canvas);
+
+  const ctx = canvas.getContext("2d", { alpha: true });
+  let w = 0;
+  let h = 0;
+  let drops = [];
+  let splashes = [];
+  let running = true;
+  let last = 0;
+
+  const dropCount = () => Math.min(240, Math.max(64, Math.round((w * h) / 8500)));
+
+  const makeDrop = () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    len: 12 + Math.random() * 26,
+    speed: 620 + Math.random() * 880,
+    thick: 0.55 + Math.random() * 1.05,
+    alpha: 0.1 + Math.random() * 0.28,
+    wind: 16 + Math.random() * 32,
+  });
+
+  const splash = (x, y) => {
+    const n = 3 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI / 2 + (Math.random() - 0.5) * 1.7;
+      splashes.push({
+        x,
+        y,
+        vx: Math.cos(a) * (36 + Math.random() * 90),
+        vy: Math.sin(a) * (30 + Math.random() * 70) - 18,
+        life: 1,
+        decay: 1.7 + Math.random() * 1.5,
+        r: 0.55 + Math.random() * 1.15,
+      });
+    }
+  };
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drops = Array.from({ length: dropCount() }, makeDrop);
+  };
+
+  const frame = (t) => {
+    if (!running) return;
+    requestAnimationFrame(frame);
+    const dt = Math.min(0.033, (t - last) / 1000 || 0.016);
+    last = t;
+    ctx.clearRect(0, 0, w, h);
+
+    for (const d of drops) {
+      d.y += d.speed * dt;
+      d.x += d.wind * dt;
+      ctx.strokeStyle = `rgba(255,255,255,${d.alpha})`;
+      ctx.lineWidth = d.thick;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - d.wind * 0.045, d.y - d.len);
+      ctx.stroke();
+      if (d.y - d.len > h) {
+        if (Math.random() < 0.32) splash(d.x, h - 2);
+        d.y = -d.len - Math.random() * 90;
+        d.x = Math.random() * w;
+      }
+      if (d.x > w + 16) d.x = -12;
+    }
+
+    for (let i = splashes.length - 1; i >= 0; i--) {
+      const s = splashes[i];
+      s.x += s.vx * dt;
+      s.y += s.vy * dt;
+      s.vy += 420 * dt;
+      s.life -= s.decay * dt;
+      if (s.life <= 0) {
+        splashes.splice(i, 1);
+        continue;
+      }
+      ctx.fillStyle = `rgba(255,255,255,${0.2 * s.life})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  window.addEventListener("resize", resize, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden;
+    if (running) {
+      last = performance.now();
+      requestAnimationFrame(frame);
+    }
+  });
+
+  resize();
+  requestAnimationFrame(frame);
 }
 
 function setupPromo() {
