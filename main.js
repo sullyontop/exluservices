@@ -143,7 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileBtn = document.getElementById("mobile-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
   mobileBtn?.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
+    const open = mobileMenu.classList.toggle("is-open");
+    mobileMenu.classList.remove("hidden");
+    mobileBtn.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
   const grid = document.getElementById("vouch-grid");
