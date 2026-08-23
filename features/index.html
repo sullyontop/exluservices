@@ -13,7 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
-  <link rel="stylesheet" href="/style.css?v=pg3" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="/style.css?v=pg4" />
 </head>
 <body class="antialiased font-outfit text-white">
   <header class="site-header">
@@ -44,6 +45,19 @@
   </header>
 
   <main>
+    <section class="showcase-band" id="showcase">
+      <div class="showcase-player">
+        <video id="showcase-video" poster="/showcase.jpg?v=gv1" playsinline preload="metadata">
+          <source src="/showcase.mp4?v=gv1" type="video/mp4" />
+        </video>
+        <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
+          <span class="showcase-veil" aria-hidden="true"></span>
+          <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
+        </button>
+      </div>
+      <p class="watch-note"><a href="https://youtu.be/GVrvasacbLc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+    </section>
+
     <section class="band">
       <p class="band-label">Features</p>
       <h2>FPS, latency, and Windows cleanup.</h2>

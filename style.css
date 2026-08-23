@@ -517,7 +517,8 @@ header, main, footer { position: relative; z-index: 2; }
 .showcase-band {
   max-width: 920px;
   margin: 0 auto;
-  padding: 0 1.4rem 4rem;
+  padding: 2.5rem 1.4rem 4.5rem;
+  scroll-margin-top: 96px;
 }
 
 .showcase-player {
