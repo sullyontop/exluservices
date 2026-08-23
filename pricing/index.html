@@ -5,92 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pricing | Elux Tweaks</title>
   <meta name="description" content="Elux Tweaks pricing. Licence delivered instantly at checkout." />
-  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=bw6" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=bw6" />
   <meta name="theme-color" content="#000000" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elux Tweaks" />
   <meta property="og:title" content="Elux Tweaks" />
-  <meta property="og:description" content="Premium Windows PC optimizer. Lifetime licence, instant delivery, 150+ vouches." />
+  <meta property="og:description" content="Windows PC optimizer. Lifetime licence, instant delivery, 150+ vouches." />
   <meta property="og:image" content="https://elux-optimizations.onrender.com/elux-banner.gif" />
-  <meta property="og:image:type" content="image/gif" />
-  <meta property="og:image:width" content="728" />
-  <meta property="og:image:height" content="178" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://elux-optimizations.onrender.com/elux-banner.gif" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=bw5" />
+  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
+  <link rel="stylesheet" href="/style.css?v=bw10" />
 </head>
-<body class="min-h-screen antialiased font-outfit text-neutral-100 bg-black">
-  <canvas id="rain" aria-hidden="true"></canvas>
-  <header class="sticky top-0 z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
-    <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
-      <a href="/" class="flex items-center gap-2.5"><img src="/logo.png" alt="Elux" class="logo-mark" /><span class="hidden sm:block"><span class="block text-sm font-semibold text-white">Elux Optimizations</span><span class="block text-[10px] uppercase tracking-[0.28em] text-white/50">Elux Tweaks</span></span></a>
-      <nav class="hidden items-center gap-1 md:flex">
-        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Home</a>
-        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Features</a>
-        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Vouches</a>
-        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Pricing</a>
-        <a href="/media" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Media</a>
-        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Discord</a>
+<body class="min-h-screen antialiased font-outfit text-white bg-black">
+  <header class="site-header">
+    <div class="site-bar">
+      <a href="/" class="brand"><img src="/logo.png?v=bw6" alt="" /><span>Elux Tweaks</span></a>
+      <nav class="site-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/features" class="nav-link">Features</a>
+        <a href="/vouches" class="nav-link">Vouches</a>
+        <a href="/pricing" class="nav-link">Pricing</a>
+        <a href="/media" class="nav-link">Media</a>
+        <a href="/discord" class="nav-link">Discord</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-white px-4 text-xs font-semibold text-black">Buy £29.99</a>
-        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-neutral-200 hover:border-white/30">Join Discord</a>
-        <button id="mobile-toggle" class="rounded-md p-2 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
+      <div class="site-actions">
+        <a href="/#buy" class="btn-buy">Buy &pound;29.99</a>
+        <a href="/discord" class="btn-outline">Discord</a>
+        <button type="button" id="mobile-toggle" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
       </div>
     </div>
-    <div id="mobile-menu" class="hidden border-t border-white/5 px-4 py-3 md:hidden">
-      <a href="/" class="block px-3 py-2 text-sm text-neutral-300">Home</a>
-      <a href="/features" class="block px-3 py-2 text-sm text-neutral-300">Features</a>
-      <a href="/vouches" class="block px-3 py-2 text-sm text-neutral-300">Vouches</a>
-      <a href="/pricing" class="block px-3 py-2 text-sm text-neutral-300">Pricing</a>
-      <a href="/media" class="block px-3 py-2 text-sm text-neutral-300">Media</a>
-      <a href="/discord" class="block px-3 py-2 text-sm text-neutral-300">Discord</a>
-    </div>
+    <nav id="mobile-menu" class="mobile-menu hidden">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/vouches">Vouches</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/media">Media</a>
+      <a href="/discord">Discord</a>
+    </nav>
   </header>
 
-  <main class="mx-auto max-w-6xl px-4 pb-24">
+  <main class="mx-auto max-w-6xl px-5 pb-24">
     <section class="page-hero text-center">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-white">Store</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">One purchase. Lifetime.</h1>
-      <p class="mt-3 text-neutral-400">Elux Tweaks is a one-time buy. Your licence is delivered instantly at checkout.</p>
+      <p class="kicker">Pricing</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">Pay once. Keep it.</h1>
+      <p class="mt-3 text-neutral-400">Lifetime licence. Delivered instantly at checkout.</p>
     </section>
-    <div class="mx-auto grid max-w-xl gap-5">
-      <aside class="buy-card rounded-[1.6rem] p-6 sm:p-8">
-        <div class="relative z-10">
-          <div class="flex items-center justify-between">
-            <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">Lifetime</span>
-            <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-500">One-time</span>
-          </div>
-          <h2 class="mt-4 text-xl font-semibold text-white">Elux Tweaks</h2>
-          <p class="mt-1 text-sm text-neutral-400">Full optimizer. Pay once, keep it forever.</p>
-          <div class="mt-5 flex items-baseline gap-3">
-            <span class="text-4xl font-semibold tracking-tight text-white">£29.99</span>
-          </div>
-          <ul class="mt-6 space-y-2.5 text-sm text-neutral-300">
-            <li class="flex gap-2"><span class="text-white">&#10003;</span> All modules &middot; restore any tweak</li>
-            <li class="flex gap-2"><span class="text-white">&#10003;</span> Hardware-locked licence</li>
-            <li class="flex gap-2"><span class="text-white">&#10003;</span> Lifetime updates</li>
-            <li class="flex gap-2"><span class="text-white">&#10003;</span> Licence delivered instantly at checkout</li>
-          </ul>
-          <a href="https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322" target="_blank" rel="noopener" class="mt-6 flex w-full items-center justify-center rounded-xl btn-primary py-3.5 text-sm font-semibold" data-sellauth-shop="209294" data-sellauth-shop-url="https://eluxoptimisations.mysellauth.com" data-sellauth-product="588116" data-sellauth-variant="912032" data-sellauth-theme="dark" data-sellauth-skip-cart="true">Continue to checkout</a>
-        </div>
+    <div class="mx-auto max-w-md">
+      <aside class="buy-card">
+        <span class="plan-tag">Lifetime licence</span>
+        <h2>Elux Tweaks</h2>
+        <p class="mt-1 text-sm text-neutral-400">Full optimizer. Hardware-locked to your PC.</p>
+        <div class="price">&pound;29.99</div>
+        <ul class="buy-list">
+          <li>All modules, restore any tweak</li>
+          <li>Lifetime updates</li>
+          <li>Licence delivered instantly</li>
+          <li>Discord support</li>
+        </ul>
+        <a href="https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322" target="_blank" rel="noopener" class="btn-primary" data-sellauth-shop="209294" data-sellauth-shop-url="https://eluxoptimisations.mysellauth.com" data-sellauth-product="588116" data-sellauth-variant="912032" data-sellauth-theme="dark" data-sellauth-skip-cart="true">Continue to checkout</a>
       </aside>
     </div>
   </main>
 
-  <footer class="border-t border-white/5">
-    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-neutral-500">
+  <footer class="site-footer">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-neutral-500">
       <p>&copy; <span id="year">2026</span> Elux Optimizations</p>
       <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
     </div>
   </footer>
   <script src="https://static.sellauth.com/embed/v3.min.js" defer></script>
-  <script src="/main.js"></script>
+  <script src="/main.js?v=bw10"></script>
 </body>
 </html>

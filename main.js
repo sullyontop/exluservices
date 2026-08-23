@@ -3,6 +3,7 @@ const ELUX = {
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
     showcase: "https://youtu.be/GVrvasacbLc",
+  promoCode: "Elux10%",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
   },
@@ -59,6 +60,18 @@ function mediaCard(m) {
 }
 
 const VOUCHES = [
+  { n: "ٴٴٴٴ [vet]", i: "VE", t: "10/10 tweaks dont trust tweaks but this one worked 100%" },
+  { n: "5 [4KT]", i: "5", t: "10/10 — Honestly, I don't usually trust tweaks, but this one genuinely surprised me. Everything works exactly as advertised, the performance improvements are noticeable, and the whole setup feels smooth and reliable. For the price, it's easily one of the best tweaks I've tried and definitely worth every penny. If you're looking for something that actually delivers instead of wasting your money, I'd 100% recommend giving this one a try." },
+  { n: "A [4EVA]", i: "A", t: "10/10 — Honestly, I don't usually trust tweaks, but this one genuinely surprised me. Everything works exactly as advertised, the performance improvements are noticeable, and the whole setup feels smooth and reliable. For the price, it's easily one of the best tweaks I've tried and definitely worth every penny. If you're looking for something that actually delivers instead of wasting your money, I'd 100% recommend giving this one a try." },
+  { n: "D A R X [DxS]", i: "DA", t: "10/10 tweaks dont trust tweks but this one works 100% worth the price" },
+  { n: "znxybot 23.", i: "ZN", t: "honestly best tweaks ever over the years ive used a lot of tweaks and nothing hits the same then elux" },
+  { n: "cheaper [CHPR]", i: "CH", t: "boosted fps good aim" },
+  { n: "admire me [NYC]", i: "AM", t: "boosted Fps Alot 10/10 Will Recommend Buying." },
+  { n: "maxprof [ʙᴀʟʟ]", i: "MA", t: "100% worth the money, dropped me nearly 100 processes, its only £30 and he is the only person i will let touch my pc super trustworthy if you dont buy your missing out" },
+  { n: "z1ku [VTWK]", i: "Z1", t: "holy shi ong best ever" },
+  { n: "sludxd", i: "SL", t: "bought this with little hope not expecting much but i was so shocked with the results 1000% rec @elux hes the best!!!!" },
+  { n: "Plaznium", i: "PL", t: "bought this not expecting much but i was shocked its so good i gained 150 fps i 1000% rec appreciate it bro! @elux" },
+  { n: "•", i: "•", t: "#1 Opti tool on the market made me go from 265 processes to just 94 and ts boosted my fps from 120 to 300 100% would recommend it to anyone whose tryna get a good opti much appreciated @elux" },
   { n: "hush money [ʙᴀʟʟ]", i: "HM", t: "hit this guy up for ur optis 10/10 went from 100 fps to 250 stable" },
   { n: "!$ammy [CMBT]", i: "SA", t: "@elux 10/10 so much smoother doubled my fps" },
   { n: "Billy Wick [exe]", i: "BW", t: "tap in with @elux if you're tired of a slow PC that runs 20+ fps. he boosts your stuff with at least 120+ fps" },
@@ -96,7 +109,7 @@ const VOUCHES = [
 ];
 
 function vouchCard(v) {
-  return `<article class="vouch-card"><div class="mb-3 text-white">★★★★★</div><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -150,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
-  startStars();
+  setupPromo();
 });
 
 function ytCard(v) {
@@ -208,128 +221,79 @@ function setupShowcase() {
   });
 }
 
-function startStars() {
-  const canvas = document.getElementById("rain");
-  if (!canvas) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+function setupPromo() {
+  const key = "elux_promo_closed";
+  const code = ELUX.promoCode || "Elux10%";
+  if (localStorage.getItem(key) === "1") return;
 
-  const ctx = canvas.getContext("2d");
-  const stars = [];
-  const shots = [];
-  let w = 0;
-  let h = 0;
-  let mx = 0.5;
-  let my = 0.5;
-  let tx = 0.5;
-  let ty = 0.5;
+  const root = document.createElement("div");
+  root.className = "promo-overlay is-hidden";
+  root.setAttribute("role", "dialog");
+  root.setAttribute("aria-modal", "true");
+  root.setAttribute("aria-labelledby", "promo-title");
+  root.innerHTML = `
+    <div class="promo-card">
+      <button type="button" class="promo-close" aria-label="Close">&times;</button>
+      <h2 id="promo-title">Welcome to Elux Tweaks</h2>
+      <p class="promo-lead">Sign up and get <strong>10% off</strong>. Subscribe and we give you a code for checkout.</p>
+      <form class="promo-form" novalidate>
+        <label class="promo-field">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M4 7l8 6 8-6"/></svg>
+          <input type="email" name="email" autocomplete="email" placeholder="youremail@email.com" required />
+        </label>
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="promo-error" aria-live="polite"></p>
+      <div class="promo-ticket" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="7" r="2.2"/><circle cx="6" cy="17" r="2.2"/><path d="M8 8.5 16 16.5M8 15.5 16 7.5"/></svg>
+        <span data-promo-code>&mdash;&mdash;&mdash;&mdash;</span>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(root);
 
-  const spawn = (s, layer) => {
-    s.x = Math.random();
-    s.y = Math.random();
-    s.layer = layer;
-    s.r = layer === 0 ? 0.35 + Math.random() * 0.45
-      : layer === 1 ? 0.6 + Math.random() * 0.7
-        : 0.9 + Math.random() * 1.15;
-    s.base = layer === 0 ? 0.12 + Math.random() * 0.22
-      : layer === 1 ? 0.28 + Math.random() * 0.32
-        : 0.5 + Math.random() * 0.45;
-    s.tw = Math.random() * Math.PI * 2;
-    s.spd = 0.006 + Math.random() * 0.014;
-    s.vx = (Math.random() - 0.5) * 0.00008 * (layer + 1);
-    s.vy = 0.00004 + Math.random() * 0.00008;
-    s.glow = layer === 2 && Math.random() < 0.4;
+  const card = root.querySelector(".promo-card");
+  const form = root.querySelector(".promo-form");
+  const input = root.querySelector("input");
+  const error = root.querySelector(".promo-error");
+  const codeEl = root.querySelector("[data-promo-code]");
+  const closeBtn = root.querySelector(".promo-close");
+
+  const open = () => {
+    root.classList.remove("is-hidden");
+    document.body.classList.add("promo-open");
   };
 
-  const spawnShot = () => {
-    shots.push({
-      x: Math.random() * w * 0.85,
-      y: Math.random() * h * 0.35,
-      len: 70 + Math.random() * 90,
-      speed: 6 + Math.random() * 5,
-      life: 1,
-      ang: Math.PI * 0.18 + Math.random() * 0.12,
-    });
+  const close = () => {
+    root.classList.add("is-hidden");
+    document.body.classList.remove("promo-open");
+    localStorage.setItem(key, "1");
   };
 
-  const resize = () => {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    stars.length = 0;
-    const area = w * h;
-    const far = Math.round(Math.min(90, Math.max(40, area / 18000)));
-    const mid = Math.round(Math.min(50, Math.max(22, area / 32000)));
-    const near = Math.round(Math.min(22, Math.max(8, area / 70000)));
-    for (let i = 0; i < far; i++) { const s = {}; spawn(s, 0); stars.push(s); }
-    for (let i = 0; i < mid; i++) { const s = {}; spawn(s, 1); stars.push(s); }
-    for (let i = 0; i < near; i++) { const s = {}; spawn(s, 2); stars.push(s); }
-  };
-
-  window.addEventListener("resize", resize);
-  window.addEventListener("pointermove", (e) => {
-    tx = e.clientX / Math.max(w, 1);
-    ty = e.clientY / Math.max(h, 1);
+  closeBtn.addEventListener("click", close);
+  root.addEventListener("click", (e) => {
+    if (!card.contains(e.target)) close();
   });
-  resize();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !root.classList.contains("is-hidden")) close();
+  });
 
-  const tick = () => {
-    mx += (tx - mx) * 0.035;
-    my += (ty - my) * 0.035;
-    ctx.clearRect(0, 0, w, h);
-
-    for (const s of stars) {
-      s.tw += s.spd;
-      s.x += s.vx;
-      s.y += s.vy;
-      if (s.x < 0) s.x += 1;
-      if (s.x > 1) s.x -= 1;
-      if (s.y > 1) s.y -= 1;
-
-      const par = (s.layer + 1) * 16;
-      const px = s.x * w + (mx - 0.5) * par;
-      const py = s.y * h + (my - 0.5) * par;
-      const a = s.base * (0.45 + 0.55 * (0.5 + 0.5 * Math.sin(s.tw)));
-
-      if (s.glow) {
-        const g = ctx.createRadialGradient(px, py, 0, px, py, s.r * 7);
-        g.addColorStop(0, `rgba(255,255,255,${a * 0.28})`);
-        g.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(px, py, s.r * 7, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.fillStyle = `rgba(255,255,255,${a})`;
-      ctx.beginPath();
-      ctx.arc(px, py, s.r, 0, Math.PI * 2);
-      ctx.fill();
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = (input.value || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      error.textContent = "Enter a valid email.";
+      input.focus();
+      return;
     }
+    error.textContent = "Enter this code at checkout.";
+    codeEl.textContent = code;
+    try { navigator.clipboard.writeText(code); } catch (_) {}
+    form.querySelector("button[type='submit']").textContent = "Copied " + code;
+    localStorage.setItem(key, "1");
+  });
 
-    if (Math.random() < 0.004 && shots.length < 2) spawnShot();
-    for (let i = shots.length - 1; i >= 0; i--) {
-      const sh = shots[i];
-      sh.x += Math.cos(sh.ang) * sh.speed;
-      sh.y += Math.sin(sh.ang) * sh.speed;
-      sh.life -= 0.016;
-      const alpha = Math.max(0, sh.life);
-      ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.7})`;
-      ctx.lineWidth = 1.2;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(sh.x, sh.y);
-      ctx.lineTo(sh.x - Math.cos(sh.ang) * sh.len, sh.y - Math.sin(sh.ang) * sh.len);
-      ctx.stroke();
-      if (sh.life <= 0 || sh.x > w + 80 || sh.y > h + 80) shots.splice(i, 1);
-    }
-
-    requestAnimationFrame(tick);
-  };
-
-  requestAnimationFrame(tick);
+  const wait = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1600;
+  setTimeout(open, wait);
 }
+

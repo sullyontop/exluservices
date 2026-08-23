@@ -4,84 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Features | Elux Tweaks</title>
-  <meta name="description" content="Instant delivery, reversible Windows tweaks, FPS, latency, debloat, and 24/7 Discord support." />
-  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta name="description" content="Instant delivery, reversible Windows tweaks, FPS, latency, debloat, and Discord support." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=bw6" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=bw6" />
   <meta name="theme-color" content="#000000" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elux Tweaks" />
   <meta property="og:title" content="Elux Tweaks" />
-  <meta property="og:description" content="Premium Windows PC optimizer. Lifetime licence, instant delivery, 150+ vouches." />
+  <meta property="og:description" content="Windows PC optimizer. Lifetime licence, instant delivery, 150+ vouches." />
   <meta property="og:image" content="https://elux-optimizations.onrender.com/elux-banner.gif" />
-  <meta property="og:image:type" content="image/gif" />
-  <meta property="og:image:width" content="728" />
-  <meta property="og:image:height" content="178" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://elux-optimizations.onrender.com/elux-banner.gif" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Outfit","Inter","sans-serif"]}}}};</script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=bw5" />
+  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
+  <link rel="stylesheet" href="/style.css?v=bw10" />
 </head>
-<body class="min-h-screen antialiased font-outfit text-neutral-100 bg-black">
-  <canvas id="rain" aria-hidden="true"></canvas>
-  <header class="sticky top-0 z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
-    <div class="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
-      <a href="/" class="flex items-center gap-2.5 group">
-        <img src="/logo.png" alt="Elux Optimizations" class="logo-mark" />
-        <span class="hidden sm:block"><span class="block text-sm font-semibold text-white">Elux Optimizations</span><span class="block text-[10px] uppercase tracking-[0.28em] text-white/50">Elux Tweaks</span></span>
-      </a>
-      <nav class="hidden items-center gap-1 md:flex">
-        <a href="/" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Home</a>
-        <a href="/features" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Features</a>
-        <a href="/vouches" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Vouches</a>
-        <a href="/pricing" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Pricing</a>
-        <a href="/media" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Media</a>
-        <a href="/discord" class="nav-link rounded-md px-3 py-1.5 text-xs font-medium text-neutral-400 hover:bg-white/5">Discord</a>
+<body class="min-h-screen antialiased font-outfit text-white bg-black">
+  <header class="site-header">
+    <div class="site-bar">
+      <a href="/" class="brand"><img src="/logo.png?v=bw6" alt="" /><span>Elux Tweaks</span></a>
+      <nav class="site-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/features" class="nav-link">Features</a>
+        <a href="/vouches" class="nav-link">Vouches</a>
+        <a href="/pricing" class="nav-link">Pricing</a>
+        <a href="/media" class="nav-link">Media</a>
+        <a href="/discord" class="nav-link">Discord</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <a href="/#buy" class="hidden sm:inline-flex h-9 items-center rounded-full bg-white px-4 text-xs font-semibold text-black">Buy £29.99</a>
-        <a href="/discord" class="hidden sm:inline-flex h-9 items-center rounded-full border border-white/15 bg-transparent px-4 text-xs font-medium text-neutral-200 hover:border-white/30">Join Discord</a>
-        <button id="mobile-toggle" class="rounded-md p-2 md:hidden" aria-label="Menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
+      <div class="site-actions">
+        <a href="/#buy" class="btn-buy">Buy &pound;29.99</a>
+        <a href="/discord" class="btn-outline">Discord</a>
+        <button type="button" id="mobile-toggle" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
       </div>
     </div>
-    <div id="mobile-menu" class="hidden border-t border-white/5 px-4 py-3 md:hidden">
-      <a href="/" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Home</a>
-      <a href="/features" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Features</a>
-      <a href="/vouches" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Vouches</a>
-      <a href="/pricing" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Pricing</a>
-      <a href="/media" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Media</a>
-      <a href="/discord" class="block rounded-md px-3 py-2 text-sm text-neutral-300">Discord</a>
-    </div>
+    <nav id="mobile-menu" class="mobile-menu hidden">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/vouches">Vouches</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/media">Media</a>
+      <a href="/discord">Discord</a>
+    </nav>
   </header>
 
-  <main class="mx-auto max-w-6xl px-4 pb-24">
+  <main class="mx-auto max-w-6xl px-5 pb-24">
     <section class="page-hero">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-white">Why Elux</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">Built to feel expensive. Tuned to play faster.</h1>
-      <p class="mt-4 max-w-2xl text-neutral-400">Everything you need from a PC optimizer · without the guesswork, scripts, or waiting around.</p>
+      <p class="kicker">What it does</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">FPS, latency, and Windows cleanup.</h1>
+      <p class="mt-4 max-w-2xl text-neutral-400">Desktop app. Every tweak can be restored. Licence comes through at checkout.</p>
     </section>
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="zap" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Instant Delivery</h2><p class="mt-2 text-sm font-light text-neutral-400">Pay at checkout and your licence is delivered instantly. No waiting, no tickets.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="cpu" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Best PC Optimizer</h2><p class="mt-2 text-sm font-light text-neutral-400">A real desktop app for FPS, latency, debloat, game settings, and Windows tweaks.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="headset" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">24/7 Support</h2><p class="mt-2 text-sm font-light text-neutral-400">Help with setup, licenses, and which tweaks to run. A person actually reads it.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="badge-check" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">150+ Vouches</h2><p class="mt-2 text-sm font-light text-neutral-400">Players on FiveM, Rust, TMF and more posting real FPS jumps after one opti.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="shield-check" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Trusted</h2><p class="mt-2 text-sm font-light text-neutral-400">Hardware-locked licenses, reversible tweaks, and people who come back after every factory reset.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="gauge" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Smoother FPS</h2><p class="mt-2 text-sm font-light text-neutral-400">Fewer background processes, less stutter, and frame rates that actually hold in-game.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="trash-2" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Safe Debloat</h2><p class="mt-2 text-sm font-light text-neutral-400">Consumer junk and telemetry go. Store and GPU drivers stay.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="wifi" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Low latency stack</h2><p class="mt-2 text-sm font-light text-neutral-400">Flush DNS, Nagle off, TCP tweaks. Safe anytime, reversible.</p></article>
-      <article class="glow-card rounded-2xl p-6"><div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white"><i data-lucide="gamepad-2" class="h-5 w-5"></i></div><h2 class="text-lg font-medium text-white">Game Settings</h2><p class="mt-2 text-sm font-light text-neutral-400">GPU scheduling, TDR delay, Game DVR off, Game Mode on.</p></article>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="glow-card"><h2>Instant delivery</h2><p class="mt-2 text-sm text-neutral-400">Pay at checkout and the licence is sent straight away.</p></article>
+      <article class="glow-card"><h2>Desktop optimizer</h2><p class="mt-2 text-sm text-neutral-400">FPS, latency, debloat, game settings, and Windows tweaks in one app.</p></article>
+      <article class="glow-card"><h2>Discord support</h2><p class="mt-2 text-sm text-neutral-400">Setup, licences, and which tweaks to run. Someone actually reads it.</p></article>
+      <article class="glow-card"><h2>150+ vouches</h2><p class="mt-2 text-sm text-neutral-400">FiveM, Rust, TMF and more. Real FPS jumps after one opti.</p></article>
+      <article class="glow-card"><h2>Hardware lock</h2><p class="mt-2 text-sm text-neutral-400">Licence stays on your PC. Tweaks are reversible.</p></article>
+      <article class="glow-card"><h2>Smoother FPS</h2><p class="mt-2 text-sm text-neutral-400">Fewer background processes, less stutter, frames that hold in-game.</p></article>
+      <article class="glow-card"><h2>Debloat</h2><p class="mt-2 text-sm text-neutral-400">Consumer junk and telemetry go. Store and GPU drivers stay.</p></article>
+      <article class="glow-card"><h2>Latency</h2><p class="mt-2 text-sm text-neutral-400">Flush DNS, Nagle off, TCP tweaks. Safe anytime, reversible.</p></article>
+      <article class="glow-card"><h2>Game settings</h2><p class="mt-2 text-sm text-neutral-400">GPU scheduling, TDR delay, Game DVR off, Game Mode on.</p></article>
     </div>
   </main>
 
-  <footer class="border-t border-white/5">
-    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-neutral-500">
+  <footer class="site-footer">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-neutral-500">
       <p>&copy; <span id="year">2026</span> Elux Optimizations</p>
       <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
     </div>
   </footer>
-  <script src="/main.js"></script>
+  <script src="/main.js?v=bw10"></script>
 </body>
 </html>
