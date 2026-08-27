@@ -240,7 +240,7 @@ function setupRain() {
   let running = true;
   let last = 0;
 
-  const dropCount = () => Math.min(240, Math.max(64, Math.round((w * h) / 8500)));
+  const dropCount = () => Math.min(120, Math.max(40, Math.round((w * h) / 14000)));
 
   const makeDrop = () => ({
     x: Math.random() * w,
@@ -248,7 +248,7 @@ function setupRain() {
     len: 12 + Math.random() * 26,
     speed: 620 + Math.random() * 880,
     thick: 0.55 + Math.random() * 1.05,
-    alpha: 0.1 + Math.random() * 0.28,
+    alpha: 0.06 + Math.random() * 0.16,
     wind: 16 + Math.random() * 32,
   });
 

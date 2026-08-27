@@ -14,7 +14,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=pg4" />
+  <link rel="stylesheet" href="/style.css?v=pg6" />
 </head>
 <body class="antialiased font-outfit text-white">
   <header class="site-header">
@@ -46,6 +46,8 @@
 
   <main>
     <section class="showcase-band" id="showcase">
+      <p class="band-label">Showcase</p>
+      <h1 class="hero-headline" style="font-size:clamp(2.2rem,6vw,4.4rem);margin-bottom:1.6rem;">See it run.</h1>
       <div class="showcase-player">
         <video id="showcase-video" poster="/showcase.jpg?v=gv1" playsinline preload="metadata">
           <source src="/showcase.mp4?v=gv1" type="video/mp4" />
@@ -63,15 +65,15 @@
       <h2>FPS, latency, and Windows cleanup.</h2>
       <p class="lead">Desktop app. Every tweak can be restored. Licence comes through at checkout.</p>
       <div class="why-grid">
-        <div><h3>Instant delivery</h3><p>Pay at checkout and the licence is sent straight away.</p></div>
-        <div><h3>Desktop optimizer</h3><p>FPS, latency, debloat, game settings, and Windows tweaks in one app.</p></div>
-        <div><h3>Discord support</h3><p>Setup, licences, and which tweaks to run. Someone actually reads it.</p></div>
-        <div><h3>150+ vouches</h3><p>FiveM, Rust, TMF and more. Real FPS jumps after one opti.</p></div>
-        <div><h3>Hardware lock</h3><p>Licence stays on your PC. Tweaks are reversible.</p></div>
-        <div><h3>Smoother FPS</h3><p>Fewer background processes, less stutter, frames that hold in-game.</p></div>
-        <div><h3>Debloat</h3><p>Consumer junk and telemetry go. Store and GPU drivers stay.</p></div>
-        <div><h3>Latency</h3><p>Flush DNS, Nagle off, TCP tweaks. Safe anytime, reversible.</p></div>
-        <div><h3>Game settings</h3><p>GPU scheduling, TDR delay, Game DVR off, Game Mode on.</p></div>
+        <article class="info-card"><span class="info-num">01</span><h3>Instant delivery</h3><p>Pay at checkout and the licence is sent straight away.</p></article>
+        <article class="info-card"><span class="info-num">02</span><h3>Desktop optimizer</h3><p>FPS, latency, debloat, game settings, and Windows tweaks in one app.</p></article>
+        <article class="info-card"><span class="info-num">03</span><h3>Discord support</h3><p>Setup, licences, and which tweaks to run. Someone actually reads it.</p></article>
+        <article class="info-card"><span class="info-num">04</span><h3>150+ vouches</h3><p>FiveM, Rust, TMF and more. Real FPS jumps after one opti.</p></article>
+        <article class="info-card"><span class="info-num">05</span><h3>Hardware lock</h3><p>Licence stays on your PC. Tweaks are reversible.</p></article>
+        <article class="info-card"><span class="info-num">06</span><h3>Smoother FPS</h3><p>Fewer background processes, less stutter, frames that hold in-game.</p></article>
+        <article class="info-card"><span class="info-num">07</span><h3>Debloat</h3><p>Consumer junk and telemetry go. Store and GPU drivers stay.</p></article>
+        <article class="info-card"><span class="info-num">08</span><h3>Latency</h3><p>Flush DNS, Nagle off, TCP tweaks. Safe anytime, reversible.</p></article>
+        <article class="info-card"><span class="info-num">09</span><h3>Game settings</h3><p>GPU scheduling, TDR delay, Game DVR off, Game Mode on.</p></article>
       </div>
     </section>
   </main>
@@ -82,6 +84,6 @@
       <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
     </div>
   </footer>
-  <script src="/main.js?v=pg3"></script>
+  <script src="/main.js?v=pg5"></script>
 </body>
 </html>
