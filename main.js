@@ -38,6 +38,16 @@ const YT_VIDEOS = [
     title: "FiveM 2026: Best Optimizer Settings for Zero Ping and Max Performance",
     creator: "Sammy",
   },
+  {
+    id: "KtEgY7zmzUw",
+    title: "FiveM | BEST Optimizations + Best Optimisation tool (2026!)",
+    creator: "Elux",
+  },
+  {
+    id: "42mNc10fZgA",
+    title: "How To Boost FPS in Valorant 2026! (UPDATED)",
+    creator: "Elux",
+  },
 ];
 
 const TIKTOK_ICON = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M14.5 3h2.1c.2 1.5 1.1 2.8 2.4 3.6 1 .6 2.1.9 3.2.9V10c-1.5 0-3-.4-4.3-1.2v6.7A6.6 6.6 0 1 1 11 9.1V12a3.7 3.7 0 1 0 2.6 3.5V3z"/></svg>';
@@ -165,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
-  setupPromo();
   setupRain();
 });
 
@@ -333,81 +342,5 @@ function setupRain() {
 
   resize();
   requestAnimationFrame(frame);
-}
-
-function setupPromo() {
-  const key = "elux_promo_closed";
-  const code = ELUX.promoCode || "Elux10%";
-  if (localStorage.getItem(key) === "1") return;
-
-  const root = document.createElement("div");
-  root.className = "promo-overlay is-hidden";
-  root.setAttribute("role", "dialog");
-  root.setAttribute("aria-modal", "true");
-  root.setAttribute("aria-labelledby", "promo-title");
-  root.innerHTML = `
-    <div class="promo-card">
-      <button type="button" class="promo-close" aria-label="Close">&times;</button>
-      <h2 id="promo-title">Welcome to Elux Tweaks</h2>
-      <p class="promo-lead">Sign up and get <strong>10% off</strong>. Subscribe and we give you a code for checkout.</p>
-      <form class="promo-form" novalidate>
-        <label class="promo-field">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M4 7l8 6 8-6"/></svg>
-          <input type="email" name="email" autocomplete="email" placeholder="youremail@email.com" required />
-        </label>
-        <button type="submit">Subscribe</button>
-      </form>
-      <p class="promo-error" aria-live="polite"></p>
-      <div class="promo-ticket" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="7" r="2.2"/><circle cx="6" cy="17" r="2.2"/><path d="M8 8.5 16 16.5M8 15.5 16 7.5"/></svg>
-        <span data-promo-code>&mdash;&mdash;&mdash;&mdash;</span>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(root);
-
-  const card = root.querySelector(".promo-card");
-  const form = root.querySelector(".promo-form");
-  const input = root.querySelector("input");
-  const error = root.querySelector(".promo-error");
-  const codeEl = root.querySelector("[data-promo-code]");
-  const closeBtn = root.querySelector(".promo-close");
-
-  const open = () => {
-    root.classList.remove("is-hidden");
-    document.body.classList.add("promo-open");
-  };
-
-  const close = () => {
-    root.classList.add("is-hidden");
-    document.body.classList.remove("promo-open");
-    localStorage.setItem(key, "1");
-  };
-
-  closeBtn.addEventListener("click", close);
-  root.addEventListener("click", (e) => {
-    if (!card.contains(e.target)) close();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !root.classList.contains("is-hidden")) close();
-  });
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = (input.value || "").trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      error.textContent = "Enter a valid email.";
-      input.focus();
-      return;
-    }
-    error.textContent = "Enter this code at checkout.";
-    codeEl.textContent = code;
-    try { navigator.clipboard.writeText(code); } catch (_) {}
-    form.querySelector("button[type='submit']").textContent = "Copied " + code;
-    localStorage.setItem(key, "1");
-  });
-
-  const wait = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1600;
-  setTimeout(open, wait);
 }
 
