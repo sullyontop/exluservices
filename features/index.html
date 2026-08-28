@@ -14,7 +14,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=pg9" />
+  <link rel="stylesheet" href="/style.css?v=pg12" />
 </head>
 <body class="antialiased font-outfit text-white">
   <header class="site-header">
@@ -49,10 +49,10 @@
       <p class="band-label">Showcase</p>
       <h1 class="hero-headline" style="font-size:clamp(2.2rem,6vw,4.4rem);margin-bottom:1.6rem;">See it run.</h1>
       <div class="showcase-player">
-        <video id="showcase-video" poster="/showcase.jpg?v=gv1" playsinline preload="metadata">
+        <video id="showcase-video" poster="/showcase.jpg?v=gv1" autoplay muted loop playsinline preload="auto">
           <source src="/showcase.mp4?v=gv1" type="video/mp4" />
         </video>
-        <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase">
+        <button type="button" id="showcase-play" class="showcase-play is-hidden" aria-label="Play showcase">
           <span class="showcase-veil" aria-hidden="true"></span>
           <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
         </button>
@@ -84,6 +84,6 @@
       <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
     </div>
   </footer>
-  <script src="/main.js?v=pg9"></script>
+  <script src="/main.js?v=pg12"></script>
 </body>
 </html>

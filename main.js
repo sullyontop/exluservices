@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupYtVideos();
   setupShowcase();
   setupAtmosphere();
+  setupAppBackdrop();
 });
 
 function ytCard(v) {
@@ -212,25 +213,213 @@ function setupYtVideos() {
 function setupShowcase() {
   const video = document.getElementById("showcase-video");
   const btn = document.getElementById("showcase-play");
-  if (!video || !btn) return;
+  if (!video) return;
 
-  const play = () => {
-    btn.classList.add("is-hidden");
-    video.setAttribute("controls", "");
-    const start = video.play();
-    if (start && start.catch) start.catch(() => {});
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+
+  const hideOverlay = () => {
+    if (btn) btn.classList.add("is-hidden");
+  };
+  const showOverlay = () => {
+    if (btn) btn.classList.remove("is-hidden");
   };
 
-  btn.addEventListener("click", play);
-  video.addEventListener("play", () => btn.classList.add("is-hidden"));
-  video.addEventListener("pause", () => {
-    if (video.currentTime < 0.2) btn.classList.remove("is-hidden");
+  const tryPlay = () => {
+    const start = video.play();
+    if (start && start.then) start.then(hideOverlay).catch(showOverlay);
+    else hideOverlay();
+  };
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      video.muted = true;
+      video.volume = 0;
+      tryPlay();
+    });
+  }
+
+  video.addEventListener("playing", hideOverlay);
+  tryPlay();
+}
+
+function setupAppBackdrop() {
+  const wrap = document.createElement("div");
+  wrap.id = "app-backdrop";
+  wrap.setAttribute("aria-hidden", "true");
+  wrap.setAttribute("inert", "");
+  wrap.innerHTML = `
+    <div class="app-stage">
+      <div class="app-window">
+        <aside class="app-side">
+          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>v2.0</span></div></div>
+          <nav>
+            <span class="is-on"><i></i>Home</span>
+            <span><i></i>Optimization</span>
+            <span><i></i>Cleanup</span>
+            <span><i></i>Advanced Tweaks</span>
+            <span><i></i>Gaming Tweaks</span>
+            <span><i></i>Service Tweaks</span>
+            <span><i></i>Display</span>
+            <span><i></i>Debloat</span>
+            <span><i></i>System Info</span>
+            <span><i></i>Support</span>
+            <span><i></i>Settings</span>
+          </nav>
+        </aside>
+        <div class="app-main">
+          <header class="app-head">
+            <div>
+              <p class="app-hi">Welcome back eluxog</p>
+              <p class="app-sub">I hope you are enjoying Elux optimizations</p>
+            </div>
+          </header>
+          <div class="app-gauges">
+            <article class="app-gauge" data-g="cpu">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="12 100" />
+                </svg>
+                <span class="g-val">12%</span>
+              </div>
+              <span class="g-label">CPU Usage</span>
+            </article>
+            <article class="app-gauge" data-g="gpu">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="13 100" />
+                </svg>
+                <span class="g-val">13%</span>
+              </div>
+              <span class="g-label">GPU Usage</span>
+            </article>
+            <article class="app-gauge" data-g="ram">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="69 100" />
+                </svg>
+                <span class="g-val">69%</span>
+              </div>
+              <span class="g-label">RAM Usage</span>
+            </article>
+          </div>
+          <div class="app-lower">
+            <article class="app-chart">
+              <div class="app-chart-top">
+                <p>GPU Usage</p>
+                <div class="app-toggles"><span>CPU</span><span class="on">GPU</span><span>RAM</span></div>
+              </div>
+              <canvas class="app-graph" width="640" height="220"></canvas>
+            </article>
+            <article class="app-spotify">
+              <div class="spot-art">♪</div>
+              <p class="spot-title">Nothing playing</p>
+              <p class="spot-sub">Open Spotify to start</p>
+              <div class="spot-ctrls"><span></span><span class="play"></span><span></span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const canvas = document.getElementById("bg-canvas");
+  if (canvas) canvas.after(wrap);
+  else document.body.prepend(wrap);
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gauges = {
+    cpu: wrap.querySelector('[data-g="cpu"]'),
+    gpu: wrap.querySelector('[data-g="gpu"]'),
+    ram: wrap.querySelector('[data-g="ram"]'),
+  };
+  const graph = wrap.querySelector(".app-graph");
+  const gctx = graph.getContext("2d");
+  const hist = Array.from({ length: 64 }, () => 13 + Math.random() * 6);
+
+  const state = { cpu: 12, gpu: 13, ram: 69 };
+
+  const setGauge = (el, value) => {
+    const n = Math.round(value);
+    el.querySelector(".g-fill").setAttribute("stroke-dasharray", `${Math.max(2, value).toFixed(1)} 100`);
+    el.querySelector(".g-val").textContent = n + "%";
+  };
+
+  const drawGraph = () => {
+    const w = graph.width;
+    const h = graph.height;
+    gctx.clearRect(0, 0, w, h);
+    gctx.strokeStyle = "rgba(255,255,255,0.06)";
+    gctx.lineWidth = 1;
+    for (let i = 1; i < 4; i++) {
+      const y = (h / 4) * i;
+      gctx.beginPath();
+      gctx.moveTo(0, y);
+      gctx.lineTo(w, y);
+      gctx.stroke();
+    }
+    gctx.beginPath();
+    hist.forEach((v, i) => {
+      const x = (i / (hist.length - 1)) * w;
+      const y = h - (v / 100) * (h * 0.78) - h * 0.1;
+      if (i === 0) gctx.moveTo(x, y);
+      else gctx.lineTo(x, y);
+    });
+    gctx.strokeStyle = "#fff";
+    gctx.lineWidth = 2.4;
+    gctx.lineJoin = "round";
+    gctx.stroke();
+    const last = hist[hist.length - 1];
+    const lx = w;
+    const ly = h - (last / 100) * (h * 0.78) - h * 0.1;
+    gctx.fillStyle = "#fff";
+    gctx.beginPath();
+    gctx.arc(lx - 2, ly, 3.2, 0, Math.PI * 2);
+    gctx.fill();
+  };
+
+  if (reduced) {
+    setGauge(gauges.cpu, 12);
+    setGauge(gauges.gpu, 13);
+    setGauge(gauges.ram, 69);
+    drawGraph();
+    return;
+  }
+
+  let running = true;
+  let lastSample = 0;
+  const tick = (now) => {
+    if (!running) return;
+    requestAnimationFrame(tick);
+    const t = now / 1000;
+    state.cpu = 18 + Math.sin(t * 1.05) * 11 + Math.sin(t * 2.35) * 4;
+    state.gpu = 24 + Math.sin(t * 1.28 + 1.2) * 16 + Math.sin(t * 2.7) * 5;
+    state.ram = 64 + Math.sin(t * 0.62 + 2.1) * 11;
+    setGauge(gauges.cpu, state.cpu);
+    setGauge(gauges.gpu, state.gpu);
+    setGauge(gauges.ram, state.ram);
+    if (now - lastSample > 90) {
+      lastSample = now;
+      hist.shift();
+      hist.push(Math.max(6, Math.min(88, state.gpu + Math.sin(t * 3.1) * 3)));
+      drawGraph();
+    }
+  };
+
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden;
+    if (running) requestAnimationFrame(tick);
   });
-  video.addEventListener("ended", () => {
-    video.currentTime = 0;
-    video.removeAttribute("controls");
-    btn.classList.remove("is-hidden");
-  });
+
+  drawGraph();
+  requestAnimationFrame(tick);
 }
 
 function setupAtmosphere() {
