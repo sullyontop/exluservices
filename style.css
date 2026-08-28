@@ -32,8 +32,8 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 42% at 50% -12%, rgba(255, 255, 255, 0.09), transparent 58%),
-    radial-gradient(ellipse 45% 28% at 80% 18%, rgba(255, 255, 255, 0.03), transparent 50%);
+    radial-gradient(ellipse 80% 50% at 78% -8%, rgba(255, 255, 255, 0.06), transparent 62%),
+    radial-gradient(ellipse 50% 36% at 8% 88%, rgba(255, 255, 255, 0.03), transparent 58%);
 }
 
 body::after {
@@ -55,12 +55,12 @@ body::after {
 
 header, main, footer { position: relative; z-index: 2; }
 
-#rain-canvas {
+#bg-canvas {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.18;
+  opacity: 0.58;
   mix-blend-mode: screen;
 }
 
@@ -1272,5 +1272,5 @@ body.promo-open { overflow: hidden; }
   .hero-cta { animation: none; }
   .mobile-menu,
   .mobile-menu a { transition: none; }
-  #rain-canvas { display: none; }
+  #bg-canvas { opacity: 0.32; }
 }

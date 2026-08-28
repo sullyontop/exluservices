@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
-  setupRain();
+  setupAtmosphere();
 });
 
 function ytCard(v) {
@@ -233,52 +233,182 @@ function setupShowcase() {
   });
 }
 
-function setupRain() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
+function setupAtmosphere() {
   const canvas = document.createElement("canvas");
-  canvas.id = "rain-canvas";
+  canvas.id = "bg-canvas";
   canvas.setAttribute("aria-hidden", "true");
   document.body.prepend(canvas);
 
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gl = canvas.getContext("webgl", {
+    alpha: true,
+    antialias: false,
+    depth: false,
+    stencil: false,
+    premultipliedAlpha: true,
+    powerPreference: "low-power",
+  });
+
+  if (!gl) {
+    setupBlobFallback(canvas, reduced);
+    return;
+  }
+
+  const vs = gl.createShader(gl.VERTEX_SHADER);
+  gl.shaderSource(vs, "attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}");
+  gl.compileShader(vs);
+
+  const fs = gl.createShader(gl.FRAGMENT_SHADER);
+  gl.shaderSource(fs, `
+precision highp float;
+uniform vec2 u_res;
+uniform float u_time;
+uniform vec2 u_mouse;
+
+vec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}
+float snoise(vec2 v){
+  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+  vec2 i=floor(v+dot(v,C.yy));
+  vec2 x0=v-i+dot(i,C.xx);
+  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+  vec4 x12=x0.xyxy+C.xxzz;
+  x12.xy-=i1;
+  i=mod(i,289.0);
+  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);
+  m*=m; m*=m;
+  vec3 x=2.0*fract(p*C.www)-1.0;
+  vec3 h=abs(x)-0.5;
+  vec3 ox=floor(x+0.5);
+  vec3 a0=x-ox;
+  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+  vec3 g;
+  g.x=a0.x*x0.x+h.x*x0.y;
+  g.yz=a0.yz*x12.xz+h.yz*x12.yw;
+  return 130.0*dot(m,g);
+}
+
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_res;
+  vec2 p=(uv*2.0-1.0);
+  p.x*=u_res.x/max(u_res.y,1.0);
+
+  float t=u_time*0.11;
+  vec2 m=(u_mouse*2.0-1.0);
+  m.x*=u_res.x/max(u_res.y,1.0);
+  p+=m*0.07;
+
+  float r=length(p);
+  float ang=atan(p.y,p.x)+0.42*sin(t*0.65+r*2.4);
+  vec2 q=vec2(cos(ang),sin(ang))*r;
+
+  float n=0.55+0.45*snoise(q*0.85+vec2(t*0.22,-t*0.16));
+  n+=0.28*snoise(q*1.7-vec2(t*0.18,t*0.12));
+  n+=0.12*snoise(q*3.2+vec2(-t*0.1,t*0.14));
+
+  vec2 b1=vec2(0.62+0.14*sin(t*0.37),0.78+0.1*cos(t*0.31));
+  vec2 b2=vec2(-0.55+0.12*cos(t*0.28),-0.08+0.12*sin(t*0.41));
+  vec2 b3=vec2(0.05+0.1*sin(t*0.22),0.18+0.16*cos(t*0.19));
+  float blob=0.0;
+  blob+=exp(-dot(p-b1,p-b1)*1.15);
+  blob+=0.62*exp(-dot(p-b2,p-b2)*0.82);
+  blob+=0.48*exp(-dot(p-b3,p-b3)*1.05);
+
+  float smoke=clamp(n*0.38+blob*0.78,0.0,1.0);
+  smoke=pow(smoke,1.32);
+  smoke*=0.72+0.28*(1.0-smoothstep(0.2,1.45,r));
+
+  vec3 col=mix(vec3(0.02),vec3(0.92),smoke);
+  float grain=fract(sin(dot(gl_FragCoord.xy+fract(u_time)*97.0,vec2(12.9898,78.233)))*43758.5453);
+  col+=(grain-0.5)*0.07;
+
+  gl_FragColor=vec4(col,smoke*0.92);
+}`);
+  gl.compileShader(fs);
+  if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+    setupBlobFallback(canvas, reduced);
+    return;
+  }
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    setupBlobFallback(canvas, reduced);
+    return;
+  }
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, "a");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  const uRes = gl.getUniformLocation(prog, "u_res");
+  const uTime = gl.getUniformLocation(prog, "u_time");
+  const uMouse = gl.getUniformLocation(prog, "u_mouse");
+
+  let running = !reduced;
+  let mouse = [0.72, 0.78];
+  let mouseTarget = [0.72, 0.78];
+
+  const resize = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = Math.max(1, Math.floor(w * dpr));
+    canvas.height = Math.max(1, Math.floor(h * dpr));
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  };
+
+  const draw = (t) => {
+    mouse[0] += (mouseTarget[0] - mouse[0]) * 0.035;
+    mouse[1] += (mouseTarget[1] - mouse[1]) * 0.035;
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.uniform1f(uTime, t * 0.001);
+    gl.uniform2f(uMouse, mouse[0], mouse[1]);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+
+  const frame = (t) => {
+    if (!running) return;
+    requestAnimationFrame(frame);
+    draw(t);
+  };
+
+  window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("pointermove", (e) => {
+    mouseTarget[0] = e.clientX / Math.max(window.innerWidth, 1);
+    mouseTarget[1] = 1 - e.clientY / Math.max(window.innerHeight, 1);
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden && !reduced;
+    if (running) requestAnimationFrame(frame);
+  });
+
+  resize();
+  draw(0);
+  if (running) requestAnimationFrame(frame);
+}
+
+function setupBlobFallback(canvas, reduced) {
   const ctx = canvas.getContext("2d", { alpha: true });
   let w = 0;
   let h = 0;
-  let drops = [];
-  let splashes = [];
-  let running = true;
-  let last = 0;
-
-  const dropCount = () => Math.min(120, Math.max(40, Math.round((w * h) / 14000)));
-
-  const makeDrop = () => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    len: 12 + Math.random() * 26,
-    speed: 620 + Math.random() * 880,
-    thick: 0.55 + Math.random() * 1.05,
-    alpha: 0.06 + Math.random() * 0.16,
-    wind: 16 + Math.random() * 32,
-  });
-
-  const splash = (x, y) => {
-    const n = 3 + Math.floor(Math.random() * 3);
-    for (let i = 0; i < n; i++) {
-      const a = -Math.PI / 2 + (Math.random() - 0.5) * 1.7;
-      splashes.push({
-        x,
-        y,
-        vx: Math.cos(a) * (36 + Math.random() * 90),
-        vy: Math.sin(a) * (30 + Math.random() * 70) - 18,
-        life: 1,
-        decay: 1.7 + Math.random() * 1.5,
-        r: 0.55 + Math.random() * 1.15,
-      });
-    }
-  };
+  let running = !reduced;
+  const blobs = [
+    { x: 0.78, y: 0.12, r: 0.55, a: 0.22, sx: 0.03, sy: 0.02, p: 0 },
+    { x: 0.18, y: 0.62, r: 0.48, a: 0.14, sx: 0.025, sy: 0.03, p: 2.1 },
+    { x: 0.52, y: 0.42, r: 0.38, a: 0.1, sx: 0.02, sy: 0.018, p: 4.4 },
+  ];
 
   const resize = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     w = window.innerWidth;
     h = window.innerHeight;
     canvas.width = Math.floor(w * dpr);
@@ -286,61 +416,37 @@ function setupRain() {
     canvas.style.width = w + "px";
     canvas.style.height = h + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    drops = Array.from({ length: dropCount() }, makeDrop);
+  };
+
+  const draw = (t) => {
+    ctx.clearRect(0, 0, w, h);
+    const time = t * 0.00012;
+    for (const b of blobs) {
+      const x = (b.x + Math.sin(time + b.p) * b.sx) * w;
+      const y = (b.y + Math.cos(time * 0.85 + b.p) * b.sy) * h;
+      const rad = b.r * Math.max(w, h);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+      g.addColorStop(0, `rgba(255,255,255,${b.a})`);
+      g.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+    }
   };
 
   const frame = (t) => {
     if (!running) return;
     requestAnimationFrame(frame);
-    const dt = Math.min(0.033, (t - last) / 1000 || 0.016);
-    last = t;
-    ctx.clearRect(0, 0, w, h);
-
-    for (const d of drops) {
-      d.y += d.speed * dt;
-      d.x += d.wind * dt;
-      ctx.strokeStyle = `rgba(255,255,255,${d.alpha})`;
-      ctx.lineWidth = d.thick;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      ctx.moveTo(d.x, d.y);
-      ctx.lineTo(d.x - d.wind * 0.045, d.y - d.len);
-      ctx.stroke();
-      if (d.y - d.len > h) {
-        if (Math.random() < 0.32) splash(d.x, h - 2);
-        d.y = -d.len - Math.random() * 90;
-        d.x = Math.random() * w;
-      }
-      if (d.x > w + 16) d.x = -12;
-    }
-
-    for (let i = splashes.length - 1; i >= 0; i--) {
-      const s = splashes[i];
-      s.x += s.vx * dt;
-      s.y += s.vy * dt;
-      s.vy += 420 * dt;
-      s.life -= s.decay * dt;
-      if (s.life <= 0) {
-        splashes.splice(i, 1);
-        continue;
-      }
-      ctx.fillStyle = `rgba(255,255,255,${0.2 * s.life})`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    draw(t);
   };
 
   window.addEventListener("resize", resize, { passive: true });
   document.addEventListener("visibilitychange", () => {
-    running = !document.hidden;
-    if (running) {
-      last = performance.now();
-      requestAnimationFrame(frame);
-    }
+    running = !document.hidden && !reduced;
+    if (running) requestAnimationFrame(frame);
   });
 
   resize();
-  requestAnimationFrame(frame);
+  draw(0);
+  if (running) requestAnimationFrame(frame);
 }
 
