@@ -170,19 +170,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("vouch-col-2"),
     document.getElementById("vouch-col-3"),
     document.getElementById("vouch-col-4"),
+    document.getElementById("vouch-col-5"),
+    document.getElementById("vouch-col-6"),
   ];
   if (vouchCols.every(Boolean)) {
-    const perCol = Math.ceil(VOUCHES.length / 4);
-    const chunks = [[], [], [], []];
+    const numCols = vouchCols.length;
+    const perCol = Math.ceil(VOUCHES.length / numCols);
+    const chunks = Array.from({ length: numCols }, () => []);
     // Round-robin fill, then top up shorter columns by cycling back through
     // the list so every column has the same card count (keeps scroll speed
-    // visually consistent across all four tracks).
-    VOUCHES.forEach((v, i) => chunks[i % 4].push(v));
+    // visually consistent across all tracks).
+    VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
     chunks.forEach((chunk, i) => {
       let cursor = i;
       while (chunk.length < perCol) {
         chunk.push(VOUCHES[cursor % VOUCHES.length]);
-        cursor += 4;
+        cursor += numCols;
       }
     });
     vouchCols.forEach((col, i) => {

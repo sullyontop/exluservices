@@ -1161,16 +1161,22 @@ header, main, footer { position: relative; z-index: 2; }
 }
 
 /* —— Vouches (3D marquee) —— */
+.vouch-3d-wrap {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
 .vouch-3d {
   position: relative;
-  height: 26rem;
+  height: 85vh;
+  min-height: 32rem;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   gap: 0.6rem;
-  border: 1px solid var(--line);
-  border-radius: 0.9rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   background:
     radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 60%),
     var(--bg-2);
@@ -1247,12 +1253,14 @@ header, main, footer { position: relative; z-index: 2; }
 .vouch-3d-fade-r { top: 0; bottom: 0; right: 0; width: 15%; background: linear-gradient(to left, var(--bg-2), transparent); }
 
 @media (max-width: 640px) {
-  .vouch-3d { height: 22rem; }
+  .vouch-3d { height: 70vh; min-height: 26rem; }
   .vouch-3d-inner { transform: translateX(-10px) translateY(0) translateZ(-80px) rotateX(18deg) rotateY(-8deg) rotateZ(16deg); }
   .vouch-3d-col,
   .vouch-3d-card { width: 168px; }
   .vouch-3d-col:nth-child(3),
-  .vouch-3d-col:nth-child(4) { display: none; }
+  .vouch-3d-col:nth-child(4),
+  .vouch-3d-col:nth-child(5),
+  .vouch-3d-col:nth-child(6) { display: none; }
 }
 
 /* —— Vouches —— */
@@ -1679,7 +1687,6 @@ body.promo-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
-  .vouch-3d-col,
   .hero-logo,
   .hero-headline span,
   .hero-tagline,
