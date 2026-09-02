@@ -1160,6 +1160,88 @@ header, main, footer { position: relative; z-index: 2; }
   white-space: nowrap;
 }
 
+/* —— Vouches (3D marquee) —— */
+.vouch-3d {
+  position: relative;
+  height: 26rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: var(--bg-2);
+  perspective: 300px;
+}
+
+.vouch-3d-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  transform: translateX(-40px) translateY(0) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg);
+}
+
+.vouch-3d-col {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 1rem;
+  width: 210px;
+  animation: vouch-3d-scroll 34s linear infinite;
+}
+
+.vouch-3d-col.reverse { animation-direction: reverse; }
+.vouch-3d-col:hover,
+.vouch-3d:focus-within .vouch-3d-col { animation-play-state: paused; }
+
+@keyframes vouch-3d-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-50% - 0.5rem)); }
+}
+
+.vouch-3d-card {
+  width: 210px;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 0.6rem;
+  padding: 0.85rem;
+}
+
+.vouch-3d-card p {
+  margin: 0 0 0.65rem;
+  color: #d6d6d6;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vouch-3d-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vouch-3d-fade { position: absolute; pointer-events: none; }
+.vouch-3d-fade-t { top: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to bottom, var(--bg-2), transparent); }
+.vouch-3d-fade-b { bottom: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to top, var(--bg-2), transparent); }
+.vouch-3d-fade-l { top: 0; bottom: 0; left: 0; width: 15%; background: linear-gradient(to right, var(--bg-2), transparent); }
+.vouch-3d-fade-r { top: 0; bottom: 0; right: 0; width: 15%; background: linear-gradient(to left, var(--bg-2), transparent); }
+
+@media (max-width: 640px) {
+  .vouch-3d { height: 22rem; }
+  .vouch-3d-inner { transform: translateX(-10px) translateY(0) translateZ(-80px) rotateX(18deg) rotateY(-8deg) rotateZ(16deg); }
+  .vouch-3d-col,
+  .vouch-3d-card { width: 168px; }
+  .vouch-3d-col:nth-child(3),
+  .vouch-3d-col:nth-child(4) { display: none; }
+}
+
 /* —— Vouches —— */
 .vouch-card {
   width: 300px;
@@ -1584,6 +1666,7 @@ body.promo-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
+  .vouch-3d-col,
   .hero-logo,
   .hero-headline span,
   .hero-tagline,

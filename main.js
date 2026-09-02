@@ -122,6 +122,10 @@ function vouchCard(v) {
   return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
+function vouch3dCard(v) {
+  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) lucide.createIcons();
 
@@ -161,13 +165,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("vouch-grid");
   if (grid) grid.innerHTML = VOUCHES.map(vouchCard).join("");
 
-  const rowA = document.getElementById("vouch-row-a");
-  const rowB = document.getElementById("vouch-row-b");
-  if (rowA && rowB) {
-    const a = VOUCHES.slice(0, 17).map(vouchCard).join("");
-    const b = VOUCHES.slice(17).map(vouchCard).join("");
-    rowA.innerHTML = a + a;
-    rowB.innerHTML = b + b;
+  const vouchCols = [
+    document.getElementById("vouch-col-1"),
+    document.getElementById("vouch-col-2"),
+    document.getElementById("vouch-col-3"),
+    document.getElementById("vouch-col-4"),
+  ];
+  if (vouchCols.every(Boolean)) {
+    const chunks = [[], [], [], []];
+    VOUCHES.forEach((v, i) => chunks[i % 4].push(v));
+    vouchCols.forEach((col, i) => {
+      const html = chunks[i].map(vouch3dCard).join("");
+      // Duplicate so the vertical loop is seamless (matches translateY(-50%) keyframe)
+      col.innerHTML = html + html;
+    });
   }
 
   const media = document.getElementById("media-grid");
