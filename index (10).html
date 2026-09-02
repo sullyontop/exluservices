@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buy | Elux Tweaks</title>
+  <meta name="description" content="Buy Elux Tweaks. One lifetime licence, delivered instantly at checkout." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=pg2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=pg2" />
+  <meta name="theme-color" content="#050505" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
+  <link rel="stylesheet" href="/style.css?v=pg12" />
+</head>
+<body class="antialiased font-outfit text-white">
+  <header class="site-header">
+    <div class="site-bar">
+      <a href="/" class="brand"><img src="/logo.png?v=pg2" alt="" /><span>Elux</span></a>
+      <nav class="site-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/features" class="nav-link">Features</a>
+        <a href="/vouches" class="nav-link">Vouches</a>
+        <a href="/pricing" class="nav-link">Buy</a>
+        <a href="/media" class="nav-link">Media</a>
+        <a href="/discord" class="nav-link">Discord</a>
+      </nav>
+      <div class="site-actions">
+        <a href="/pricing" class="btn-buy">Buy &pound;29.99</a>
+        <a href="/discord" class="btn-outline">Discord</a>
+        <button type="button" id="mobile-toggle" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="mobile-menu">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/vouches">Vouches</a>
+      <a href="/pricing">Buy</a>
+      <a href="/media">Media</a>
+      <a href="/discord">Discord</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="band buy-page">
+      <p class="band-label">How it works</p>
+      <h1>Three steps.</h1>
+      <div class="steps">
+        <div class="step">
+          <h3>Buy</h3>
+          <p>One lifetime licence. Pay once at checkout.</p>
+        </div>
+        <div class="step">
+          <h3>Get the key</h3>
+          <p>Delivered instantly. No waiting on a ticket.</p>
+        </div>
+        <div class="step">
+          <h3>Run the app</h3>
+          <p>Apply tweaks. Restore any of them later.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="buy-open" id="buy">
+      <div class="buy-panel">
+        <p class="plan-tag">Lifetime licence</p>
+        <p class="price-display">&pound;29.99</p>
+        <p class="hero-description">Full optimizer. Hardware-locked to your PC. Updates included.</p>
+        <p class="buy-includes">
+          <span>All modules</span>
+          <span>Instant licence</span>
+          <span>Lifetime updates</span>
+          <span>Discord support</span>
+        </p>
+        <a href="https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322" target="_blank" rel="noopener" class="btn-primary" data-sellauth-shop="209294" data-sellauth-shop-url="https://eluxoptimisations.mysellauth.com" data-sellauth-product="588116" data-sellauth-variant="912032" data-sellauth-theme="dark" data-sellauth-skip-cart="true">Continue to checkout</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-neutral-500">
+      <p>&copy; <span id="year">2026</span> Elux Optimizations</p>
+      <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
+    </div>
+  </footer>
+  <script src="https://static.sellauth.com/embed/v3.min.js" defer></script>
+  <script src="/main.js?v=pg12"></script>
+</body>
+</html>
