@@ -2,7 +2,7 @@ const ELUX = {
   discord: "https://discord.gg/elux",
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
-    showcase: "https://youtu.be/GVrvasacbLc",
+    showcase: "https://youtu.be/c5VXYcX6c1c",
   promoCode: "Elux10%",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
@@ -175,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
+  setupShowcaseTabs();
   setupAtmosphere();
   setupAppBackdrop();
 });
@@ -246,6 +247,39 @@ function setupShowcase() {
 
   video.addEventListener("playing", hideOverlay);
   tryPlay();
+}
+
+function setupShowcaseTabs() {
+  const tabs = document.querySelectorAll("[data-showcase-tab]");
+  const panels = document.querySelectorAll("[data-showcase-panel]");
+  if (!tabs.length) return;
+
+  const video = document.getElementById("showcase-video");
+  const oldFrame = document.querySelector('[data-showcase-panel="old"] iframe');
+  const oldSrc = oldFrame ? oldFrame.getAttribute("src") : "";
+
+  const show = (id) => {
+    tabs.forEach((tab) => {
+      const on = tab.getAttribute("data-showcase-tab") === id;
+      tab.classList.toggle("is-active", on);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.getAttribute("data-showcase-panel") !== id;
+    });
+    if (video) {
+      if (id === "new") video.play().catch(() => {});
+      else video.pause();
+    }
+    if (oldFrame && oldSrc) {
+      if (id === "old") oldFrame.src = oldSrc;
+      else if (oldFrame.src) oldFrame.src = "";
+    }
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => show(tab.getAttribute("data-showcase-tab")));
+  });
 }
 
 function setupAppBackdrop() {
