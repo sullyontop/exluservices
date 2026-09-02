@@ -172,8 +172,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("vouch-col-4"),
   ];
   if (vouchCols.every(Boolean)) {
+    const perCol = Math.ceil(VOUCHES.length / 4);
     const chunks = [[], [], [], []];
+    // Round-robin fill, then top up shorter columns by cycling back through
+    // the list so every column has the same card count (keeps scroll speed
+    // visually consistent across all four tracks).
     VOUCHES.forEach((v, i) => chunks[i % 4].push(v));
+    chunks.forEach((chunk, i) => {
+      let cursor = i;
+      while (chunk.length < perCol) {
+        chunk.push(VOUCHES[cursor % VOUCHES.length]);
+        cursor += 4;
+      }
+    });
     vouchCols.forEach((col, i) => {
       const html = chunks[i].map(vouch3dCard).join("");
       // Duplicate so the vertical loop is seamless (matches translateY(-50%) keyframe)

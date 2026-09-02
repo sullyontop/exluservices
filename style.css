@@ -1171,7 +1171,9 @@ header, main, footer { position: relative; z-index: 2; }
   gap: 0.6rem;
   border: 1px solid var(--line);
   border-radius: 0.9rem;
-  background: var(--bg-2);
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 60%),
+    var(--bg-2);
   perspective: 300px;
 }
 
@@ -1189,7 +1191,8 @@ header, main, footer { position: relative; z-index: 2; }
   flex-shrink: 0;
   gap: 1rem;
   width: 210px;
-  animation: vouch-3d-scroll 34s linear infinite;
+  animation: vouch-3d-scroll 36s linear infinite;
+  animation-delay: calc(var(--col-offset, 0) * -9s);
 }
 
 .vouch-3d-col.reverse { animation-direction: reverse; }
@@ -1204,14 +1207,22 @@ header, main, footer { position: relative; z-index: 2; }
 .vouch-3d-card {
   width: 210px;
   flex-shrink: 0;
-  border: 1px solid var(--line);
-  background: var(--card);
-  border-radius: 0.6rem;
-  padding: 0.85rem;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(160deg, #131313, var(--card));
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+  box-shadow: 0 14px 28px -16px rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.vouch-3d-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateZ(4px);
 }
 
 .vouch-3d-card p {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.75rem;
+  min-height: 4.7rem;
   color: #d6d6d6;
   font-size: 0.78rem;
   line-height: 1.5;
@@ -1225,6 +1236,8 @@ header, main, footer { position: relative; z-index: 2; }
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
 }
 
 .vouch-3d-fade { position: absolute; pointer-events: none; }
