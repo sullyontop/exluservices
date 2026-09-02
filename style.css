@@ -999,60 +999,14 @@ header, main, footer { position: relative; z-index: 2; }
   overflow: hidden;
   background: #000;
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
-  aspect-ratio: 16 / 9;
 }
 
-.showcase-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 0 0 1.4rem;
-}
-
-.showcase-tab {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: transparent;
-  color: #9a9a9a;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 0.55rem 1rem;
-  cursor: pointer;
-}
-
-.showcase-tab:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
-
-.showcase-tab.is-active {
-  color: #000;
-  background: #fff;
-  border-color: #fff;
-}
-
-.showcase-player video,
-.showcase-player iframe {
+.showcase-player video {
   display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border: 0;
 }
-
-.showcase-info {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0.4rem 0.2rem 0.8rem;
-}
-
-.showcase-info p {
-  color: #c8c8c8;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  margin: 0 0 1.1rem;
-}
-
-.showcase-info .btn-primary { margin-top: 0.4rem; }
 
 .showcase-play {
   position: absolute;
@@ -1158,101 +1112,6 @@ header, main, footer { position: relative; z-index: 2; }
   font-weight: 500;
   letter-spacing: 0.04em;
   white-space: nowrap;
-}
-
-/* —— Vouches (3D marquee) —— */
-.vouch-3d {
-  position: relative;
-  height: 26rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  gap: 0.6rem;
-  border: 1px solid var(--line);
-  border-radius: 0.9rem;
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 60%),
-    var(--bg-2);
-  perspective: 300px;
-}
-
-.vouch-3d-inner {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  transform: translateX(-40px) translateY(0) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg);
-}
-
-.vouch-3d-col {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  gap: 1rem;
-  width: 210px;
-  animation: vouch-3d-scroll 36s linear infinite;
-  animation-delay: calc(var(--col-offset, 0) * -9s);
-}
-
-.vouch-3d-col.reverse { animation-direction: reverse; }
-.vouch-3d-col:hover,
-.vouch-3d:focus-within .vouch-3d-col { animation-play-state: paused; }
-
-@keyframes vouch-3d-scroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(calc(-50% - 0.5rem)); }
-}
-
-.vouch-3d-card {
-  width: 210px;
-  flex-shrink: 0;
-  border: 1px solid var(--line-strong);
-  background: linear-gradient(160deg, #131313, var(--card));
-  border-radius: 0.75rem;
-  padding: 0.9rem;
-  box-shadow: 0 14px 28px -16px rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.vouch-3d-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  transform: translateZ(4px);
-}
-
-.vouch-3d-card p {
-  margin: 0 0 0.75rem;
-  min-height: 4.7rem;
-  color: #d6d6d6;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.vouch-3d-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid var(--line);
-}
-
-.vouch-3d-fade { position: absolute; pointer-events: none; }
-.vouch-3d-fade-t { top: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to bottom, var(--bg-2), transparent); }
-.vouch-3d-fade-b { bottom: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to top, var(--bg-2), transparent); }
-.vouch-3d-fade-l { top: 0; bottom: 0; left: 0; width: 15%; background: linear-gradient(to right, var(--bg-2), transparent); }
-.vouch-3d-fade-r { top: 0; bottom: 0; right: 0; width: 15%; background: linear-gradient(to left, var(--bg-2), transparent); }
-
-@media (max-width: 640px) {
-  .vouch-3d { height: 22rem; }
-  .vouch-3d-inner { transform: translateX(-10px) translateY(0) translateZ(-80px) rotateX(18deg) rotateY(-8deg) rotateZ(16deg); }
-  .vouch-3d-col,
-  .vouch-3d-card { width: 168px; }
-  .vouch-3d-col:nth-child(3),
-  .vouch-3d-col:nth-child(4) { display: none; }
 }
 
 /* —— Vouches —— */
@@ -1679,7 +1538,6 @@ body.promo-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
-  .vouch-3d-col,
   .hero-logo,
   .hero-headline span,
   .hero-tagline,
