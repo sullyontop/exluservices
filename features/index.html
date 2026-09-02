@@ -43,14 +43,12 @@
       <a href="/discord">Discord</a>
     </nav>
   </header>
-
   <main>
     <section class="showcase-band" id="showcase">
       <p class="band-label">Showcase</p>
       <h1 class="hero-headline" style="font-size:clamp(2.2rem,6vw,4.4rem);margin-bottom:1.2rem;">See it run.</h1>
       <div class="showcase-tabs" role="tablist" aria-label="Showcase">
         <button type="button" class="showcase-tab is-active" role="tab" aria-selected="true" data-showcase-tab="new">Showcase</button>
-        <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-showcase-tab="old">Old showcase</button>
         <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-showcase-tab="info">Info</button>
       </div>
       <div class="showcase-panel" data-showcase-panel="new" role="tabpanel">
@@ -58,17 +56,7 @@
           <video id="showcase-video" poster="/showcase.jpg?v=sc2" autoplay muted loop playsinline preload="auto">
             <source src="/showcase.mp4?v=sc2" type="video/mp4" />
           </video>
-          <button type="button" id="showcase-play" class="showcase-play is-hidden" aria-label="Play showcase">
-            <span class="showcase-veil" aria-hidden="true"></span>
-            <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
-          </button>
         </div>
-      </div>
-      <div class="showcase-panel" data-showcase-panel="old" role="tabpanel" hidden>
-        <div class="showcase-player">
-          <iframe src="https://www.youtube.com/embed/c5VXYcX6c1c?rel=0" title="Old Elux Tweaks showcase" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <p class="watch-note"><a href="https://youtu.be/c5VXYcX6c1c" target="_blank" rel="noopener">Watch on YouTube</a></p>
       </div>
       <div class="showcase-panel" data-showcase-panel="info" role="tabpanel" hidden>
         <article class="showcase-info">
@@ -78,7 +66,6 @@
         </article>
       </div>
     </section>
-
     <section class="band">
       <p class="band-label">Features</p>
       <h2>FPS, latency, and Windows cleanup.</h2>
@@ -96,7 +83,6 @@
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-neutral-500">
       <p>&copy; <span id="year">2026</span> Elux Optimizations</p>
