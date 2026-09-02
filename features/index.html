@@ -51,13 +51,26 @@
         <button type="button" class="showcase-tab is-active" role="tab" aria-selected="true" data-showcase-tab="new">Showcase</button>
         <button type="button" class="showcase-tab" role="tab" aria-selected="false" data-showcase-tab="info">Info</button>
       </div>
+
+      <!-- NEW VIDEO - AUTO PLAYS -->
       <div class="showcase-panel" data-showcase-panel="new" role="tabpanel">
         <div class="showcase-player">
-          <video id="showcase-video" poster="/showcase.jpg?v=sc2" autoplay muted loop playsinline preload="auto">
-            <source src="/showcase-github.mp4" type="video/mp4" />
+          <video 
+            id="showcase-video" 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            preload="auto"
+            style="width:100%;border-radius:12px;"
+          >
+            <source src="/showcase.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
         </div>
       </div>
+
+      <!-- INFO TAB -->
       <div class="showcase-panel" data-showcase-panel="info" role="tabpanel" hidden>
         <article class="showcase-info">
           <p>Hi, my name is Elux. I have been optimizing PCs for over 6 years, since the OG Fortnite days. I understand a lot of people don’t trust anything like this — that’s why I’m trying my best to gain people’s trust. I was once in the same shoes. I used to watch a lot of videos optimizing my PC that would then break it, and I would get stuck trying to get back on.</p>
@@ -66,6 +79,7 @@
         </article>
       </div>
     </section>
+
     <section class="band">
       <p class="band-label">Features</p>
       <h2>FPS, latency, and Windows cleanup.</h2>
@@ -83,12 +97,18 @@
       </div>
     </section>
   </main>
+
   <footer class="site-footer">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-neutral-500">
       <p>&copy; <span id="year">2026</span> Elux Optimizations</p>
-      <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
+      <div class="flex gap-5">
+        <a href="/privacy" class="hover:text-white">Privacy</a>
+        <a href="/terms" class="hover:text-white">Terms</a>
+        <a href="/discord" class="hover:text-white">Discord</a>
+      </div>
     </div>
   </footer>
+
   <script src="/main.js?v=pg13"></script>
 </body>
 </html>
