@@ -2,7 +2,7 @@ const ELUX = {
   discord: "https://discord.gg/elux",
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
-    showcase: "https://youtu.be/GVrvasacbLc",
+    showcase: "https://youtu.be/c5VXYcX6c1c",
   promoCode: "Elux10%",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
@@ -122,6 +122,10 @@ function vouchCard(v) {
   return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
+function vouch3dCard(v) {
+  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) lucide.createIcons();
 
@@ -161,13 +165,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("vouch-grid");
   if (grid) grid.innerHTML = VOUCHES.map(vouchCard).join("");
 
-  const rowA = document.getElementById("vouch-row-a");
-  const rowB = document.getElementById("vouch-row-b");
-  if (rowA && rowB) {
-    const a = VOUCHES.slice(0, 17).map(vouchCard).join("");
-    const b = VOUCHES.slice(17).map(vouchCard).join("");
-    rowA.innerHTML = a + a;
-    rowB.innerHTML = b + b;
+  const vouchCols = [
+    document.getElementById("vouch-col-1"),
+    document.getElementById("vouch-col-2"),
+    document.getElementById("vouch-col-3"),
+    document.getElementById("vouch-col-4"),
+  ];
+  if (vouchCols.every(Boolean)) {
+    const perCol = Math.ceil(VOUCHES.length / 4);
+    const chunks = [[], [], [], []];
+    // Round-robin fill, then top up shorter columns by cycling back through
+    // the list so every column has the same card count (keeps scroll speed
+    // visually consistent across all four tracks).
+    VOUCHES.forEach((v, i) => chunks[i % 4].push(v));
+    chunks.forEach((chunk, i) => {
+      let cursor = i;
+      while (chunk.length < perCol) {
+        chunk.push(VOUCHES[cursor % VOUCHES.length]);
+        cursor += 4;
+      }
+    });
+    vouchCols.forEach((col, i) => {
+      const html = chunks[i].map(vouch3dCard).join("");
+      // Duplicate so the vertical loop is seamless (matches translateY(-50%) keyframe)
+      col.innerHTML = html + html;
+    });
   }
 
   const media = document.getElementById("media-grid");
@@ -175,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupYtVideos();
   setupShowcase();
+  setupShowcaseTabs();
   setupAtmosphere();
   setupAppBackdrop();
 });
@@ -246,6 +269,39 @@ function setupShowcase() {
 
   video.addEventListener("playing", hideOverlay);
   tryPlay();
+}
+
+function setupShowcaseTabs() {
+  const tabs = document.querySelectorAll("[data-showcase-tab]");
+  const panels = document.querySelectorAll("[data-showcase-panel]");
+  if (!tabs.length) return;
+
+  const video = document.getElementById("showcase-video");
+  const oldFrame = document.querySelector('[data-showcase-panel="old"] iframe');
+  const oldSrc = oldFrame ? oldFrame.getAttribute("src") : "";
+
+  const show = (id) => {
+    tabs.forEach((tab) => {
+      const on = tab.getAttribute("data-showcase-tab") === id;
+      tab.classList.toggle("is-active", on);
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.getAttribute("data-showcase-panel") !== id;
+    });
+    if (video) {
+      if (id === "new") video.play().catch(() => {});
+      else video.pause();
+    }
+    if (oldFrame && oldSrc) {
+      if (id === "old") oldFrame.src = oldSrc;
+      else if (oldFrame.src) oldFrame.src = "";
+    }
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => show(tab.getAttribute("data-showcase-tab")));
+  });
 }
 
 function setupAppBackdrop() {
