@@ -118,12 +118,41 @@ const VOUCHES = [
   { n: "!$ammy [CMBT]", i: "SA", t: "dk how many times i gotta tell yall to come back to elux, but im coming back every time i fac reset, just got a new pc i was on like 300-400+fps now on around 500+, make sure yall tappin with elux if your tired of running 100 fps on any game" },
 ];
 
+function vouchSeed(v) {
+  return encodeURIComponent(String(v.n || v.i || "elux"));
+}
+
+function vouchAvatar(v) {
+  const seed = vouchSeed(v);
+  const src = `https://api.dicebear.com/9.x/adventurer/svg?seed=${seed}&backgroundColor=171717,262626,0f0f0f&radius=50`;
+  return `<span class="avatar"><img src="${src}" alt="" width="40" height="40" loading="lazy" /></span>`;
+}
+
 function vouchCard(v) {
-  return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3">${vouchAvatar(v)}<span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 function vouch3dCard(v) {
-  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta">${vouchAvatar(v)}<span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+}
+
+function fillVouchColumns(cols, cardFn) {
+  if (!cols.length || cols.some((col) => !col)) return;
+  const numCols = cols.length;
+  const perCol = Math.max(6, Math.ceil(VOUCHES.length / numCols));
+  const chunks = Array.from({ length: numCols }, () => []);
+  VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
+  chunks.forEach((chunk, i) => {
+    let cursor = i;
+    while (chunk.length < perCol) {
+      chunk.push(VOUCHES[cursor % VOUCHES.length]);
+      cursor += numCols;
+    }
+  });
+  cols.forEach((col, i) => {
+    const html = chunks[i].map(cardFn).join("");
+    col.innerHTML = html + html;
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -165,35 +194,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("vouch-grid");
   if (grid) grid.innerHTML = VOUCHES.map(vouchCard).join("");
 
-  const vouchCols = [
+  fillVouchColumns([
     document.getElementById("vouch-col-1"),
     document.getElementById("vouch-col-2"),
     document.getElementById("vouch-col-3"),
     document.getElementById("vouch-col-4"),
     document.getElementById("vouch-col-5"),
     document.getElementById("vouch-col-6"),
-  ];
-  if (vouchCols.every(Boolean)) {
-    const numCols = vouchCols.length;
-    const perCol = Math.ceil(VOUCHES.length / numCols);
-    const chunks = Array.from({ length: numCols }, () => []);
-    // Round-robin fill, then top up shorter columns by cycling back through
-    // the list so every column has the same card count (keeps scroll speed
-    // visually consistent across all tracks).
-    VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
-    chunks.forEach((chunk, i) => {
-      let cursor = i;
-      while (chunk.length < perCol) {
-        chunk.push(VOUCHES[cursor % VOUCHES.length]);
-        cursor += numCols;
-      }
-    });
-    vouchCols.forEach((col, i) => {
-      const html = chunks[i].map(vouch3dCard).join("");
-      // Duplicate so the vertical loop is seamless (matches translateY(-50%) keyframe)
-      col.innerHTML = html + html;
-    });
-  }
+  ], vouch3dCard);
+
+  fillVouchColumns([
+    document.getElementById("home-vouch-1"),
+    document.getElementById("home-vouch-2"),
+    document.getElementById("home-vouch-3"),
+  ], vouch3dCard);
 
   const media = document.getElementById("media-grid");
   if (media) media.innerHTML = MEDIA.map(mediaCard).join("");

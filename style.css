@@ -1197,17 +1197,27 @@ header, main, footer { position: relative; z-index: 2; }
   flex-shrink: 0;
   gap: 1rem;
   width: 210px;
-  animation: vouch-3d-scroll 36s linear infinite;
-  animation-delay: calc(var(--col-offset, 0) * -9s);
+  animation: vouch-3d-scroll 28s linear infinite;
+  animation-delay: calc(var(--col-offset, 0) * -7s);
 }
 
-.vouch-3d-col.reverse { animation-direction: reverse; }
+.vouch-3d-col.reverse {
+  animation-name: vouch-3d-scroll-down;
+}
+
 .vouch-3d-col:hover,
-.vouch-3d:focus-within .vouch-3d-col { animation-play-state: paused; }
+.vouch-3d:focus-within .vouch-3d-col,
+.vouch-ticker:hover .vouch-3d-col,
+.vouch-ticker:focus-within .vouch-3d-col { animation-play-state: paused; }
 
 @keyframes vouch-3d-scroll {
   from { transform: translateY(0); }
   to { transform: translateY(calc(-50% - 0.5rem)); }
+}
+
+@keyframes vouch-3d-scroll-down {
+  from { transform: translateY(calc(-50% - 0.5rem)); }
+  to { transform: translateY(0); }
 }
 
 .vouch-3d-card {
@@ -1282,13 +1292,69 @@ header, main, footer { position: relative; z-index: 2; }
 .avatar {
   display: grid;
   place-items: center;
-  width: 1.7rem;
-  height: 1.7rem;
+  overflow: hidden;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex-shrink: 0;
+  border-radius: 999px;
   background: #191919;
   border: 1px solid var(--line);
   color: #fff;
   font-size: 0.62rem;
   font-weight: 600;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vouch-ticker {
+  position: relative;
+  margin-top: 2.4rem;
+  height: 28rem;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.vouch-ticker-track {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+
+.vouch-ticker .vouch-3d-col,
+.vouch-ticker .vouch-3d-card {
+  width: 280px;
+}
+
+.vouch-ticker .vouch-3d-fade-t,
+.vouch-ticker .vouch-3d-fade-b {
+  height: 18%;
+}
+
+.vouch-ticker .vouch-3d-fade-t { background: linear-gradient(to bottom, var(--bg), transparent); }
+.vouch-ticker .vouch-3d-fade-b { background: linear-gradient(to top, var(--bg), transparent); }
+
+@media (max-width: 800px) {
+  .vouch-ticker { height: 24rem; }
+  .vouch-ticker .vouch-3d-col:nth-child(3) { display: none; }
+}
+
+@media (max-width: 560px) {
+  .vouch-ticker .vouch-3d-col:nth-child(2) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vouch-3d-col,
+  .vouch-3d-col.reverse {
+    animation: none;
+    transform: none;
+  }
 }
 
 .vouch-grid {
