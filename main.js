@@ -224,6 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupShowcaseTabs();
   setupAtmosphere();
   setupAppBackdrop();
+  setupScrollReveals();
+  setupAppPreviewMotion();
 });
 
 function ytCard(v) {
@@ -340,26 +342,27 @@ function setupAppBackdrop() {
     <div class="app-stage">
       <div class="app-window">
         <aside class="app-side">
-          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>v2.0</span></div></div>
+          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>V1.3</span></div></div>
           <nav>
-            <span class="is-on"><i></i>Home</span>
-            <span><i></i>Optimization</span>
-            <span><i></i>Cleanup</span>
-            <span><i></i>Advanced Tweaks</span>
-            <span><i></i>Gaming Tweaks</span>
-            <span><i></i>Service Tweaks</span>
-            <span><i></i>Display</span>
-            <span><i></i>Debloat</span>
-            <span><i></i>System Info</span>
-            <span><i></i>Support</span>
-            <span><i></i>Settings</span>
+            <span class="is-on"><b>⌂</b>Home</span>
+            <span><b>⌁</b>Optimisation</span>
+            <span><b>♲</b>Debloat</span>
+            <span><b>⌘</b>Network</span>
+            <span><b>▧</b>Windows Settings</span>
+            <span><b>⌁</b>Games Settings</span>
+            <span><b>♧</b>Gaming Tweaks</span>
+            <span><b>×</b>Clean up</span>
+            <span><b>◉</b>Color</span>
+            <span><b>▥</b>Recommendations</span>
+            <span><b>⚙</b>Settings</span>
           </nav>
         </aside>
         <div class="app-main">
           <header class="app-head">
+            <p class="app-page-title">Home</p>
             <div>
-              <p class="app-hi">Welcome back eluxog</p>
-              <p class="app-sub">I hope you are enjoying Elux optimizations</p>
+              <p class="app-hi">Welcome back, EluxOwner</p>
+              <p class="app-sub">Microsoft Windows 11 Home · Make sure to run as Admin</p>
             </div>
           </header>
           <div class="app-gauges">
@@ -397,8 +400,8 @@ function setupAppBackdrop() {
           <div class="app-lower">
             <article class="app-chart">
               <div class="app-chart-top">
-                <p>GPU Usage</p>
-                <div class="app-toggles"><span>CPU</span><span class="on">GPU</span><span>RAM</span></div>
+                <div><p>CPU Usage</p><small>Current <b class="app-current">16%</b> · last 60 seconds</small></div>
+                <div class="app-toggles"><span class="on">CPU</span><span>GPU</span><span>RAM</span></div>
               </div>
               <canvas class="app-graph" width="640" height="220"></canvas>
             </article>
@@ -425,12 +428,16 @@ function setupAppBackdrop() {
   const gctx = graph.getContext("2d");
   const hist = Array.from({ length: 64 }, () => 13 + Math.random() * 6);
 
-  const state = { cpu: 12, gpu: 13, ram: 69 };
+  const state = { cpu: 16, gpu: 7, ram: 73 };
 
   const setGauge = (el, value) => {
     const n = Math.round(value);
     el.querySelector(".g-fill").setAttribute("stroke-dasharray", `${Math.max(2, value).toFixed(1)} 100`);
     el.querySelector(".g-val").textContent = n + "%";
+    if (el === gauges.cpu) {
+      const current = wrap.querySelector(".app-current");
+      if (current) current.textContent = n + "%";
+    }
   };
 
   const drawGraph = () => {
@@ -467,9 +474,9 @@ function setupAppBackdrop() {
   };
 
   if (reduced) {
-    setGauge(gauges.cpu, 12);
-    setGauge(gauges.gpu, 13);
-    setGauge(gauges.ram, 69);
+    setGauge(gauges.cpu, 16);
+    setGauge(gauges.gpu, 7);
+    setGauge(gauges.ram, 73);
     drawGraph();
     return;
   }
@@ -480,16 +487,16 @@ function setupAppBackdrop() {
     if (!running) return;
     requestAnimationFrame(tick);
     const t = now / 1000;
-    state.cpu = 18 + Math.sin(t * 1.05) * 11 + Math.sin(t * 2.35) * 4;
-    state.gpu = 24 + Math.sin(t * 1.28 + 1.2) * 16 + Math.sin(t * 2.7) * 5;
-    state.ram = 64 + Math.sin(t * 0.62 + 2.1) * 11;
+    state.cpu = 16 + Math.sin(t * 1.05) * 5 + Math.sin(t * 2.35) * 2;
+    state.gpu = 7 + Math.sin(t * 1.28 + 1.2) * 4 + Math.sin(t * 2.7) * 1.5;
+    state.ram = 73 + Math.sin(t * 0.62 + 2.1) * 4;
     setGauge(gauges.cpu, state.cpu);
     setGauge(gauges.gpu, state.gpu);
     setGauge(gauges.ram, state.ram);
     if (now - lastSample > 90) {
       lastSample = now;
       hist.shift();
-      hist.push(Math.max(6, Math.min(88, state.gpu + Math.sin(t * 3.1) * 3)));
+      hist.push(Math.max(6, Math.min(88, state.cpu + Math.sin(t * 3.1) * 2)));
       drawGraph();
     }
   };
@@ -501,6 +508,57 @@ function setupAppBackdrop() {
 
   drawGraph();
   requestAnimationFrame(tick);
+}
+
+function setupScrollReveals() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const items = document.querySelectorAll(
+    ".band > .band-label, .band > h1, .band > h2, .band > .lead, " +
+    ".flow-grid article, .why-grid .info-card, .app-preview, .showcase-player, " +
+    ".showcase-info, .cta-band > *, .footer-cta > *"
+  );
+  if (!items.length) return;
+
+  items.forEach((item, index) => {
+    item.classList.add("reveal-item");
+    item.style.setProperty("--reveal-delay", `${(index % 4) * 80}ms`);
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+
+  items.forEach((item) => observer.observe(item));
+}
+
+function setupAppPreviewMotion() {
+  const preview = document.getElementById("app-preview");
+  if (!preview || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  preview.addEventListener("pointermove", (event) => {
+    const rect = preview.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
+    const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
+    preview.style.setProperty("--tilt-x", `${(-y * 2.2).toFixed(2)}deg`);
+    preview.style.setProperty("--tilt-y", `${(x * 2.6).toFixed(2)}deg`);
+    preview.style.setProperty("--shine-x", `${((x + 0.5) * 100).toFixed(1)}%`);
+    preview.style.setProperty("--shine-y", `${((y + 0.5) * 100).toFixed(1)}%`);
+  });
+
+  preview.addEventListener("pointerleave", () => {
+    preview.style.setProperty("--tilt-x", "0deg");
+    preview.style.setProperty("--tilt-y", "0deg");
+  });
 }
 
 function setupAtmosphere() {
