@@ -7,7 +7,7 @@
   <meta name="description" content="Elux Tweaks is a Windows PC optimizer. Instant delivery, 150+ vouches, Discord support." />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=pg2" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=pg2" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="theme-color" content="#050505" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elux Tweaks" />
   <meta property="og:title" content="Elux Tweaks" />
@@ -17,146 +17,66 @@
   <meta name="twitter:image" content="https://elux-optimizations.onrender.com/elux-banner.gif" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Geist","Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="stylesheet" href="/style.css?v=pg18" />
+  <link rel="stylesheet" href="/style.css?v=pg15" />
 </head>
 <body class="antialiased font-outfit text-white">
   <header class="site-header">
-    <nav class="site-bar">
+    <div class="site-bar">
       <a href="/" class="brand">
         <img src="/logo.png?v=pg2" alt="" />
-        <span>Elux<span class="brand-mark">Tweaks</span></span>
+        <span>Elux</span>
       </a>
-      <div class="site-nav">
+      <nav class="site-nav">
         <a href="/" class="nav-link">Home</a>
         <a href="/features" class="nav-link">Features</a>
         <a href="/vouches" class="nav-link">Vouches</a>
         <a href="/pricing" class="nav-link">Buy</a>
         <a href="/media" class="nav-link">Media</a>
-      </div>
+        <a href="/discord" class="nav-link">Discord</a>
+      </nav>
       <div class="site-actions">
-        <a href="/discord" class="btn-outline">Discord</a>
         <a href="/pricing" class="btn-buy">Buy &pound;29.99</a>
+        <a href="/discord" class="btn-outline">Discord</a>
         <button type="button" id="mobile-toggle" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
       </div>
-    </nav>
-    <div id="mobile-menu" class="mobile-menu">
+    </div>
+    <nav id="mobile-menu" class="mobile-menu">
       <a href="/">Home</a>
       <a href="/features">Features</a>
       <a href="/vouches">Vouches</a>
       <a href="/pricing">Buy</a>
       <a href="/media">Media</a>
       <a href="/discord">Discord</a>
-    </div>
+    </nav>
   </header>
 
   <main>
     <section class="hero">
-      <div class="hero-inner">
-        <p class="pearl-badge">Windows PC optimizer · Instant licence</p>
-        <h1 class="hero-headline">
-          <span>More FPS.</span>
-          <span>Zero lag.</span>
-          <span class="accent">All in one app.</span>
-        </h1>
-        <p class="hero-description">Low FPS, stutter, or input delay. Elux Tweaks cleans Windows, cuts background junk, and applies reversible FPS and latency tweaks so you can just play.</p>
-        <div class="hero-cta">
-          <a href="/pricing" class="btn-primary">Buy Elux Tweaks <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
-          <a href="/features#showcase" class="btn-ghost"><i data-lucide="play" class="h-4 w-4"></i> See it run</a>
-        </div>
-        <p class="hero-note">Instant delivery · Lifetime licence · Discord support</p>
-        <div class="hero-socials">
-          <a href="https://discord.gg/elux" target="_blank" rel="noopener" aria-label="Discord"><i data-lucide="message-circle"></i></a>
-          <a href="https://www.youtube.com/@eluxog" target="_blank" rel="noopener" aria-label="YouTube"><i data-lucide="youtube"></i></a>
-          <a href="https://www.tiktok.com/@eluxog" target="_blank" rel="noopener" aria-label="TikTok"><i data-lucide="music-2"></i></a>
-        </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <p class="hero-tagline">Windows PC optimizer</p>
+      <img src="/logo.png?v=pg2" alt="" class="hero-logo" />
+      <h1 class="hero-headline"><span>More FPS.</span><span>Zero lag.</span></h1>
+      <p class="hero-description">Low FPS, stutter, or input delay. Elux Tweaks is a desktop app for <span class="hl">peak speed</span>, <span class="hl">stability</span>, and <span class="hl">reversible tweaks</span> so you can just play.</p>
+      <div class="stats-strip">
+        <div class="stat-chip"><span class="stat-value">150+</span><span class="stat-label">Vouches</span></div>
+        <div class="stat-chip"><span class="stat-value">Instant</span><span class="stat-label">Delivery</span></div>
+        <div class="stat-chip"><span class="stat-value">&pound;29.99</span><span class="stat-label">Lifetime</span></div>
       </div>
-      <div class="hero-marquee" aria-label="Supported games">
-        <div class="marquee-wrap games-row">
-          <div class="marquee-track reverse">
-            <span class="game-pill">FiveM</span>
-            <span class="game-pill">Valorant</span>
-            <span class="game-pill">Fortnite</span>
-            <span class="game-pill">Rust</span>
-            <span class="game-pill">CS2</span>
-            <span class="game-pill">Apex Legends</span>
-            <span class="game-pill">GTA V</span>
-            <span class="game-pill">League of Legends</span>
-            <span class="game-pill">Warzone</span>
-            <span class="game-pill">Rainbow Six</span>
-            <span class="game-pill">Minecraft</span>
-            <span class="game-pill">Roblox</span>
-            <span class="game-pill">FiveM</span>
-            <span class="game-pill">Valorant</span>
-            <span class="game-pill">Fortnite</span>
-            <span class="game-pill">Rust</span>
-            <span class="game-pill">CS2</span>
-            <span class="game-pill">Apex Legends</span>
-            <span class="game-pill">GTA V</span>
-            <span class="game-pill">League of Legends</span>
-            <span class="game-pill">Warzone</span>
-            <span class="game-pill">Rainbow Six</span>
-            <span class="game-pill">Minecraft</span>
-            <span class="game-pill">Roblox</span>
-          </div>
-        </div>
+      <div class="hero-cta">
+        <a href="/pricing" class="btn-primary">Buy Elux Tweaks</a>
+        <a href="/discord" class="btn-ghost">Join Discord</a>
       </div>
     </section>
 
-    <section class="band dash-band" id="product">
-      <p class="band-label">Live</p>
-      <h2>Your PC, one optimizer.</h2>
-      <p class="lead">FPS, latency, cleanup, and game tweaks — all live in the desktop app.</p>
-      <div id="app-preview" class="app-preview" aria-hidden="true"></div>
-    </section>
-
-    <section class="band" id="workflow">
-      <p class="band-label">Your workflow</p>
-      <h2>From checkout to more FPS</h2>
-      <p class="lead">Pay once, get the key instantly, apply tweaks, restore any of them later.</p>
-      <div class="flow-grid">
-        <article>
-          <div class="flow-mock">
-            <div class="flow-row"><span>Licence</span><span class="ok">instant</span></div>
-            <div class="flow-row"><span>Lifetime</span><span>£29.99</span></div>
-            <div class="flow-row glow"><span>Total</span><span>£29.99</span></div>
-          </div>
-          <h3>Buy</h3>
-          <p>One lifetime licence. Hardware-locked to your PC. Updates included.</p>
-        </article>
-        <article>
-          <div class="flow-mock signed">
-            <span class="ok-dot"></span>
-            <div><strong>Key delivered</strong><span>Straight to you at checkout</span></div>
-          </div>
-          <h3>Get the key</h3>
-          <p>No waiting on a ticket. Open the app and activate.</p>
-        </article>
-        <article>
-          <div class="flow-mock cal">
-            <span>FPS</span><span>Latency</span><span>Cleanup</span><span>Games</span>
-          </div>
-          <h3>Run the app</h3>
-          <p>Apply FPS, latency, and Windows cleanup. Restore any tweak later.</p>
-        </article>
-        <article>
-          <div class="flow-mock pipe">
-            <span>Buy</span> → <span class="on">Elux</span> → <span>Play</span>
-          </div>
-          <h3>Just play</h3>
-          <p>Fewer processes, less stutter, frames that hold in-game. Discord if you need a hand.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="band" id="why">
+    <section class="band">
       <p class="band-label">Why Elux</p>
-      <h2>Not another random tweak pack.</h2>
-      <p class="lead">A desktop optimizer. Reversible. Locked to your PC.</p>
+      <h2>Your hardware can do more.</h2>
+      <p class="lead">FPS, latency, and Windows cleanup in one app. Every tweak can be restored. Licence comes through at checkout.</p>
       <div class="why-grid">
         <article class="info-card">
           <span class="info-num">01</span>
@@ -176,74 +96,119 @@
       </div>
     </section>
 
-    <section class="band">
-      <p class="band-label">Customer reviews</p>
-      <h2>What players say.</h2>
-      <p class="lead">From the Elux Discord. Names kept.</p>
-      <div class="vouch-ticker" role="region" aria-label="Scrolling customer vouches">
-        <div class="vouch-ticker-track">
-          <div class="vouch-3d-col" id="home-vouch-1" style="--col-offset:0"></div>
-          <div class="vouch-3d-col reverse" id="home-vouch-2" style="--col-offset:1"></div>
-          <div class="vouch-3d-col" id="home-vouch-3" style="--col-offset:2"></div>
+    <section class="band" style="padding-top:0;">
+      <p class="band-label">How it works</p>
+      <h2>Three steps.</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Buy</h3>
+          <p>One lifetime licence. Pay once at checkout.</p>
         </div>
-        <div class="vouch-3d-fade vouch-3d-fade-t"></div>
-        <div class="vouch-3d-fade vouch-3d-fade-b"></div>
+        <div class="step">
+          <h3>Get the key</h3>
+          <p>Delivered instantly. No waiting on a ticket.</p>
+        </div>
+        <div class="step">
+          <h3>Run the app</h3>
+          <p>Apply tweaks. Restore any of them later.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="games-strip" aria-label="Supported games">
+      <p>Used on</p>
+      <div class="marquee-wrap games-row">
+        <div class="marquee-track">
+          <span class="game-pill">FiveM</span>
+          <span class="game-pill">Valorant</span>
+          <span class="game-pill">Fortnite</span>
+          <span class="game-pill">Rust</span>
+          <span class="game-pill">CS2</span>
+          <span class="game-pill">Apex Legends</span>
+          <span class="game-pill">GTA V</span>
+          <span class="game-pill">League of Legends</span>
+          <span class="game-pill">Warzone</span>
+          <span class="game-pill">Rainbow Six</span>
+          <span class="game-pill">Minecraft</span>
+          <span class="game-pill">Roblox</span>
+          <span class="game-pill">FiveM</span>
+          <span class="game-pill">Valorant</span>
+          <span class="game-pill">Fortnite</span>
+          <span class="game-pill">Rust</span>
+          <span class="game-pill">CS2</span>
+          <span class="game-pill">Apex Legends</span>
+          <span class="game-pill">GTA V</span>
+          <span class="game-pill">League of Legends</span>
+          <span class="game-pill">Warzone</span>
+          <span class="game-pill">Rainbow Six</span>
+          <span class="game-pill">Minecraft</span>
+          <span class="game-pill">Roblox</span>
+        </div>
+      </div>
+      <div class="marquee-wrap games-row">
+        <div class="marquee-track reverse">
+          <span class="game-pill">Overwatch</span>
+          <span class="game-pill">Escape from Tarkov</span>
+          <span class="game-pill">Rocket League</span>
+          <span class="game-pill">The Finals</span>
+          <span class="game-pill">DayZ</span>
+          <span class="game-pill">Red Dead 2</span>
+          <span class="game-pill">Deadlock</span>
+          <span class="game-pill">PUBG</span>
+          <span class="game-pill">Destiny 2</span>
+          <span class="game-pill">Elden Ring</span>
+          <span class="game-pill">Arc Raiders</span>
+          <span class="game-pill">Battlefield</span>
+          <span class="game-pill">Overwatch</span>
+          <span class="game-pill">Escape from Tarkov</span>
+          <span class="game-pill">Rocket League</span>
+          <span class="game-pill">The Finals</span>
+          <span class="game-pill">DayZ</span>
+          <span class="game-pill">Red Dead 2</span>
+          <span class="game-pill">Deadlock</span>
+          <span class="game-pill">PUBG</span>
+          <span class="game-pill">Destiny 2</span>
+          <span class="game-pill">Elden Ring</span>
+          <span class="game-pill">Arc Raiders</span>
+          <span class="game-pill">Battlefield</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <p class="band-label">Vouches</p>
+      <h2>People actually notice it.</h2>
+      <p class="lead">From the Elux Discord. Names kept.</p>
+      <div class="vouch-3d-wrap home-vouches">
+        <div class="vouch-3d" role="region" aria-label="Scrolling customer vouches">
+          <div class="vouch-3d-inner">
+            <div class="vouch-3d-col" id="home-vouch-1" style="--col-offset:0;--col-speed:28s"></div>
+            <div class="vouch-3d-col reverse" id="home-vouch-2" style="--col-offset:1;--col-speed:34s"></div>
+            <div class="vouch-3d-col" id="home-vouch-3" style="--col-offset:2;--col-speed:31s"></div>
+            <div class="vouch-3d-col reverse" id="home-vouch-4" style="--col-offset:3;--col-speed:38s"></div>
+          </div>
+          <div class="vouch-3d-fade vouch-3d-fade-t"></div>
+          <div class="vouch-3d-fade vouch-3d-fade-b"></div>
+        </div>
       </div>
       <a href="/vouches" class="vouch-more">Read all 150+ vouches →</a>
     </section>
 
-    <section class="cta-band" id="pricing">
+    <section class="cta-band">
       <p class="plan-tag">Lifetime licence</p>
       <p class="price-display">&pound;29.99</p>
       <p>Full optimizer. Hardware-locked to your PC. Updates included.</p>
       <div class="hero-cta">
-        <a href="/pricing" class="btn-primary">Continue to checkout <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+        <a href="/pricing" class="btn-primary">Continue to checkout</a>
         <a href="/features" class="btn-ghost">See features</a>
-      </div>
-    </section>
-
-    <section class="band faq-band" id="faq">
-      <div>
-        <p class="band-label">FAQ</p>
-        <h2>Frequently asked questions</h2>
-      </div>
-      <div class="faq">
-        <details open>
-          <summary>What is Elux Tweaks?</summary>
-          <p>A Windows desktop optimizer for FPS, latency, cleanup, and game tweaks. Built for FiveM, Valorant, Fortnite, Rust, and the rest of the games on this site.</p>
-        </details>
-        <details>
-          <summary>How fast do I get the licence?</summary>
-          <p>Instantly at checkout. No waiting on a ticket.</p>
-        </details>
-        <details>
-          <summary>Can I undo the tweaks?</summary>
-          <p>Yes. Every tweak in the app can be restored.</p>
-        </details>
-        <details>
-          <summary>Is the licence locked to my PC?</summary>
-          <p>Yes. It is hardware-locked. If you need a hand, ask in Discord.</p>
-        </details>
-        <details>
-          <summary>How much does it cost?</summary>
-          <p>One lifetime licence for £29.99. Updates included.</p>
-        </details>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="footer-cta">
-      <h2>Ready for more FPS?</h2>
-      <p>One app. Lifetime licence. Instant delivery.</p>
-      <div class="hero-cta">
-        <a href="/pricing" class="btn-primary">Buy Elux Tweaks <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
-        <a href="/discord" class="btn-ghost">Join Discord</a>
-      </div>
-    </div>
     <div class="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-4">
       <div>
-        <a href="/" class="brand"><img src="/logo.png?v=pg2" alt="" /><span>Elux<span class="brand-mark">Tweaks</span></span></a>
+        <a href="/" class="brand"><img src="/logo.png?v=pg2" alt="" /><span>Elux</span></a>
         <p class="mt-3 text-sm text-neutral-500">Windows PC optimizer. Also known as Elux Optimizations.</p>
         <a href="mailto:eluxbusinessemail@gmail.com" class="mt-3 inline-block text-sm text-white hover:underline">eluxbusinessemail@gmail.com</a>
       </div>
@@ -276,6 +241,6 @@
     </div>
     <div class="mx-auto max-w-6xl px-5 pb-8 text-sm text-neutral-500">&copy; <span id="year">2026</span> Elux Optimizations</div>
   </footer>
-  <script src="/main.js?v=pg18"></script>
+  <script src="/main.js?v=pg15"></script>
 </body>
 </html>

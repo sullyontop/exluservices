@@ -18,24 +18,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
-  <link rel="stylesheet" href="/style.css?v=pg17" />
+  <link rel="stylesheet" href="/style.css?v=pg15" />
 </head>
 <body class="min-h-screen antialiased font-outfit text-white bg-black">
   <header class="site-header">
     <div class="site-bar">
-      <div class="nav-pill">
-        <a href="/" class="brand"><img src="/logo.png?v=pg2" alt="" /><span>Elux<span class="brand-mark">Tweaks</span></span></a>
-        <nav class="site-nav">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/features" class="nav-link">Features</a>
-          <a href="/vouches" class="nav-link">Vouches</a>
-          <a href="/pricing" class="nav-link">Buy</a>
-          <a href="/media" class="nav-link">Media</a>
-          <a href="/discord" class="nav-link">Discord</a>
-        </nav>
-      </div>
+      <a href="/" class="brand"><img src="/logo.png?v=pg2" alt="" /><span>Elux</span></a>
+      <nav class="site-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/features" class="nav-link">Features</a>
+        <a href="/vouches" class="nav-link">Vouches</a>
+        <a href="/pricing" class="nav-link">Buy</a>
+        <a href="/media" class="nav-link">Media</a>
+        <a href="/discord" class="nav-link">Discord</a>
+      </nav>
       <div class="site-actions">
-        <a href="/discord" class="btn-outline">Discord</a>
         <a href="/pricing" class="btn-buy">Buy &pound;29.99</a>
         <a href="/discord" class="btn-outline">Discord</a>
         <button type="button" id="mobile-toggle" class="menu-btn" aria-label="Menu"><span></span><span></span></button>
@@ -60,12 +57,12 @@
     <div class="vouch-3d-wrap pb-10">
       <div class="vouch-3d" role="region" aria-label="Scrolling customer vouches">
         <div class="vouch-3d-inner">
-          <div class="vouch-3d-col" id="vouch-col-1" style="--col-offset:0"></div>
-          <div class="vouch-3d-col reverse" id="vouch-col-2" style="--col-offset:1"></div>
-          <div class="vouch-3d-col" id="vouch-col-3" style="--col-offset:2"></div>
-          <div class="vouch-3d-col reverse" id="vouch-col-4" style="--col-offset:3"></div>
-          <div class="vouch-3d-col" id="vouch-col-5" style="--col-offset:4"></div>
-          <div class="vouch-3d-col reverse" id="vouch-col-6" style="--col-offset:5"></div>
+          <div class="vouch-3d-col" id="vouch-col-1" style="--col-offset:0;--col-speed:28s"></div>
+          <div class="vouch-3d-col reverse" id="vouch-col-2" style="--col-offset:1;--col-speed:36s"></div>
+          <div class="vouch-3d-col" id="vouch-col-3" style="--col-offset:2;--col-speed:31s"></div>
+          <div class="vouch-3d-col reverse" id="vouch-col-4" style="--col-offset:3;--col-speed:40s"></div>
+          <div class="vouch-3d-col" id="vouch-col-5" style="--col-offset:4;--col-speed:33s"></div>
+          <div class="vouch-3d-col reverse" id="vouch-col-6" style="--col-offset:5;--col-speed:38s"></div>
         </div>
         <div class="vouch-3d-fade vouch-3d-fade-t"></div>
         <div class="vouch-3d-fade vouch-3d-fade-b"></div>
@@ -81,6 +78,6 @@
       <div class="flex gap-5"><a href="/privacy" class="hover:text-white">Privacy</a><a href="/terms" class="hover:text-white">Terms</a><a href="/discord" class="hover:text-white">Discord</a></div>
     </div>
   </footer>
-  <script src="/main.js?v=pg17"></script>
+  <script src="/main.js?v=pg15"></script>
 </body>
 </html>

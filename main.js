@@ -118,27 +118,18 @@ const VOUCHES = [
   { n: "!$ammy [CMBT]", i: "SA", t: "dk how many times i gotta tell yall to come back to elux, but im coming back every time i fac reset, just got a new pc i was on like 300-400+fps now on around 500+, make sure yall tappin with elux if your tired of running 100 fps on any game" },
 ];
 
-function vouchSeed(v) {
-  return encodeURIComponent(String(v.n || v.i || "elux"));
-}
-
-function vouchAvatar(v) {
-  const seed = vouchSeed(v);
-  const src = `https://api.dicebear.com/9.x/adventurer/svg?seed=${seed}&backgroundColor=171717,262626,0f0f0f&radius=50`;
-  return `<span class="avatar"><img src="${src}" alt="" width="40" height="40" loading="lazy" /></span>`;
-}
-
 function vouchCard(v) {
-  return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3">${vouchAvatar(v)}<span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 function vouch3dCard(v) {
-  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta">${vouchAvatar(v)}<span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
+  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
-function fillVouchColumns(cols, cardFn) {
-  if (!cols.length || cols.some((col) => !col)) return;
-  const numCols = cols.length;
+function fillVouchColumns(cols) {
+  const tracks = cols.filter(Boolean);
+  if (!tracks.length) return;
+  const numCols = tracks.length;
   const perCol = Math.max(6, Math.ceil(VOUCHES.length / numCols));
   const chunks = Array.from({ length: numCols }, () => []);
   VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
@@ -149,8 +140,8 @@ function fillVouchColumns(cols, cardFn) {
       cursor += numCols;
     }
   });
-  cols.forEach((col, i) => {
-    const html = chunks[i].map(cardFn).join("");
+  tracks.forEach((col, i) => {
+    const html = chunks[i].map(vouch3dCard).join("");
     col.innerHTML = html + html;
   });
 }
@@ -160,13 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
-
-  const header = document.querySelector(".site-header");
-  if (header) {
-    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  }
 
   const path = (location.pathname.replace(/\/+$/, "") || "/").toLowerCase().replace(/\.html$/, "");
   const current = path === "" || path === "/index" ? "/" : path;
@@ -208,13 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("vouch-col-4"),
     document.getElementById("vouch-col-5"),
     document.getElementById("vouch-col-6"),
-  ], vouch3dCard);
-
+  ]);
   fillVouchColumns([
     document.getElementById("home-vouch-1"),
     document.getElementById("home-vouch-2"),
     document.getElementById("home-vouch-3"),
-  ], vouch3dCard);
+    document.getElementById("home-vouch-4"),
+  ]);
 
   const media = document.getElementById("media-grid");
   if (media) media.innerHTML = MEDIA.map(mediaCard).join("");
@@ -224,8 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupShowcaseTabs();
   setupAtmosphere();
   setupAppBackdrop();
-  setupScrollReveals();
-  setupAppPreviewMotion();
 });
 
 function ytCard(v) {
@@ -331,9 +313,6 @@ function setupShowcaseTabs() {
 }
 
 function setupAppBackdrop() {
-  const host = document.getElementById("app-preview");
-  if (!host) return;
-
   const wrap = document.createElement("div");
   wrap.id = "app-backdrop";
   wrap.setAttribute("aria-hidden", "true");
@@ -342,27 +321,26 @@ function setupAppBackdrop() {
     <div class="app-stage">
       <div class="app-window">
         <aside class="app-side">
-          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>V1.3</span></div></div>
+          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>v2.0</span></div></div>
           <nav>
-            <span class="is-on"><b>⌂</b>Home</span>
-            <span><b>⌁</b>Optimisation</span>
-            <span><b>♲</b>Debloat</span>
-            <span><b>⌘</b>Network</span>
-            <span><b>▧</b>Windows Settings</span>
-            <span><b>⌁</b>Games Settings</span>
-            <span><b>♧</b>Gaming Tweaks</span>
-            <span><b>×</b>Clean up</span>
-            <span><b>◉</b>Color</span>
-            <span><b>▥</b>Recommendations</span>
-            <span><b>⚙</b>Settings</span>
+            <span class="is-on"><i></i>Home</span>
+            <span><i></i>Optimization</span>
+            <span><i></i>Cleanup</span>
+            <span><i></i>Advanced Tweaks</span>
+            <span><i></i>Gaming Tweaks</span>
+            <span><i></i>Service Tweaks</span>
+            <span><i></i>Display</span>
+            <span><i></i>Debloat</span>
+            <span><i></i>System Info</span>
+            <span><i></i>Support</span>
+            <span><i></i>Settings</span>
           </nav>
         </aside>
         <div class="app-main">
           <header class="app-head">
-            <p class="app-page-title">Home</p>
             <div>
-              <p class="app-hi">Welcome back, EluxOwner</p>
-              <p class="app-sub">Microsoft Windows 11 Home · Make sure to run as Admin</p>
+              <p class="app-hi">Welcome back eluxog</p>
+              <p class="app-sub">I hope you are enjoying Elux optimizations</p>
             </div>
           </header>
           <div class="app-gauges">
@@ -400,8 +378,8 @@ function setupAppBackdrop() {
           <div class="app-lower">
             <article class="app-chart">
               <div class="app-chart-top">
-                <div><p>CPU Usage</p><small>Current <b class="app-current">16%</b> · last 60 seconds</small></div>
-                <div class="app-toggles"><span class="on">CPU</span><span>GPU</span><span>RAM</span></div>
+                <p>GPU Usage</p>
+                <div class="app-toggles"><span>CPU</span><span class="on">GPU</span><span>RAM</span></div>
               </div>
               <canvas class="app-graph" width="640" height="220"></canvas>
             </article>
@@ -416,7 +394,9 @@ function setupAppBackdrop() {
       </div>
     </div>`;
 
-  host.appendChild(wrap);
+  const canvas = document.getElementById("bg-canvas");
+  if (canvas) canvas.after(wrap);
+  else document.body.prepend(wrap);
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const gauges = {
@@ -428,16 +408,12 @@ function setupAppBackdrop() {
   const gctx = graph.getContext("2d");
   const hist = Array.from({ length: 64 }, () => 13 + Math.random() * 6);
 
-  const state = { cpu: 16, gpu: 7, ram: 73 };
+  const state = { cpu: 12, gpu: 13, ram: 69 };
 
   const setGauge = (el, value) => {
     const n = Math.round(value);
     el.querySelector(".g-fill").setAttribute("stroke-dasharray", `${Math.max(2, value).toFixed(1)} 100`);
     el.querySelector(".g-val").textContent = n + "%";
-    if (el === gauges.cpu) {
-      const current = wrap.querySelector(".app-current");
-      if (current) current.textContent = n + "%";
-    }
   };
 
   const drawGraph = () => {
@@ -474,9 +450,9 @@ function setupAppBackdrop() {
   };
 
   if (reduced) {
-    setGauge(gauges.cpu, 16);
-    setGauge(gauges.gpu, 7);
-    setGauge(gauges.ram, 73);
+    setGauge(gauges.cpu, 12);
+    setGauge(gauges.gpu, 13);
+    setGauge(gauges.ram, 69);
     drawGraph();
     return;
   }
@@ -487,16 +463,16 @@ function setupAppBackdrop() {
     if (!running) return;
     requestAnimationFrame(tick);
     const t = now / 1000;
-    state.cpu = 16 + Math.sin(t * 1.05) * 5 + Math.sin(t * 2.35) * 2;
-    state.gpu = 7 + Math.sin(t * 1.28 + 1.2) * 4 + Math.sin(t * 2.7) * 1.5;
-    state.ram = 73 + Math.sin(t * 0.62 + 2.1) * 4;
+    state.cpu = 18 + Math.sin(t * 1.05) * 11 + Math.sin(t * 2.35) * 4;
+    state.gpu = 24 + Math.sin(t * 1.28 + 1.2) * 16 + Math.sin(t * 2.7) * 5;
+    state.ram = 64 + Math.sin(t * 0.62 + 2.1) * 11;
     setGauge(gauges.cpu, state.cpu);
     setGauge(gauges.gpu, state.gpu);
     setGauge(gauges.ram, state.ram);
     if (now - lastSample > 90) {
       lastSample = now;
       hist.shift();
-      hist.push(Math.max(6, Math.min(88, state.cpu + Math.sin(t * 3.1) * 2)));
+      hist.push(Math.max(6, Math.min(88, state.gpu + Math.sin(t * 3.1) * 3)));
       drawGraph();
     }
   };
@@ -508,57 +484,6 @@ function setupAppBackdrop() {
 
   drawGraph();
   requestAnimationFrame(tick);
-}
-
-function setupScrollReveals() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const items = document.querySelectorAll(
-    ".band > .band-label, .band > h1, .band > h2, .band > .lead, " +
-    ".flow-grid article, .why-grid .info-card, .app-preview, .showcase-player, " +
-    ".showcase-info, .cta-band > *, .footer-cta > *"
-  );
-  if (!items.length) return;
-
-  items.forEach((item, index) => {
-    item.classList.add("reveal-item");
-    item.style.setProperty("--reveal-delay", `${(index % 4) * 80}ms`);
-  });
-
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
-
-  items.forEach((item) => observer.observe(item));
-}
-
-function setupAppPreviewMotion() {
-  const preview = document.getElementById("app-preview");
-  if (!preview || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  preview.addEventListener("pointermove", (event) => {
-    const rect = preview.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
-    const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
-    preview.style.setProperty("--tilt-x", `${(-y * 2.2).toFixed(2)}deg`);
-    preview.style.setProperty("--tilt-y", `${(x * 2.6).toFixed(2)}deg`);
-    preview.style.setProperty("--shine-x", `${((x + 0.5) * 100).toFixed(1)}%`);
-    preview.style.setProperty("--shine-y", `${((y + 0.5) * 100).toFixed(1)}%`);
-  });
-
-  preview.addEventListener("pointerleave", () => {
-    preview.style.setProperty("--tilt-x", "0deg");
-    preview.style.setProperty("--tilt-y", "0deg");
-  });
 }
 
 function setupAtmosphere() {
@@ -591,7 +516,6 @@ function setupAtmosphere() {
 precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
-uniform vec2 u_mouse;
 
 vec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}
 float snoise(vec2 v){
@@ -621,10 +545,13 @@ void main(){
   vec2 p=(uv*2.0-1.0);
   p.x*=u_res.x/max(u_res.y,1.0);
 
-  float t=u_time*0.11;
-  vec2 m=(u_mouse*2.0-1.0);
+  float t=u_time*0.16;
+  vec2 m=vec2(
+    0.22*sin(t*0.55)+0.12*sin(t*0.93),
+    0.18*cos(t*0.41)+0.10*sin(t*0.74)
+  );
   m.x*=u_res.x/max(u_res.y,1.0);
-  p+=m*0.07;
+  p+=m;
 
   float r=length(p);
   float ang=atan(p.y,p.x)+0.42*sin(t*0.65+r*2.4);
@@ -677,11 +604,8 @@ void main(){
 
   const uRes = gl.getUniformLocation(prog, "u_res");
   const uTime = gl.getUniformLocation(prog, "u_time");
-  const uMouse = gl.getUniformLocation(prog, "u_mouse");
 
   let running = !reduced;
-  let mouse = [0.72, 0.78];
-  let mouseTarget = [0.72, 0.78];
 
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -695,11 +619,8 @@ void main(){
   };
 
   const draw = (t) => {
-    mouse[0] += (mouseTarget[0] - mouse[0]) * 0.035;
-    mouse[1] += (mouseTarget[1] - mouse[1]) * 0.035;
     gl.uniform2f(uRes, canvas.width, canvas.height);
     gl.uniform1f(uTime, t * 0.001);
-    gl.uniform2f(uMouse, mouse[0], mouse[1]);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 
@@ -710,10 +631,6 @@ void main(){
   };
 
   window.addEventListener("resize", resize, { passive: true });
-  window.addEventListener("pointermove", (e) => {
-    mouseTarget[0] = e.clientX / Math.max(window.innerWidth, 1);
-    mouseTarget[1] = 1 - e.clientY / Math.max(window.innerHeight, 1);
-  }, { passive: true });
   document.addEventListener("visibilitychange", () => {
     running = !document.hidden && !reduced;
     if (running) requestAnimationFrame(frame);
@@ -730,9 +647,9 @@ function setupBlobFallback(canvas, reduced) {
   let h = 0;
   let running = !reduced;
   const blobs = [
-    { x: 0.78, y: 0.12, r: 0.55, a: 0.22, sx: 0.03, sy: 0.02, p: 0 },
-    { x: 0.18, y: 0.62, r: 0.48, a: 0.14, sx: 0.025, sy: 0.03, p: 2.1 },
-    { x: 0.52, y: 0.42, r: 0.38, a: 0.1, sx: 0.02, sy: 0.018, p: 4.4 },
+    { x: 0.78, y: 0.12, r: 0.55, a: 0.22, sx: 0.08, sy: 0.06, p: 0 },
+    { x: 0.18, y: 0.62, r: 0.48, a: 0.14, sx: 0.07, sy: 0.08, p: 2.1 },
+    { x: 0.52, y: 0.42, r: 0.38, a: 0.1, sx: 0.06, sy: 0.05, p: 4.4 },
   ];
 
   const resize = () => {
@@ -748,7 +665,7 @@ function setupBlobFallback(canvas, reduced) {
 
   const draw = (t) => {
     ctx.clearRect(0, 0, w, h);
-    const time = t * 0.00012;
+    const time = t * 0.00028;
     for (const b of blobs) {
       const x = (b.x + Math.sin(time + b.p) * b.sx) * w;
       const y = (b.y + Math.cos(time * 0.85 + b.p) * b.sy) * h;
