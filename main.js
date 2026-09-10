@@ -34,11 +34,6 @@ const MEDIA = [
 
 const YT_VIDEOS = [
   {
-    id: "c5VXYcX6c1c",
-    title: "Elux Optimizations Showcase",
-    creator: "Elux",
-  },
-  {
     id: "dcdSF91mMh4",
     title: "FiveM 2026: Best Optimizer Settings for Zero Ping and Max Performance",
     creator: "Sammy",
@@ -123,49 +118,12 @@ const VOUCHES = [
   { n: "!$ammy [CMBT]", i: "SA", t: "dk how many times i gotta tell yall to come back to elux, but im coming back every time i fac reset, just got a new pc i was on like 300-400+fps now on around 500+, make sure yall tappin with elux if your tired of running 100 fps on any game" },
 ];
 
-function vouchHandle(name) {
-  const clean = String(name || "")
-    .replace(/\[[^\]]*\]/g, " ")
-    .replace(/[^a-zA-Z0-9]+/g, " ")
-    .trim()
-    .split(/\s+/)[0] || "elux";
-  return "@" + clean.toLowerCase().slice(0, 14);
-}
-
-function vouchAvatar(seed) {
-  return `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(seed)}&backgroundColor=171717&textColor=ffffff&fontSize=42`;
-}
-
 function vouchCard(v) {
   return `<article class="vouch-card"><p>${v.t}</p><div class="mt-4 flex items-center gap-3"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 function vouch3dCard(v) {
-  return `<article class="vouch-3d-card">
-    <div class="vouch-3d-meta">
-      <img class="vouch-avatar" width="32" height="32" alt="" src="${vouchAvatar(v.n)}" />
-      <div>
-        <p class="vouch-name">${v.n}</p>
-        <p class="vouch-user">${vouchHandle(v.n)}</p>
-      </div>
-    </div>
-    <p>${v.t}</p>
-  </article>`;
-}
-
-function fillVouchTrack(col, items) {
-  if (!col || !items.length) return;
-  const html = items.map(vouch3dCard).join("");
-  col.innerHTML = `<div class="vouch-3d-track">${html}${html}</div>`;
-}
-
-function fillVouchColumns(cols) {
-  const tracks = cols.filter(Boolean);
-  if (!tracks.length) return;
-  const numCols = tracks.length;
-  const chunks = Array.from({ length: numCols }, () => []);
-  VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
-  tracks.forEach((col, i) => fillVouchTrack(col, chunks[i]));
+  return `<article class="vouch-3d-card"><p>${v.t}</p><div class="vouch-3d-meta"><span class="avatar">${v.i}</span><span class="text-xs text-neutral-400">${v.n}</span></div></article>`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -207,25 +165,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("vouch-grid");
   if (grid) grid.innerHTML = VOUCHES.map(vouchCard).join("");
 
-  fillVouchColumns([
+  const vouchCols = [
     document.getElementById("vouch-col-1"),
     document.getElementById("vouch-col-2"),
     document.getElementById("vouch-col-3"),
-  ]);
-  fillVouchTrack(document.getElementById("vouch-col-mobile"), VOUCHES);
-  fillVouchColumns([
-    document.getElementById("home-vouch-1"),
-    document.getElementById("home-vouch-2"),
-    document.getElementById("home-vouch-3"),
-  ]);
-  fillVouchTrack(document.getElementById("home-vouch-mobile"), VOUCHES);
+    document.getElementById("vouch-col-4"),
+    document.getElementById("vouch-col-5"),
+    document.getElementById("vouch-col-6"),
+  ];
+  if (vouchCols.every(Boolean)) {
+    const numCols = vouchCols.length;
+    const perCol = Math.ceil(VOUCHES.length / numCols);
+    const chunks = Array.from({ length: numCols }, () => []);
+    // Round-robin fill, then top up shorter columns by cycling back through
+    // the list so every column has the same card count (keeps scroll speed
+    // visually consistent across all tracks).
+    VOUCHES.forEach((v, i) => chunks[i % numCols].push(v));
+    chunks.forEach((chunk, i) => {
+      let cursor = i;
+      while (chunk.length < perCol) {
+        chunk.push(VOUCHES[cursor % VOUCHES.length]);
+        cursor += numCols;
+      }
+    });
+    vouchCols.forEach((col, i) => {
+      const html = chunks[i].map(vouch3dCard).join("");
+      // Duplicate so the vertical loop is seamless (matches translateY(-50%) keyframe)
+      col.innerHTML = html + html;
+    });
+  }
 
   const media = document.getElementById("media-grid");
   if (media) media.innerHTML = MEDIA.map(mediaCard).join("");
 
   setupYtVideos();
+  setupShowcase();
   setupShowcaseTabs();
   setupAtmosphere();
+  setupAppBackdrop();
 });
 
 function ytCard(v) {
@@ -259,10 +236,54 @@ function setupYtVideos() {
   });
 }
 
+function setupShowcase() {
+  const video = document.getElementById("showcase-video");
+  const btn = document.getElementById("showcase-play");
+  if (!video) return;
+
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+
+  const hideOverlay = () => {
+    if (btn) btn.classList.add("is-hidden");
+  };
+  const showOverlay = () => {
+    if (btn) btn.classList.remove("is-hidden");
+  };
+
+  const tryPlay = () => {
+    const start = video.play();
+    if (start && start.then) start.then(hideOverlay).catch(showOverlay);
+    else hideOverlay();
+  };
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      video.muted = true;
+      video.volume = 0;
+      tryPlay();
+    });
+  }
+
+  video.addEventListener("playing", hideOverlay);
+  tryPlay();
+}
+
 function setupShowcaseTabs() {
   const tabs = document.querySelectorAll("[data-showcase-tab]");
   const panels = document.querySelectorAll("[data-showcase-panel]");
   if (!tabs.length) return;
+
+  const video = document.getElementById("showcase-video");
+  const yt = document.getElementById("showcase-yt");
+  const ytPlay = "https://www.youtube.com/embed/c5VXYcX6c1c?autoplay=1&mute=1&loop=1&playlist=c5VXYcX6c1c&playsinline=1&rel=0&modestbranding=1";
+  const oldFrame = document.querySelector('[data-showcase-panel="old"] iframe');
+  const oldSrc = oldFrame ? oldFrame.getAttribute("src") : "";
 
   const show = (id) => {
     tabs.forEach((tab) => {
@@ -273,11 +294,197 @@ function setupShowcaseTabs() {
     panels.forEach((panel) => {
       panel.hidden = panel.getAttribute("data-showcase-panel") !== id;
     });
+    if (video) {
+      if (id === "new") video.play().catch(() => {});
+      else video.pause();
+    }
+    if (yt) {
+      if (id === "new") yt.src = ytPlay;
+      else yt.src = "";
+    }
+    if (oldFrame && oldSrc) {
+      if (id === "old") oldFrame.src = oldSrc;
+      else if (oldFrame.src) oldFrame.src = "";
+    }
   };
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => show(tab.getAttribute("data-showcase-tab")));
   });
+}
+
+function setupAppBackdrop() {
+  const wrap = document.createElement("div");
+  wrap.id = "app-backdrop";
+  wrap.setAttribute("aria-hidden", "true");
+  wrap.setAttribute("inert", "");
+  wrap.innerHTML = `
+    <div class="app-stage">
+      <div class="app-window">
+        <aside class="app-side">
+          <div class="app-brand"><img src="/logo.png?v=pg2" alt="" /><div><strong>Elux Tweaks</strong><span>v2.0</span></div></div>
+          <nav>
+            <span class="is-on"><i></i>Home</span>
+            <span><i></i>Optimization</span>
+            <span><i></i>Cleanup</span>
+            <span><i></i>Advanced Tweaks</span>
+            <span><i></i>Gaming Tweaks</span>
+            <span><i></i>Service Tweaks</span>
+            <span><i></i>Display</span>
+            <span><i></i>Debloat</span>
+            <span><i></i>System Info</span>
+            <span><i></i>Support</span>
+            <span><i></i>Settings</span>
+          </nav>
+        </aside>
+        <div class="app-main">
+          <header class="app-head">
+            <div>
+              <p class="app-hi">Welcome back eluxog</p>
+              <p class="app-sub">I hope you are enjoying Elux optimizations</p>
+            </div>
+          </header>
+          <div class="app-gauges">
+            <article class="app-gauge" data-g="cpu">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="12 100" />
+                </svg>
+                <span class="g-val">12%</span>
+              </div>
+              <span class="g-label">CPU Usage</span>
+            </article>
+            <article class="app-gauge" data-g="gpu">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="13 100" />
+                </svg>
+                <span class="g-val">13%</span>
+              </div>
+              <span class="g-label">GPU Usage</span>
+            </article>
+            <article class="app-gauge" data-g="ram">
+              <div class="g-ring">
+                <svg viewBox="0 0 100 100">
+                  <circle class="g-track" cx="50" cy="50" r="38" />
+                  <circle class="g-fill" cx="50" cy="50" r="38" pathLength="100" stroke-dasharray="69 100" />
+                </svg>
+                <span class="g-val">69%</span>
+              </div>
+              <span class="g-label">RAM Usage</span>
+            </article>
+          </div>
+          <div class="app-lower">
+            <article class="app-chart">
+              <div class="app-chart-top">
+                <p>GPU Usage</p>
+                <div class="app-toggles"><span>CPU</span><span class="on">GPU</span><span>RAM</span></div>
+              </div>
+              <canvas class="app-graph" width="640" height="220"></canvas>
+            </article>
+            <article class="app-spotify">
+              <div class="spot-art">♪</div>
+              <p class="spot-title">Nothing playing</p>
+              <p class="spot-sub">Open Spotify to start</p>
+              <div class="spot-ctrls"><span></span><span class="play"></span><span></span></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const canvas = document.getElementById("bg-canvas");
+  if (canvas) canvas.after(wrap);
+  else document.body.prepend(wrap);
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const gauges = {
+    cpu: wrap.querySelector('[data-g="cpu"]'),
+    gpu: wrap.querySelector('[data-g="gpu"]'),
+    ram: wrap.querySelector('[data-g="ram"]'),
+  };
+  const graph = wrap.querySelector(".app-graph");
+  const gctx = graph.getContext("2d");
+  const hist = Array.from({ length: 64 }, () => 13 + Math.random() * 6);
+
+  const state = { cpu: 12, gpu: 13, ram: 69 };
+
+  const setGauge = (el, value) => {
+    const n = Math.round(value);
+    el.querySelector(".g-fill").setAttribute("stroke-dasharray", `${Math.max(2, value).toFixed(1)} 100`);
+    el.querySelector(".g-val").textContent = n + "%";
+  };
+
+  const drawGraph = () => {
+    const w = graph.width;
+    const h = graph.height;
+    gctx.clearRect(0, 0, w, h);
+    gctx.strokeStyle = "rgba(255,255,255,0.06)";
+    gctx.lineWidth = 1;
+    for (let i = 1; i < 4; i++) {
+      const y = (h / 4) * i;
+      gctx.beginPath();
+      gctx.moveTo(0, y);
+      gctx.lineTo(w, y);
+      gctx.stroke();
+    }
+    gctx.beginPath();
+    hist.forEach((v, i) => {
+      const x = (i / (hist.length - 1)) * w;
+      const y = h - (v / 100) * (h * 0.78) - h * 0.1;
+      if (i === 0) gctx.moveTo(x, y);
+      else gctx.lineTo(x, y);
+    });
+    gctx.strokeStyle = "#fff";
+    gctx.lineWidth = 2.4;
+    gctx.lineJoin = "round";
+    gctx.stroke();
+    const last = hist[hist.length - 1];
+    const lx = w;
+    const ly = h - (last / 100) * (h * 0.78) - h * 0.1;
+    gctx.fillStyle = "#fff";
+    gctx.beginPath();
+    gctx.arc(lx - 2, ly, 3.2, 0, Math.PI * 2);
+    gctx.fill();
+  };
+
+  if (reduced) {
+    setGauge(gauges.cpu, 12);
+    setGauge(gauges.gpu, 13);
+    setGauge(gauges.ram, 69);
+    drawGraph();
+    return;
+  }
+
+  let running = true;
+  let lastSample = 0;
+  const tick = (now) => {
+    if (!running) return;
+    requestAnimationFrame(tick);
+    const t = now / 1000;
+    state.cpu = 18 + Math.sin(t * 1.05) * 11 + Math.sin(t * 2.35) * 4;
+    state.gpu = 24 + Math.sin(t * 1.28 + 1.2) * 16 + Math.sin(t * 2.7) * 5;
+    state.ram = 64 + Math.sin(t * 0.62 + 2.1) * 11;
+    setGauge(gauges.cpu, state.cpu);
+    setGauge(gauges.gpu, state.gpu);
+    setGauge(gauges.ram, state.ram);
+    if (now - lastSample > 90) {
+      lastSample = now;
+      hist.shift();
+      hist.push(Math.max(6, Math.min(88, state.gpu + Math.sin(t * 3.1) * 3)));
+      drawGraph();
+    }
+  };
+
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden;
+    if (running) requestAnimationFrame(tick);
+  });
+
+  drawGraph();
+  requestAnimationFrame(tick);
 }
 
 function setupAtmosphere() {
@@ -310,6 +517,7 @@ function setupAtmosphere() {
 precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
+uniform vec2 u_mouse;
 
 vec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}
 float snoise(vec2 v){
@@ -339,13 +547,10 @@ void main(){
   vec2 p=(uv*2.0-1.0);
   p.x*=u_res.x/max(u_res.y,1.0);
 
-  float t=u_time*0.16;
-  vec2 m=vec2(
-    0.22*sin(t*0.55)+0.12*sin(t*0.93),
-    0.18*cos(t*0.41)+0.10*sin(t*0.74)
-  );
+  float t=u_time*0.11;
+  vec2 m=(u_mouse*2.0-1.0);
   m.x*=u_res.x/max(u_res.y,1.0);
-  p+=m;
+  p+=m*0.07;
 
   float r=length(p);
   float ang=atan(p.y,p.x)+0.42*sin(t*0.65+r*2.4);
@@ -398,8 +603,11 @@ void main(){
 
   const uRes = gl.getUniformLocation(prog, "u_res");
   const uTime = gl.getUniformLocation(prog, "u_time");
+  const uMouse = gl.getUniformLocation(prog, "u_mouse");
 
   let running = !reduced;
+  let mouse = [0.72, 0.78];
+  let mouseTarget = [0.72, 0.78];
 
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -413,8 +621,11 @@ void main(){
   };
 
   const draw = (t) => {
+    mouse[0] += (mouseTarget[0] - mouse[0]) * 0.035;
+    mouse[1] += (mouseTarget[1] - mouse[1]) * 0.035;
     gl.uniform2f(uRes, canvas.width, canvas.height);
     gl.uniform1f(uTime, t * 0.001);
+    gl.uniform2f(uMouse, mouse[0], mouse[1]);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 
@@ -425,6 +636,10 @@ void main(){
   };
 
   window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("pointermove", (e) => {
+    mouseTarget[0] = e.clientX / Math.max(window.innerWidth, 1);
+    mouseTarget[1] = 1 - e.clientY / Math.max(window.innerHeight, 1);
+  }, { passive: true });
   document.addEventListener("visibilitychange", () => {
     running = !document.hidden && !reduced;
     if (running) requestAnimationFrame(frame);
@@ -441,9 +656,9 @@ function setupBlobFallback(canvas, reduced) {
   let h = 0;
   let running = !reduced;
   const blobs = [
-    { x: 0.78, y: 0.12, r: 0.55, a: 0.22, sx: 0.08, sy: 0.06, p: 0 },
-    { x: 0.18, y: 0.62, r: 0.48, a: 0.14, sx: 0.07, sy: 0.08, p: 2.1 },
-    { x: 0.52, y: 0.42, r: 0.38, a: 0.1, sx: 0.06, sy: 0.05, p: 4.4 },
+    { x: 0.78, y: 0.12, r: 0.55, a: 0.22, sx: 0.03, sy: 0.02, p: 0 },
+    { x: 0.18, y: 0.62, r: 0.48, a: 0.14, sx: 0.025, sy: 0.03, p: 2.1 },
+    { x: 0.52, y: 0.42, r: 0.38, a: 0.1, sx: 0.02, sy: 0.018, p: 4.4 },
   ];
 
   const resize = () => {
@@ -459,7 +674,7 @@ function setupBlobFallback(canvas, reduced) {
 
   const draw = (t) => {
     ctx.clearRect(0, 0, w, h);
-    const time = t * 0.00028;
+    const time = t * 0.00012;
     for (const b of blobs) {
       const x = (b.x + Math.sin(time + b.p) * b.sx) * w;
       const y = (b.y + Math.cos(time * 0.85 + b.p) * b.sy) * h;
