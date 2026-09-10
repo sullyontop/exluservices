@@ -161,6 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
+  const header = document.querySelector(".site-header");
+  if (header) {
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   const path = (location.pathname.replace(/\/+$/, "") || "/").toLowerCase().replace(/\.html$/, "");
   const current = path === "" || path === "/index" ? "/" : path;
   document.querySelectorAll(".nav-link").forEach((a) => {
@@ -322,6 +329,9 @@ function setupShowcaseTabs() {
 }
 
 function setupAppBackdrop() {
+  const host = document.getElementById("app-preview");
+  if (!host) return;
+
   const wrap = document.createElement("div");
   wrap.id = "app-backdrop";
   wrap.setAttribute("aria-hidden", "true");
@@ -403,9 +413,7 @@ function setupAppBackdrop() {
       </div>
     </div>`;
 
-  const canvas = document.getElementById("bg-canvas");
-  if (canvas) canvas.after(wrap);
-  else document.body.prepend(wrap);
+  host.appendChild(wrap);
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const gauges = {
