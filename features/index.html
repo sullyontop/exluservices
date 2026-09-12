@@ -14,7 +14,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{outfit:["Inter","ui-sans-serif","system-ui","sans-serif"]}}}};</script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="/style.css?v=pg18" />
+  <link rel="stylesheet" href="/style.css?v=pg22" />
 </head>
 <body class="antialiased font-outfit text-white">
   <header class="site-header">
@@ -54,23 +54,38 @@
 
       <div class="showcase-panel" data-showcase-panel="new" role="tabpanel">
         <div class="showcase-player">
-          <iframe
-            id="showcase-yt"
-            src="https://www.youtube.com/embed/c5VXYcX6c1c?autoplay=1&mute=1&loop=1&playlist=c5VXYcX6c1c&playsinline=1&rel=0&modestbranding=1"
-            title="Elux Tweaks showcase"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+          <video
+            id="showcase-video"
+            src="/showcase.mp4?v=1"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            controlslist="nodownload"
+            disablepictureinpicture
+          ></video>
+          <button type="button" id="showcase-play" class="showcase-play" aria-label="Play showcase with sound">
+            <span class="showcase-veil" aria-hidden="true"></span>
+            <span class="showcase-play-btn" aria-hidden="true"><i data-lucide="play" class="h-6 w-6"></i></span>
+          </button>
         </div>
       </div>
 
       <!-- INFO TAB -->
       <div class="showcase-panel" data-showcase-panel="info" role="tabpanel" hidden>
         <article class="showcase-info">
-          <p>Hi, my name is Elux. I have been optimizing PCs for over 6 years, since the OG Fortnite days. I understand a lot of people don’t trust anything like this — that’s why I’m trying my best to gain people’s trust. I was once in the same shoes. I used to watch a lot of videos optimizing my PC that would then break it, and I would get stuck trying to get back on.</p>
-          <p>I ensure my tweaks will not break your PC at all. They are safe, but very effective, getting the max performance out of your PC. All I’m asking is a chance. I’m eager to learn more about people’s PCs and how much it helps, so feel free to ask questions in my Discord.</p>
-          <a href="/discord" class="btn-primary is-inline">Ask in Discord</a>
+          <p>Hi, I’m Elux. I’ve been optimizing PCs for six years — long enough to have broken my own a few times along the way. I used to follow every optimization video I found, and half of them wrecked something. That’s why I built this tool myself. Every tweak in it is one I’ve tested on my own machines first, and the tool tells you exactly what each one changes before you run it.</p>
+          <p>I promise I would never put your computer in any sort of jeopardy. Unlike other optimization brands, I care about your PC. Other brands don’t, and they’ll throw everything at it with no concern. Here at Elux Optimizations it’s different. I’ll make sure you get the best performance out of your game and PC without breaking it.</p>
+          <p>My main priority isn’t only your performance — it’s your trust. Trust takes you a long way, so all I’m asking is that you give me a chance. I’m not here to make empty promises or throw random tweaks at your PC. I’m here to help you get the best performance possible while keeping your system safe and giving you complete control over every change.</p>
+          <p>Your performance matters. Your PC matters. And most importantly, your trust matters. Give Elux a chance, and I’ll do everything I can to make sure you don’t regret it. I will not let you down.</p>
+          <h3>FiveM</h3>
+          <p>FiveM players: we have FiveM protection. Other PC optimizers turn off stuff you need on to pass a PC check. We have a setting that keeps those on so you don’t get false bans.</p>
+          <h3>Updates &amp; support</h3>
+          <p>We update frequently, and support is active. If you need a hand, someone actually reads it.</p>
+          <h3>Helpers &amp; media</h3>
+          <p>We’re looking for helpers and medias. Medias get their own code, start getting paid, and get free optimization keys. Join Discord for more info.</p>
+          <a href="/discord" class="btn-primary is-inline">Join Discord</a>
         </article>
       </div>
     </section>
@@ -104,6 +119,6 @@
     </div>
   </footer>
 
-  <script src="/main.js?v=pg18"></script>
+  <script src="/main.js?v=pg21"></script>
 </body>
 </html>

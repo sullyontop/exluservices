@@ -2,7 +2,7 @@ const ELUX = {
   discord: "https://discord.gg/elux",
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
-    showcase: "https://youtu.be/c5VXYcX6c1c",
+    showcase: "/showcase.mp4",
   promoCode: "Elux10%",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",
@@ -237,53 +237,66 @@ function setupYtVideos() {
 }
 
 function setupShowcase() {
-  const video = document.getElementById("showcase-video");
-  const btn = document.getElementById("showcase-play");
-  if (!video) return;
+  document.querySelectorAll(".showcase-player").forEach((player) => {
+    const video = player.querySelector("video");
+    const btn = player.querySelector(".showcase-play");
+    if (!video) return;
 
-  video.muted = true;
-  video.defaultMuted = true;
-  video.volume = 0;
-  video.loop = true;
-  video.playsInline = true;
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("autoplay", "");
 
-  const hideOverlay = () => {
-    if (btn) btn.classList.add("is-hidden");
-  };
-  const showOverlay = () => {
-    if (btn) btn.classList.remove("is-hidden");
-  };
+    const hideOverlay = () => {
+      if (btn) btn.classList.add("is-hidden");
+    };
+    const showOverlay = () => {
+      if (btn) btn.classList.remove("is-hidden");
+    };
 
-  const tryPlay = () => {
-    const start = video.play();
-    if (start && start.then) start.then(hideOverlay).catch(showOverlay);
-    else hideOverlay();
-  };
-
-  if (btn) {
-    btn.addEventListener("click", () => {
+    const playMuted = () => {
       video.muted = true;
+      video.defaultMuted = true;
       video.volume = 0;
-      tryPlay();
-    });
-  }
+      video.setAttribute("muted", "");
+      return video.play();
+    };
 
-  video.addEventListener("playing", hideOverlay);
-  tryPlay();
+    if (btn) {
+      btn.addEventListener("click", () => {
+        playMuted().then(() => {
+          video.controls = true;
+          hideOverlay();
+        }).catch(showOverlay);
+      });
+    }
+
+    video.addEventListener("playing", () => {
+      video.controls = true;
+      hideOverlay();
+    });
+
+    const startMuted = () => {
+      if (!video.paused) return;
+      playMuted().then(() => {
+        video.controls = true;
+        hideOverlay();
+      }).catch(showOverlay);
+    };
+    startMuted();
+    video.addEventListener("canplay", startMuted);
+    video.addEventListener("loadeddata", startMuted);
+  });
 }
 
 function setupShowcaseTabs() {
   const tabs = document.querySelectorAll("[data-showcase-tab]");
   const panels = document.querySelectorAll("[data-showcase-panel]");
   if (!tabs.length) return;
-
-  const video = document.getElementById("showcase-video");
-  const yt = document.getElementById("showcase-yt");
-  const ytPlay = "https://www.youtube.com/embed/c5VXYcX6c1c?autoplay=1&mute=1&loop=1&playlist=c5VXYcX6c1c&playsinline=1&rel=0&modestbranding=1";
-  const oldFrame = document.querySelector('[data-showcase-panel="old"] iframe');
-  const oldSrc = oldFrame ? oldFrame.getAttribute("src") : "";
 
   const show = (id) => {
     tabs.forEach((tab) => {
@@ -292,20 +305,13 @@ function setupShowcaseTabs() {
       tab.setAttribute("aria-selected", on ? "true" : "false");
     });
     panels.forEach((panel) => {
-      panel.hidden = panel.getAttribute("data-showcase-panel") !== id;
-    });
-    if (video) {
-      if (id === "new") video.play().catch(() => {});
+      const on = panel.getAttribute("data-showcase-panel") === id;
+      panel.hidden = !on;
+      const video = panel.querySelector("video");
+      if (!video) return;
+      if (on) video.play().catch(() => {});
       else video.pause();
-    }
-    if (yt) {
-      if (id === "new") yt.src = ytPlay;
-      else yt.src = "";
-    }
-    if (oldFrame && oldSrc) {
-      if (id === "old") oldFrame.src = oldSrc;
-      else if (oldFrame.src) oldFrame.src = "";
-    }
+    });
   };
 
   tabs.forEach((tab) => {
