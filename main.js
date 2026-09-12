@@ -2,7 +2,7 @@ const ELUX = {
   discord: "https://discord.gg/elux",
   site: "https://eluxog.cc",
   email: "eluxbusinessemail@gmail.com",
-    showcase: "/showcase.mp4",
+    showcase: "/elux-showcase.mp4?v=2",
   promoCode: "Elux10%",
   checkout: {
     lifetime: "https://eluxoptimisations.mysellauth.com/checkout/3aa27c5996418-0000015013322",

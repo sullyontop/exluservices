@@ -998,8 +998,23 @@ header, main, footer { position: relative; z-index: 2; }
   position: relative;
   overflow: hidden;
   background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
   aspect-ratio: 16 / 9;
+}
+
+.showcase-band .band-label,
+.showcase-band h2 {
+  text-align: center;
+}
+
+.showcase-band h2 {
+  margin: 0 0 1.4rem;
+  font-family: var(--display);
+  font-size: clamp(1.85rem, 3.6vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
 
 .showcase-tabs {
@@ -1035,7 +1050,8 @@ header, main, footer { position: relative; z-index: 2; }
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #000;
   border: 0;
 }
 
@@ -1052,7 +1068,16 @@ header, main, footer { position: relative; z-index: 2; }
   margin: 0 0 1.1rem;
 }
 
-.showcase-info .btn-primary { margin-top: 0.4rem; }
+.showcase-info h3 {
+  margin: 1.5rem 0 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b8b8b8;
+}
+
+.showcase-info .btn-primary { margin-top: 0.6rem; }
 
 .showcase-play {
   position: absolute;
